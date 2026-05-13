@@ -1,0 +1,21 @@
+model Game {
+    id         String @id @default(cuid())
+    externalId String @unique
+
+    name        String
+    description String?
+    imageUrl    String?
+
+    metaScore Float @map("meta_score")
+    userScore  Float @map("user_score")
+
+    genres       GameGenre[]
+    userGames    UserGame[]
+    reviews      Review[]
+    playSessions PlaySession[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("games")
+}

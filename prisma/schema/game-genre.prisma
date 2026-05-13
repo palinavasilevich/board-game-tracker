@@ -1,0 +1,10 @@
+model GameGenre {
+    gameId String @map("game_id")
+    game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+    genreId String @map("genre_id")
+    genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+    @@id([gameId, genreId])
+    @@map("game_genres")
+}

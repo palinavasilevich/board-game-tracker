@@ -1,0 +1,33 @@
+model PlaySession {
+    id              String   @id @default(cuid())
+    playedAt        DateTime @map("played_at")
+    durationMinutes Int?     @map("duration_minutes")
+    notes           String?
+
+    userId String @map("user_id")
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    gameId String @map("game_id")
+    game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+    players PlaySessionPlayer[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("play_sessions")
+}
+
+model PlaySessionPlayer {
+    id       String  @id @default(cuid())
+    name     String
+    score    Int?
+    isWinner Boolean @default(false) @map("is_winner")
+
+    sessionId String      @map("session_id")
+    session   PlaySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@map("play_session_players")
+}
