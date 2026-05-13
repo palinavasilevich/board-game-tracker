@@ -1,17 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -21,7 +14,6 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { AuthFormCard } from "./auth-form-card";
-import Link from "next/link";
 import { ROUTES } from "@/shared/constants/routes";
 
 const signUpFormSchema = z
@@ -154,15 +146,12 @@ export function SignupForm() {
             )}
           />
 
-          <FieldGroup>
-            <Field>
-              <Button type="submit">Create Account</Button>
-              <FieldDescription className="px-6 text-center">
-                Already have an account?{" "}
-                <Link href={ROUTES.SIGNIN}>Sign in</Link>
-              </FieldDescription>
-            </Field>
-          </FieldGroup>
+          <Field>
+            <Button type="submit">Create Account</Button>
+            <FieldDescription className="px-6 text-center">
+              Already have an account? <Link href={ROUTES.LOGIN}>Sign in</Link>
+            </FieldDescription>
+          </Field>
         </FieldGroup>
       </form>
     </AuthFormCard>
