@@ -1,4 +1,5 @@
 import "dotenv/config";
+import bcrypt from "bcryptjs";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../lib/generated/prisma/client";
@@ -10,6 +11,7 @@ const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log("🌱 Starting to populate the database...");
+  const defaultPassword = await bcrypt.hash("123456", 10);
 
   // Genres
   console.log("Adding genres...");
@@ -149,7 +151,7 @@ async function main() {
       create: {
         email: "alice@example.com",
         name: "Alice",
-        password: "123456",
+        password: defaultPassword,
       },
     }),
     prisma.user.upsert({
@@ -158,7 +160,7 @@ async function main() {
       create: {
         email: "bob@example.com",
         name: "Bob",
-        password: "123456",
+        password: defaultPassword,
       },
     }),
   ]);
