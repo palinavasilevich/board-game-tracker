@@ -1,18 +1,32 @@
 "use server";
 
-import bcrypt from "bcrypt";
-import jsonwebtoken from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
-import { signUpSchema } from "@/app/(auth)/signup/auth.schemas";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import { AUTH_COOKIE_NAME } from "@/shared/constants/cookiesNames";
+import { signIn } from "@/auth";
+import { ROUTES } from "@/shared/constants/routes";
 
-if (!process.env.JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is not set.");
-}
-const jwtSecret = process.env.JWT_SECRET;
+const signUpSchema = z
+  .object({
+    name: z
+      .string()
+      .trim()
+      .min(1, { error: "Name is required" })
+      .max(100, { error: "Name must be at most 100 characters" }),
+    email: z.email().trim().min(1, { error: "Email is required" }),
+    password: z
+      .string()
+      .min(1, { error: "Password is required" })
+      .min(6, { error: "Password must be at least 6 characters" }),
+    confirmPassword: z
+      .string()
+      .min(1, { error: "Please confirm your password" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    error: "The passwords do not match",
+  });
 
 export type SignUpActionState = {
   apiError?: string;
@@ -57,16 +71,11 @@ export async function signupAction(
 
   const { name, email, password } = parsedFields.data;
 
-  let userId: string;
-  let userEmail: string;
-
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: { name, email, password: hashedPassword },
     });
-    userId = user.id;
-    userEmail = user.email;
   } catch (e) {
     if (
       e instanceof Prisma.PrismaClientKnownRequestError &&
@@ -77,17 +86,10 @@ export async function signupAction(
     return { apiError: "Something went wrong. Please try again.", fields };
   }
 
-  const token = jsonwebtoken.sign({ id: userId, email: userEmail }, jwtSecret, {
-    expiresIn: "7d",
+  await signIn("credentials", {
+    email,
+    password,
+    redirectTo: ROUTES.DASHBOARD,
   });
-
-  const cookieStore = await cookies();
-  cookieStore.set(AUTH_COOKIE_NAME, token, {
-    maxAge: 60 * 60 * 24 * 7,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  });
-
-  redirect("/");
+  return {};
 }

@@ -1,9 +1,8 @@
 "use client";
 
+import { useActionState } from "react";
 import Link from "next/link";
-import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -15,75 +14,56 @@ import {
 import { Input } from "@/components/ui/input";
 import { AuthFormCard } from "./auth-form-card";
 import { ROUTES } from "@/shared/constants/routes";
-
-const loginFormSchema = z.object({
-  email: z.email().trim().min(1, { error: "Email is required" }),
-  password: z.string().min(1, { error: "Password is required" }),
-});
+import { loginAction } from "@/app/(auth)/login/actions";
+import { cn } from "@/lib/utils";
 
 export function LoginForm() {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmit = form.handleSubmit(async (data) => {
-    console.log(data);
-  });
+  const [state, action, isPending] = useActionState(loginAction, null);
 
   return (
     <AuthFormCard
       title="Login to your account"
       description="Enter your email below to login to your account"
     >
-      <form onSubmit={onSubmit}>
+      <form action={action}>
         <FieldGroup>
-          <Controller
-            name="email"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="login-email">Email</FieldLabel>
-                <Input
-                  {...field}
-                  id="login-email"
-                  aria-invalid={fieldState.invalid}
-                  type="email"
-                  placeholder="example@example.com"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="login-email">Email</FieldLabel>
+            <Input
+              id="login-email"
+              name="email"
+              type="email"
+              placeholder="example@example.com"
+              disabled={isPending}
+              className={cn(state?.errors?.email && "border-destructive")}
+            />
+            {state?.errors?.email && (
+              <FieldError>{state.errors.email}</FieldError>
             )}
-          />
-
-          <Controller
-            name="password"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="login-password">Password</FieldLabel>
-                <Input
-                  {...field}
-                  id="login-password"
-                  aria-invalid={fieldState.invalid}
-                  type="password"
-                  placeholder="******"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
+          </Field>
 
           <Field>
-            <Button type="submit">Login</Button>
-            <FieldDescription className="text-center">
+            <FieldLabel htmlFor="login-password">Password</FieldLabel>
+            <Input
+              id="login-password"
+              name="password"
+              type="password"
+              placeholder="••••••"
+              disabled={isPending}
+              className={cn(state?.errors?.password && "border-destructive")}
+            />
+            {state?.errors?.password && (
+              <FieldError>{state.errors.password}</FieldError>
+            )}
+          </Field>
+
+          {state?.apiError && <FieldError>{state.apiError}</FieldError>}
+
+          <Field>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? "Sending..." : "Login"}
+            </Button>
+            <FieldDescription className="px-6 text-center">
               Don&apos;t have an account?{" "}
               <Link href={ROUTES.SIGNUP}>Sign up</Link>
             </FieldDescription>
