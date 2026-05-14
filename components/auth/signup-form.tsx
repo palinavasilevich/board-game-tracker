@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -15,139 +13,94 @@ import {
 import { Input } from "@/components/ui/input";
 import { AuthFormCard } from "./auth-form-card";
 import { ROUTES } from "@/shared/constants/routes";
-
-const signUpFormSchema = z
-  .object({
-    name: z
-      .string()
-      .trim()
-      .min(1, { error: "Name is required" })
-      .min(2, { error: "Name must be at least 2 characters long" })
-      .max(100, { error: "Name must be at most 100 characters" }),
-    email: z.email().trim().min(1, { error: "Email is required" }),
-    password: z
-      .string()
-      .min(6, { error: "Password must be at least 6 characters" }),
-    confirmPassword: z
-      .string()
-      .min(1, { error: "Please confirm your password" }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    error: "The passwords do not match",
-  });
+import { signupAction } from "@/app/(auth)/signup/actions";
+import { cn } from "@/lib/utils";
 
 export function SignupForm() {
-  const form = useForm<z.infer<typeof signUpFormSchema>>({
-    resolver: zodResolver(signUpFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
-
-  const onSubmit = form.handleSubmit(async (data) => {
-    console.log(data);
-  });
+  const [state, action, isPending] = useActionState(signupAction, null);
 
   return (
     <AuthFormCard
       title="Create an account"
       description="Enter your information below to create your account"
     >
-      <form onSubmit={onSubmit}>
+      <form action={action}>
         <FieldGroup>
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-name">Name</FieldLabel>
-                <Input
-                  {...field}
-                  id="signup-name"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="John Doe"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="signup-name">Name</FieldLabel>
+            <Input
+              id="signup-name"
+              name="name"
+              placeholder="John Doe"
+              defaultValue={state?.fields?.name ?? ""}
+              disabled={isPending}
+              className={cn(state?.errors?.name && "border-destructive")}
+            />
+            {state?.errors?.name && (
+              <FieldError>{state.errors.name}</FieldError>
             )}
-          />
-
-          <Controller
-            name="email"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-email">Email</FieldLabel>
-                <Input
-                  {...field}
-                  id="signup-email"
-                  aria-invalid={fieldState.invalid}
-                  type="email"
-                  placeholder="example@example.com"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
-          <Controller
-            name="password"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-password">Password</FieldLabel>
-                <Input
-                  {...field}
-                  id="signup-password"
-                  aria-invalid={fieldState.invalid}
-                  type="password"
-                  placeholder="******"
-                />
-
-                <FieldDescription>
-                  Password must be at least 6 characters long.
-                </FieldDescription>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
-          <Controller
-            name="confirmPassword"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-confirm-password">
-                  Confirm password
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="signup-confirm-password"
-                  aria-invalid={fieldState.invalid}
-                  type="password"
-                />
-                <FieldDescription>
-                  Please confirm your password.
-                </FieldDescription>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
+          </Field>
 
           <Field>
-            <Button type="submit">Create Account</Button>
+            <FieldLabel htmlFor="signup-email">Email</FieldLabel>
+            <Input
+              id="signup-email"
+              name="email"
+              type="email"
+              placeholder="example@example.com"
+              defaultValue={state?.fields?.email ?? ""}
+              disabled={isPending}
+              className={cn(state?.errors?.email && "border-destructive")}
+            />
+            {state?.errors?.email && (
+              <FieldError>{state.errors.email}</FieldError>
+            )}
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="signup-password">Password</FieldLabel>
+            <FieldDescription>
+              Password must be at least 6 characters long.
+            </FieldDescription>
+            <Input
+              id="signup-password"
+              name="password"
+              type="password"
+              placeholder="••••••"
+              disabled={isPending}
+              className={cn(state?.errors?.password && "border-destructive")}
+            />
+            {state?.errors?.password && (
+              <FieldError>{state.errors.password}</FieldError>
+            )}
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="signup-confirm-password">
+              Confirm password
+            </FieldLabel>
+            <FieldDescription>Please confirm your password.</FieldDescription>
+            <Input
+              id="signup-confirm-password"
+              name="confirmPassword"
+              type="password"
+              placeholder="••••••"
+              disabled={isPending}
+              className={cn(
+                state?.errors?.confirmPassword && "border-destructive",
+              )}
+            />
+            {state?.errors?.confirmPassword && (
+              <FieldError>{state.errors.confirmPassword}</FieldError>
+            )}
+          </Field>
+
+          {state?.apiError && <FieldError>{state.apiError}</FieldError>}
+
+          <Field>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? "Creating account..." : "Create Account"}
+            </Button>
             <FieldDescription className="px-6 text-center">
               Already have an account? <Link href={ROUTES.LOGIN}>Sign in</Link>
             </FieldDescription>
