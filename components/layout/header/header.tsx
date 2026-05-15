@@ -9,7 +9,7 @@ export async function Header() {
   return (
     <header className="flex justify-between items-center p-4">
       <div className="shrink-0">
-        <Link href={session?.user ? ROUTES.DASHBOARD : ROUTES.HOME}>
+        <Link href={ROUTES.HOME}>
           <Logo />
         </Link>
       </div>

@@ -9,9 +9,6 @@ export function cn(...inputs: ClassValue[]) {
 type TabValue = "dashboard";
 
 export function getTabValue(pathname: string): TabValue | undefined {
-  if (
-    pathname === ROUTES.DASHBOARD ||
-    pathname.startsWith(`${ROUTES.DASHBOARD}/`)
-  )
+  if (pathname === ROUTES.DASHBOARD || pathname.startsWith(`${ROUTES.DASHBOARD}/`))
     return "dashboard";
 }
