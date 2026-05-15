@@ -1,21 +1,25 @@
-import Link from "next/link";
 import { auth } from "@/auth";
-import { ROUTES } from "@/shared/constants/routes";
 import { HeaderNav } from "./header-nav";
-import { Logo } from "./logo";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import { prisma } from "@/lib/db";
 
 export async function Header() {
   const session = await auth();
+  const user = session?.user?.id
+    ? await prisma.user.findUnique({ where: { id: session.user.id } })
+    : null;
+
   return (
-    <header className="flex justify-between items-center p-4">
-      <div className="shrink-0">
-        <Link href={ROUTES.HOME}>
-          <Logo />
-        </Link>
+    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+      <div className="flex w-full items-center justify-between gap-1 px-4 lg:gap-2 lg:px-6">
+        <SidebarTrigger className="-ml-1" />
+        {/* <Separator
+          orientation="vertical"
+          className="mx-2 my-4 data-[orientation=vertical]:h-4"
+        /> */}
+        <HeaderNav user={user} />
       </div>
-      <nav className="min-w-0 flex-1">
-        <HeaderNav session={session} />
-      </nav>
     </header>
   );
 }

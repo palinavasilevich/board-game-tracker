@@ -14,7 +14,8 @@ export function BggHotList() {
   useEffect(() => {
     fetch("/api/bgg/hot")
       .then(async (res) => {
-        if (!res.ok) throw new Error(`BGG API error: ${res.status} ${res.statusText}`);
+        if (!res.ok)
+          throw new Error(`BGG API error: ${res.status} ${res.statusText}`);
         setGames(await res.json());
       })
       .catch((err: unknown) => {
@@ -24,14 +25,14 @@ export function BggHotList() {
 
   if (error) {
     return (
-      <div className="text-center mt-12 space-y-2">
+      <div className="text-center mt-12 space-y-2 px-4">
         <p className="text-red-400">{error}</p>
         <p className="text-white/50 text-sm">Could not reach the BGG API.</p>
       </div>
     );
   }
 
-  const gridClass = "grid grid-cols-4 gap-5 py-12";
+  const gridClass = "grid grid-cols-4 gap-5 px-4";
 
   if (!games) {
     return (

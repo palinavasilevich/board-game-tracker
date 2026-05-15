@@ -1,24 +1,30 @@
 "use client";
 
-import { getTabValue } from "@/lib/utils";
-import { Session } from "next-auth";
+import Link from "next/link";
+
 import { usePathname } from "next/navigation";
 import { Button } from "../../ui/button";
-import Link from "next/link";
 import { ROUTES } from "@/shared/constants/routes";
-import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs";
-import { signOut } from "next-auth/react";
-import { LogOutIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { User } from "@/lib/generated/prisma/client";
+
+import { HeaderNavUser } from "./header-nav-user";
 
 type HeaderNavProps = {
-  session: Session | null;
+  user: User | null;
 };
 
-export function HeaderNav({ session }: HeaderNavProps) {
-  const pathname = usePathname();
-  const tabValue = getTabValue(pathname);
+const NAV_LINKS = [{ href: ROUTES.DASHBOARD, label: "Dashboard" }] as const;
 
-  if (!session?.user) {
+function isActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+export function HeaderNav({ user }: HeaderNavProps) {
+  const pathname = usePathname();
+
+  if (!user) {
     return (
       <div className="flex justify-end">
         <Button variant="secondary" asChild>
@@ -30,25 +36,40 @@ export function HeaderNav({ session }: HeaderNavProps) {
 
   return (
     <div className="flex items-center justify-end gap-4">
-      <div className="flex justify-center">
-        <Tabs value={tabValue} className="w-fit">
-          <TabsList>
-            <TabsTrigger value="dashboard" asChild>
-              <Link href={ROUTES.DASHBOARD}>Dashboard</Link>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
+      <nav className="flex items-center gap-1">
+        {NAV_LINKS.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            className={cn(
+              "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              isActive(pathname, href)
+                ? "bg-muted text-foreground"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+
+      {/* <Avatar className="h-8 w-8 rounded-lg grayscale">
+        <AvatarImage src={user?.avatarUrl ?? ""} alt={user.name} />
+        <AvatarFallback className="text-xs">
+          {getUserInitials(user.name)}
+        </AvatarFallback>
+      </Avatar>
 
       <Button
-        variant="outline"
+        variant="secondary"
         size="sm"
         type="button"
         onClick={() => signOut({ redirectTo: ROUTES.HOME })}
       >
-        <LogOutIcon />
         Logout
-      </Button>
+      </Button> */}
+
+      {user && <HeaderNavUser user={user} />}
     </div>
   );
 }

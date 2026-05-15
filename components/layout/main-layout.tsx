@@ -1,31 +1,32 @@
 import type { PropsWithChildren } from "react";
 import { Header } from "./header/header";
+import { SidebarInset, SidebarProvider } from "../ui/sidebar";
+import { AppSidebar } from "./app-sidebar/app-sidebar";
+import { TooltipProvider } from "../ui/tooltip";
 
 export function MainLayout({ children }: PropsWithChildren) {
   return (
-    <div className="relative min-h-screen bg-background">
-      <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-1/4 left-1/2 h-150 w-225 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-        <div className="absolute -right-1/4 top-1/2 h-100 w-150 rounded-full bg-primary/10 blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, currentColor 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-      </div>
-
-      <div className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-lg">
-        <div className="container mx-auto max-w-290">
+    <TooltipProvider>
+      <SidebarProvider
+        style={
+          {
+            "--sidebar-width": "calc(var(--spacing) * 72)",
+            "--header-height": "calc(var(--spacing) * 12)",
+          } as React.CSSProperties
+        }
+      >
+        <AppSidebar variant="inset" />
+        <SidebarInset>
           <Header />
-        </div>
-      </div>
-
-      <div className="container mx-auto max-w-290">
-        <main className="flex w-full flex-col items-center py-8">{children}</main>
-      </div>
-    </div>
+          <div className="flex flex-1 flex-col">
+            <div className="@container/main flex flex-1 flex-col gap-2">
+              <div className="flex flex-col gap-6 py-6 md:gap-6 md:py-6">
+                {children}
+              </div>
+            </div>
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    </TooltipProvider>
   );
 }

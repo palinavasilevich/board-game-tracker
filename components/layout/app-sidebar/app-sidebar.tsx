@@ -1,0 +1,46 @@
+import * as React from "react";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
+import { CommandIcon } from "lucide-react";
+import Link from "next/link";
+import { ROUTES } from "@/shared/constants/routes";
+import { AppSidebarNav } from "./app-sidebar-nav";
+
+export async function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar collapsible="offcanvas" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:p-1.5!"
+            >
+              <Link href={ROUTES.HOME}>
+                <CommandIcon className="size-5!" />
+                <span className="text-base font-semibold">Board Games</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <AppSidebarNav />
+      </SidebarContent>
+      {/* {user && (
+        <SidebarFooter>
+          <AppSidebarUser user={user} />
+        </SidebarFooter>
+      )} */}
+    </Sidebar>
+  );
+}
