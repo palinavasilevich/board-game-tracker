@@ -7,7 +7,7 @@ export default async function LoginPage() {
   const session = await auth();
 
   if (session?.user) {
-    redirect(ROUTES.DASHBOARD);
+    redirect(ROUTES.MY_GAMES);
   }
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">

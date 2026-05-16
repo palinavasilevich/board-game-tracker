@@ -1,29 +1,21 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
+
 import { User } from "@/lib/generated/prisma/client";
 import { getUserInitials } from "@/lib/get-user-initials";
-import {
-  EllipsisVerticalIcon,
-  CircleUserRoundIcon,
-  LogOutIcon,
-} from "lucide-react";
+import { ROUTES } from "@/shared/constants/routes";
+import { EllipsisVerticalIcon, LogOutIcon } from "lucide-react";
 
 type HeaderNavUserProps = {
   user: User;
@@ -36,7 +28,7 @@ export function HeaderNavUser({ user }: HeaderNavUserProps) {
         <Button
           variant="ghost"
           size="lg"
-          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          className="data-[state=open]:bg-transparent data-[state=open]:text-sidebar-accent-foreground hover:bg-transparent"
         >
           <Avatar className="h-8 w-8 rounded-lg grayscale">
             <AvatarImage src={user?.avatarUrl ?? ""} alt={user.name} />
@@ -63,9 +55,7 @@ export function HeaderNavUser({ user }: HeaderNavUserProps) {
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar className="h-8 w-8 rounded-lg">
               <AvatarImage src={user.avatarUrl ?? ""} alt={user.name} />
-              <AvatarFallback className="rounded-lg">
-                {getUserInitials(user.name)}
-              </AvatarFallback>
+              <AvatarFallback>{getUserInitials(user.name)}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">{user.name}</span>
@@ -76,16 +66,23 @@ export function HeaderNavUser({ user }: HeaderNavUserProps) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
+        {/* <DropdownMenuGroup>
           <DropdownMenuItem>
             <CircleUserRoundIcon />
             Account
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator /> */}
         <DropdownMenuItem>
-          <LogOutIcon />
-          Log out
+          <Button
+            variant="ghost"
+            type="button"
+            className="w-full justify-start outline-0"
+            onClick={() => signOut({ redirectTo: ROUTES.HOME })}
+          >
+            <LogOutIcon />
+            Logout
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

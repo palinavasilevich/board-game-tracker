@@ -46,7 +46,7 @@ export async function loginAction(
     await signIn("credentials", {
       email,
       password,
-      redirectTo: ROUTES.DASHBOARD,
+      redirectTo: ROUTES.MY_GAMES,
     });
 
     return {};

@@ -7,7 +7,7 @@ export default async function SignupPage() {
   const session = await auth();
 
   if (session?.user) {
-    redirect(ROUTES.DASHBOARD);
+    redirect(ROUTES.MY_GAMES);
   }
 
   return (

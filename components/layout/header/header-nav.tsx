@@ -15,7 +15,7 @@ type HeaderNavProps = {
   user: User | null;
 };
 
-const NAV_LINKS = [{ href: ROUTES.DASHBOARD, label: "Dashboard" }] as const;
+const NAV_LINKS = [{ href: ROUTES.MY_GAMES, label: "My Games" }] as const;
 
 function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -52,22 +52,6 @@ export function HeaderNav({ user }: HeaderNavProps) {
           </Link>
         ))}
       </nav>
-
-      {/* <Avatar className="h-8 w-8 rounded-lg grayscale">
-        <AvatarImage src={user?.avatarUrl ?? ""} alt={user.name} />
-        <AvatarFallback className="text-xs">
-          {getUserInitials(user.name)}
-        </AvatarFallback>
-      </Avatar>
-
-      <Button
-        variant="secondary"
-        size="sm"
-        type="button"
-        onClick={() => signOut({ redirectTo: ROUTES.HOME })}
-      >
-        Logout
-      </Button> */}
 
       {user && <HeaderNavUser user={user} />}
     </div>

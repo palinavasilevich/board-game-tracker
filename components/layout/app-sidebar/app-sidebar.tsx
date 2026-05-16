@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { CommandIcon } from "lucide-react";
+import { DicesIcon } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/shared/constants/routes";
 import { AppSidebarNav } from "./app-sidebar-nav";
@@ -26,7 +26,7 @@ export async function AppSidebar({
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
               <Link href={ROUTES.HOME}>
-                <CommandIcon className="size-5!" />
+                <DicesIcon className="size-5!" />
                 <span className="text-base font-semibold">Board Games</span>
               </Link>
             </SidebarMenuButton>
@@ -36,11 +36,6 @@ export async function AppSidebar({
       <SidebarContent>
         <AppSidebarNav />
       </SidebarContent>
-      {/* {user && (
-        <SidebarFooter>
-          <AppSidebarUser user={user} />
-        </SidebarFooter>
-      )} */}
     </Sidebar>
   );
 }

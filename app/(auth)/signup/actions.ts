@@ -89,7 +89,7 @@ export async function signupAction(
   await signIn("credentials", {
     email,
     password,
-    redirectTo: ROUTES.DASHBOARD,
+    redirectTo: ROUTES.MY_GAMES,
   });
   return {};
 }
