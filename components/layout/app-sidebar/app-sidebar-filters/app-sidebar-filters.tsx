@@ -7,7 +7,6 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -17,11 +16,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Slider } from "@/components/ui/slider";
 
 const formSchema = z.object({
   genres: z.array(z.string()),
-  minMetaScore: z.number().min(0).max(10).optional(),
-  sortBy: z.enum(["name", "metaScore", "newest"]).optional(),
+  playerCount: z.number().min(1).optional(),
+  playTime: z.number().min(1).optional(),
+  rank: z.number().optional(),
+  sortBy: z.enum(["name", "rank", "newest"]).optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -38,8 +40,11 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       genres: searchParams.get("genres")?.split(",").filter(Boolean) ?? [],
-      minMetaScore: searchParams.get("minMetaScore")
-        ? Number(searchParams.get("minMetaScore"))
+      playerCount: searchParams.get("playerCount")
+        ? Number(searchParams.get("playerCount"))
+        : undefined,
+      playTime: searchParams.get("playTime")
+        ? Number(searchParams.get("playTime"))
         : undefined,
       sortBy: (searchParams.get("sortBy") as FormValues["sortBy"]) ?? undefined,
     },
@@ -47,9 +52,14 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
 
   function onSubmit(data: FormValues) {
     const params = new URLSearchParams();
+
     if (data.genres.length) params.set("genres", data.genres.join(","));
-    if (data.minMetaScore != null)
-      params.set("minMetaScore", String(data.minMetaScore));
+
+    if (data.playerCount != null)
+      params.set("playerCount", String(data.playerCount));
+
+    if (data.playTime != null) params.set("playTime", String(data.playTime));
+
     if (data.sortBy) params.set("sortBy", data.sortBy);
     router.replace(`/?${params.toString()}`);
   }
@@ -57,7 +67,9 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
   function handleReset() {
     form.reset({
       genres: [],
-      minMetaScore: undefined,
+      playerCount: undefined,
+      playTime: undefined,
+      rank: undefined,
       sortBy: undefined,
     });
     router.replace("/");
@@ -113,9 +125,9 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="metaScore">Meta Score</SelectItem>
                     <SelectItem value="name">Name</SelectItem>
                     <SelectItem value="newest">Newest</SelectItem>
+                    <SelectItem value="rank">Ranking</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -124,27 +136,54 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
         </Field>
 
         <Controller
-          name="minMetaScore"
+          name="playerCount"
           control={form.control}
-          render={({ field }) => (
-            <Field>
-              <FieldLabel htmlFor="filter-min-meta-score">
-                Min Meta Score
-              </FieldLabel>
-              <Input
-                id="filter-min-meta-score"
-                type="number"
-                min={0}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <div>
+                <FieldLabel htmlFor="filter-player-count">
+                  Player Count
+                </FieldLabel>
+                <span className="text-sm text-muted-foreground tabular-nums">
+                  {field.value}
+                </span>
+              </div>
+
+              <Slider
+                id="filter-player-count"
+                defaultValue={[1]}
+                min={1}
                 max={10}
-                step={0.1}
-                value={field.value ?? ""}
-                onChange={(e) =>
-                  field.onChange(
-                    e.target.value === "" ? undefined : Number(e.target.value),
-                  )
-                }
+                step={1}
+                value={field.value != null ? [field.value] : undefined}
+                onValueChange={(values) => field.onChange(values[0])}
                 onBlur={field.onBlur}
-                name={field.name}
+              />
+            </Field>
+          )}
+        />
+
+        <Controller
+          name="playTime"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <div>
+                <FieldLabel htmlFor="filter-play-time">Play Time</FieldLabel>
+                <span className="text-sm text-muted-foreground tabular-nums">
+                  {field.value}
+                </span>
+              </div>
+
+              <Slider
+                id="filter-play-time"
+                defaultValue={[60]}
+                min={5}
+                max={240}
+                step={5}
+                value={field.value != null ? [field.value] : undefined}
+                onValueChange={(values) => field.onChange(values[0])}
+                onBlur={field.onBlur}
               />
             </Field>
           )}

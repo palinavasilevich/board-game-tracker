@@ -1,49 +1,53 @@
-import type { GameWithGenres } from "./game-list";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { BGGGame } from "@/shared/types/game.types";
+import { cn } from "@/lib/utils";
 
 interface GameCardProps {
-  game: GameWithGenres;
+  game: BGGGame;
 }
 
 export function GameCard({ game }: GameCardProps) {
   return (
-    <div className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/50">
+    <div className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:shadow-xl hover:border-white/20">
       <Image
-        src={game.imageUrl || "/images/placeholder.jpg"}
+        src={game.thumbnail || "/images/placeholder.jpg"}
         alt={game.name}
         unoptimized
         width={200}
         height={267}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        loading="eager"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-dark via-dark/40 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
 
-      {game.metaScore && (
-        <div
-          className="absolute top-3 right-3 bg-dark/80 backdrop-blur-sm px-2 py-1 rounded-lg border border-accent/30"
-          title={`MetaScore: ${game.metaScore} of 100`}
+      <div
+        // className="absolute top-3 right-3 bg-dark/80 backdrop-blur-sm px-2 py-1 rounded-lg border border-accent/30"
+        className="absolute top-3 right-3 font-bold text-sm bg-black/70 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15"
+        title={`Rating: ${game.rating} of 100`}
+      >
+        <span className="text-white">#{game.rank}</span>
+        <span
+          className={cn(
+            game.rating >= 6
+              ? "text-emerald-500"
+              : game.rating >= 4
+                ? "text-yellow-500"
+                : "text-red-500",
+          )}
         >
-          <span
-            className={cn(
-              "font-bold font-serif",
-              game.metaScore >= 61
-                ? "text-emerald-500"
-                : game.metaScore >= 40
-                  ? "text-yellow-500"
-                  : "text-red-500",
-            )}
-          >
-            {game.metaScore}
-          </span>
-        </div>
-      )}
+          {" "}
+          ({game.rating})
+        </span>
+      </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-4">
-        <span className="text-accent/80 text-xs uppercase tracking-wider">
-          {game.genres[0]?.genre?.name}
-        </span>
-        <h3 className="font-serif text-xl font-semibold mt-1">{game.name}</h3>
+        <h3 className="text-xl text-white font-semibold">
+          {game.name}
+          <span className="text-accent/80 tracking-wider">
+            {" "}
+            ({game.yearPublished})
+          </span>
+        </h3>
       </div>
     </div>
   );

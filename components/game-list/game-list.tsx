@@ -1,33 +1,21 @@
-import type { Prisma } from "@/lib/generated/prisma/client";
 import { GameCard } from "./game-card";
 import { GameCardSkeleton } from "./game-card-skeleton";
-
-export type GameWithGenres = Prisma.GameGetPayload<{
-  select: {
-    id: true;
-    name: true;
-    imageUrl: true;
-    metaScore: true;
-    genres: {
-      select: {
-        genre: { select: { name: true } };
-      };
-    };
-  };
-}>;
+import { BGGGame } from "@/shared/types/game.types";
 
 interface GameListProps {
-  games: GameWithGenres[];
+  games: BGGGame[];
   isLoading: boolean;
 }
 
-const gridClass = "grid grid-cols-4 gap-5 py-12";
+const SKELETON_COUNT = 8;
 
 export function GameList({ games, isLoading }: GameListProps) {
+  const gridClass = "grid grid-cols-4 gap-5";
+
   if (isLoading) {
     return (
       <div className={gridClass}>
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
           <GameCardSkeleton key={i} />
         ))}
       </div>
@@ -35,7 +23,9 @@ export function GameList({ games, isLoading }: GameListProps) {
   }
 
   if (!games.length) {
-    return <div className="text-center text-white/80 mt-12">No games found.</div>;
+    return (
+      <div className="text-center text-white/80 mt-12">No games found.</div>
+    );
   }
 
   return (
