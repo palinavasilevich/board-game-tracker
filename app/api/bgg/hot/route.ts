@@ -165,27 +165,20 @@ const MOCK_GAMES: BggHotGame[] = [
 ];
 
 export async function GET() {
-  const token = process.env.BGG_API_TOKEN;
+  try {
+    const res = await fetch("https://boardgamegeek.com/xmlapi2/hot?type=boardgame", {
+      next: { revalidate: 3600 },
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; board-game-tracker/1.0)",
+      },
+    });
 
-  if (token) {
-    try {
-      const res = await fetch(
-        "https://boardgamegeek.com/xmlapi2/hot?type=boardgame",
-        {
-          next: { revalidate: 3600 },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      if (res.ok) {
-        const xml = await res.text();
-        return Response.json(parseBggHotGames(xml));
-      }
-    } catch {
-      // fall through to mock data
+    if (res.ok) {
+      const xml = await res.text();
+      return Response.json(parseBggHotGames(xml));
     }
+  } catch {
+    // fall through to mock data
   }
 
   return Response.json(MOCK_GAMES);

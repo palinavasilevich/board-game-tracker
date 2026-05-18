@@ -18,12 +18,8 @@ export function MainLayout({ children }: PropsWithChildren) {
         <AppSidebar variant="inset" />
         <SidebarInset>
           <Header />
-          <div className="flex flex-1 flex-col">
-            <div className="@container/main flex flex-1 flex-col gap-2">
-              <div className="flex flex-col gap-6 py-6 md:gap-6 md:py-6">
-                {children}
-              </div>
-            </div>
+          <div className="@container/main flex flex-1 flex-col p-6">
+            {children}
           </div>
         </SidebarInset>
       </SidebarProvider>

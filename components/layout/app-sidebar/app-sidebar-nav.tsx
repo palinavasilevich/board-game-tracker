@@ -1,39 +1,34 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { CirclePlusIcon, MailIcon } from "lucide-react";
+import { AppSidebarFilters } from "./app-sidebar-filters/app-sidebar-filters";
 
-export function AppSidebarNav() {
+interface AppSidebarNavProps {
+  genres: { id: string; name: string }[];
+}
+
+export function AppSidebarNav({ genres }: AppSidebarNavProps) {
   return (
     <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
+      <SidebarGroupContent>
         <SidebarMenu>
-          <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton
-              tooltip="Quick Create"
-              className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
-            >
-              <CirclePlusIcon />
-              <span>Quick Create</span>
-            </SidebarMenuButton>
+          <SidebarMenuItem className="flex flex-col gap-4">
+            <div className="text-center">
+              <h3 className="text-xl font-semibold">Filter Games</h3>
+              <p className="text-muted-foreground">
+                Refine your search with filters
+              </p>
+            </div>
+            <Suspense>
+              <AppSidebarFilters genres={genres} />
+            </Suspense>
           </SidebarMenuItem>
-        </SidebarMenu>
-        <SidebarMenu>
-          {/* {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))} */}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

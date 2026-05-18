@@ -12,10 +12,13 @@ import { DicesIcon } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/shared/constants/routes";
 import { AppSidebarNav } from "./app-sidebar-nav";
+import { prisma } from "@/lib/db";
 
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const genres = await prisma.genre.findMany({ orderBy: { name: "asc" } });
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -34,7 +37,7 @@ export async function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <AppSidebarNav />
+        <AppSidebarNav genres={genres} />
       </SidebarContent>
     </Sidebar>
   );
