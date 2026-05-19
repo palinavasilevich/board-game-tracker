@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BGGGame } from "@/shared/types/game.types";
 import { cn } from "@/lib/utils";
 
@@ -9,10 +10,8 @@ interface GameCardProps {
 
 export function GameCard({ game, priority }: GameCardProps) {
   return (
-    <a
-      href={`https://boardgamegeek.com/boardgame/${game.id}`}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      href={`/game/${game.id}`}
       className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:shadow-xl hover:border-white/20 block"
     >
       <Image
@@ -54,6 +53,6 @@ export function GameCard({ game, priority }: GameCardProps) {
           </span>
         </h3>
       </div>
-    </a>
+    </Link>
   );
 }

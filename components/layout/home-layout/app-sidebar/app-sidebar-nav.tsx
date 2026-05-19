@@ -7,7 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { AppSidebarFilters } from "../../filters/app-sidebar-filters/app-sidebar-filters";
+import { AppSidebarFilters } from "@/components/filters/app-sidebar-filters/app-sidebar-filters";
 
 interface AppSidebarNavProps {
   genres: { id: string; name: string }[];

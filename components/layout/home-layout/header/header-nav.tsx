@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import { Button } from "../../ui/button";
+import { Button } from "../../../ui/button";
 import { ROUTES } from "@/shared/constants/routes";
 
 import { cn } from "@/lib/utils";
