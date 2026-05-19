@@ -9,7 +9,12 @@ interface GameCardProps {
 
 export function GameCard({ game, priority }: GameCardProps) {
   return (
-    <div className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:shadow-xl hover:border-white/20">
+    <a
+      href={`https://boardgamegeek.com/boardgame/${game.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:shadow-xl hover:border-white/20 block"
+    >
       <Image
         src={game.thumbnail || "/images/placeholder.jpg"}
         alt={game.name}
@@ -49,6 +54,6 @@ export function GameCard({ game, priority }: GameCardProps) {
           </span>
         </h3>
       </div>
-    </div>
+    </a>
   );
 }
