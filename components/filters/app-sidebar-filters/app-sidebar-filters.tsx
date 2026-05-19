@@ -42,10 +42,10 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
       genres: searchParams.get("genres")?.split(",").filter(Boolean) ?? [],
       playerCount: searchParams.get("playerCount")
         ? Number(searchParams.get("playerCount"))
-        : 2,
+        : undefined,
       playTime: searchParams.get("playTime")
         ? Number(searchParams.get("playTime"))
-        : 60,
+        : undefined,
       sortBy: (searchParams.get("sortBy") as FormValues["sortBy"]) ?? undefined,
     },
   });
@@ -67,8 +67,8 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
   function handleReset() {
     form.reset({
       genres: [],
-      playerCount: 2,
-      playTime: 60,
+      playerCount: undefined,
+      playTime: undefined,
       sortBy: undefined,
     });
     router.replace("/");

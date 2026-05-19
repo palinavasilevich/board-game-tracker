@@ -5,10 +5,16 @@ export async function GET(request: NextRequest) {
   const games = readGamesFromCsv();
 
   const searchParams = request.nextUrl.searchParams;
-  const limit = Number(searchParams.get("limit") ?? 20);
-  const search = searchParams.get("search") as string | undefined;
+  const limit = Math.min(Number(searchParams.get("limit") ?? 20), 100);
+  const search = searchParams.get("search") ?? undefined;
   const genres = searchParams.get("genres")?.split(",").filter(Boolean);
   const sortBy = searchParams.get("sortBy");
+  const playerCount = searchParams.get("playerCount")
+    ? Number(searchParams.get("playerCount"))
+    : undefined;
+  const playTime = searchParams.get("playTime")
+    ? Number(searchParams.get("playTime"))
+    : undefined;
 
   let filtered = [...games];
 
@@ -24,15 +30,26 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  if (playerCount != null) {
+    filtered = filtered.filter(
+      (game) =>
+        (game.minPlayers === 0 && game.maxPlayers === 0) ||
+        (game.minPlayers <= playerCount && game.maxPlayers >= playerCount),
+    );
+  }
+
+  if (playTime != null) {
+    filtered = filtered.filter(
+      (game) => game.minPlaytime === 0 || game.minPlaytime <= playTime,
+    );
+  }
+
   if (sortBy) {
     filtered.sort((a, b) => {
       if (sortBy === "name") return a.name.localeCompare(b.name);
-
-      if (sortBy === "rank") {
-        return Number(a.rank) - Number(b.rank);
-      }
-
-      return Number(b.yearPublished) - Number(a.yearPublished);
+      if (sortBy === "rank") return Number(a.rank) - Number(b.rank);
+      if (sortBy === "newest") return Number(b.yearPublished) - Number(a.yearPublished);
+      return 0;
     });
   }
 

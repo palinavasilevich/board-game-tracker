@@ -30,8 +30,8 @@ export function GameList({ games, isLoading }: GameListProps) {
 
   return (
     <div className={gridClass}>
-      {games.map((game) => (
-        <GameCard key={game.id} game={game} />
+      {games.map((game, i) => (
+        <GameCard key={game.id} game={game} priority={i === 0} />
       ))}
     </div>
   );

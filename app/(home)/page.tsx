@@ -1,5 +1,5 @@
 import { FilteredGameList } from "@/components/game-list/filtered-game-list";
-import { SearchInput } from "@/components/search-input";
+import { SearchInput } from "@/components/filters/search-input";
 import { Suspense } from "react";
 
 export default function Home() {

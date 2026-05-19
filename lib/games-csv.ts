@@ -34,7 +34,11 @@ function findCol(headers: string[], ...names: string[]): number {
   return -1;
 }
 
+let _gamesCache: BGGGame[] | null = null;
+
 export function readGamesFromCsv(): BGGGame[] {
+  if (_gamesCache) return _gamesCache;
+
   const csvPath = path.join(process.cwd(), "data", "games.csv");
   const lines = fs.readFileSync(csvPath, "utf-8").trim().split(/\r?\n/);
 
@@ -90,7 +94,7 @@ export function readGamesFromCsv(): BGGGame[] {
     }
   });
 
-  return lines.slice(1).flatMap((line) => {
+  _gamesCache = lines.slice(1).flatMap((line) => {
     const trimmed = line.replace(/\r$/, "");
     if (!trimmed) return [];
 
@@ -140,6 +144,8 @@ export function readGamesFromCsv(): BGGGame[] {
       },
     ];
   });
+
+  return _gamesCache;
 }
 
 export function readGenresFromCsv(games = readGamesFromCsv()): string[] {

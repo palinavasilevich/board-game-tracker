@@ -5,6 +5,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
 import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 import { ROUTES } from "@/shared/constants/routes";
 
 const signUpSchema = z
@@ -86,10 +87,18 @@ export async function signupAction(
     return { apiError: "Something went wrong. Please try again.", fields };
   }
 
-  await signIn("credentials", {
-    email,
-    password,
-    redirectTo: ROUTES.MY_GAMES,
-  });
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: ROUTES.MY_GAMES,
+    });
+  } catch (e) {
+    if (e instanceof AuthError) {
+      return { apiError: "Account created but login failed. Please sign in manually.", fields: { name, email } };
+    }
+    throw e;
+  }
+
   return {};
 }
