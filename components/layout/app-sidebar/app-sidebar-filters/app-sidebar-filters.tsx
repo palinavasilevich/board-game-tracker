@@ -17,12 +17,12 @@ import {
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Slider } from "@/components/ui/slider";
+import { FilterIcon } from "lucide-react";
 
 const formSchema = z.object({
   genres: z.array(z.string()),
-  playerCount: z.number().min(1).optional(),
-  playTime: z.number().min(1).optional(),
-  rank: z.number().optional(),
+  playerCount: z.number().int().positive().min(1).optional(),
+  playTime: z.number().int().positive().optional(),
   sortBy: z.enum(["name", "rank", "newest"]).optional(),
 });
 
@@ -42,10 +42,10 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
       genres: searchParams.get("genres")?.split(",").filter(Boolean) ?? [],
       playerCount: searchParams.get("playerCount")
         ? Number(searchParams.get("playerCount"))
-        : undefined,
+        : 2,
       playTime: searchParams.get("playTime")
         ? Number(searchParams.get("playTime"))
-        : undefined,
+        : 60,
       sortBy: (searchParams.get("sortBy") as FormValues["sortBy"]) ?? undefined,
     },
   });
@@ -67,9 +67,8 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
   function handleReset() {
     form.reset({
       genres: [],
-      playerCount: undefined,
-      playTime: undefined,
-      rank: undefined,
+      playerCount: 2,
+      playTime: 60,
       sortBy: undefined,
     });
     router.replace("/");
@@ -151,7 +150,7 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
 
               <Slider
                 id="filter-player-count"
-                defaultValue={[1]}
+                defaultValue={[2]}
                 min={1}
                 max={10}
                 step={1}
@@ -192,9 +191,12 @@ export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
 
       <div className="flex gap-2">
         <Button type="button" variant="outline" onClick={handleReset}>
-          Reset
+          Clear Filters
         </Button>
-        <Button type="submit">Apply filter</Button>
+        <Button type="submit">
+          <FilterIcon />
+          Apply filter
+        </Button>
       </div>
     </form>
   );
