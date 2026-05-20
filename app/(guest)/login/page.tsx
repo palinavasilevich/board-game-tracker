@@ -9,11 +9,5 @@ export default async function LoginPage() {
   if (session?.user) {
     redirect(ROUTES.MY_GAMES);
   }
-  return (
-    <div className="flex flex-1 w-full items-center justify-center">
-      <div className="w-full max-w-sm">
-        <LoginForm />
-      </div>
-    </div>
-  );
+  return <LoginForm />;
 }

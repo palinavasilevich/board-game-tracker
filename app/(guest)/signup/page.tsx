@@ -10,11 +10,5 @@ export default async function SignupPage() {
     redirect(ROUTES.MY_GAMES);
   }
 
-  return (
-    <div className="flex flex-1 w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <SignupForm />
-      </div>
-    </div>
-  );
+  return <SignupForm />;
 }

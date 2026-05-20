@@ -8,9 +8,17 @@ type MainLayoutProps = Readonly<{
 
 export function MainLayout({ children, user }: MainLayoutProps) {
   return (
-    <div className="min-h-svh max-w-3xl mx-auto flex flex-col">
+    <div
+      className="min-h-svh w-full mx-auto flex flex-col"
+      style={{ backgroundColor: "var(--sidebar)" }}
+    >
       <Header user={user} />
-      <main className="w-full flex flex-1 flex-col items-center p-6 md:p-10">
+      <main
+        className="w-full mx-auto max-w-7xl flex flex-1 flex-col items-center px-6 pb-6"
+        style={{
+          maxWidth: "80rem",
+        }}
+      >
         {children}
       </main>
     </div>
