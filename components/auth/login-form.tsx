@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { AuthFormCard } from "./auth-form-card";
 import { ROUTES } from "@/shared/constants/routes";
-import { loginAction } from "@/app/(auth)/login/actions";
+import { loginAction } from "@/app/(guest)/login/actions";
 import { cn } from "@/lib/utils";
 
 export function LoginForm() {

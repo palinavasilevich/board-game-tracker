@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { AuthFormCard } from "./auth-form-card";
 import { ROUTES } from "@/shared/constants/routes";
-import { signupAction } from "@/app/(auth)/signup/actions";
+import { signupAction } from "@/app/(guest)/signup/actions";
 import { cn } from "@/lib/utils";
 
 export function SignupForm() {
