@@ -1,5 +1,13 @@
 import Image from "next/image";
 import { readGamesFromCsv } from "@/lib/games-csv";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { HourglassIcon, PersonStandingIcon } from "lucide-react";
 
 export default async function GamePage(props: PageProps<"/game/[gameId]">) {
   const { gameId } = await props.params;
@@ -10,68 +18,97 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto flex flex-col gap-8">
-      <div className="flex gap-8 items-start">
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader className="flex gap-8">
         {game.thumbnail && (
-          <div className="relative w-48 shrink-0 aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg">
+          <div className="w-48 shrink-0 aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg">
             <Image
               src={game.thumbnail}
               alt={game.name}
               unoptimized
-              fill
-              className="object-cover"
+              width={200}
+              height={267}
+              className="aspect-3/4 object-cover"
             />
           </div>
         )}
 
         <div className="flex flex-col gap-3">
-          <h1 className="font-serif text-4xl font-bold tracking-tight">
+          <CardTitle className="font-serif text-4xl font-semibold tracking-tight">
             {game.name}
-            <span className="text-accent/80 text-2xl ml-2">
-              ({game.yearPublished})
+            <span className="text-muted-foreground text-2xl ml-2">
+              {` (${game.yearPublished})`}
             </span>
-          </h1>
+          </CardTitle>
 
-          <div className="flex gap-4 text-sm text-muted-foreground">
-            <span>Rank #{game.rank}</span>
-            <span>Rating {game.rating}/10</span>
-          </div>
-
-          <div className="flex gap-4 text-sm">
-            <span>
-              {game.minPlayers === game.maxPlayers
-                ? `${game.minPlayers} players`
-                : `${game.minPlayers}–${game.maxPlayers} players`}
-            </span>
-            {(game.minPlaytime > 0 || game.maxPlaytime > 0) && (
+          <CardDescription className="flex flex-col gap-4">
+            <div className="flex gap-4 text-muted-foreground font-semibold">
+              <span>Rank #{game.rank}</span>
               <span>
-                {game.minPlaytime === game.maxPlaytime
-                  ? `${game.minPlaytime} min`
-                  : `${game.minPlaytime}–${game.maxPlaytime} min`}
-              </span>
-            )}
-          </div>
-
-          {game.genres.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {game.genres.map((genre) => (
+                Rating{" "}
                 <span
-                  key={genre}
-                  className="text-xs px-2 py-1 rounded-full border border-accent/50 text-accent"
+                  className={cn(
+                    game.rating >= 6
+                      ? "text-emerald-500"
+                      : game.rating >= 4
+                        ? "text-yellow-500"
+                        : "text-red-500",
+                  )}
                 >
-                  {genre}
+                  {game.rating}
                 </span>
-              ))}
+                {` / 10 `}
+              </span>
             </div>
-          )}
-        </div>
-      </div>
 
-      {game.description && (
-        <p className="text-muted-foreground leading-relaxed">
-          {game.description}
-        </p>
-      )}
-    </div>
+            <div className="flex items-center gap-2">
+              <PersonStandingIcon
+                className="size-5! text-muted-foreground"
+                strokeWidth={3}
+              />
+              <span>
+                {game.minPlayers === game.maxPlayers
+                  ? `${game.minPlayers} players`
+                  : `${game.minPlayers} – ${game.maxPlayers} players`}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <HourglassIcon
+                className="size-5! text-muted-foreground font-semibold"
+                strokeWidth={3}
+              />
+              {(game.minPlaytime > 0 || game.maxPlaytime > 0) && (
+                <span>
+                  {game.minPlaytime === game.maxPlaytime
+                    ? `${game.minPlaytime} min`
+                    : `${game.minPlaytime}–${game.maxPlaytime} min`}
+                </span>
+              )}
+            </div>
+
+            {game.genres.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {game.genres.map((genre) => (
+                  <span
+                    key={genre}
+                    className="text-xs px-2 py-1 rounded-full border border-accent/50 text-accent"
+                  >
+                    {genre}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {game.description && (
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                {game.description.slice(0, 1).toUpperCase() +
+                  game.description.slice(1)}
+              </p>
+            )}
+          </CardDescription>
+        </div>
+      </CardHeader>
+    </Card>
   );
 }
