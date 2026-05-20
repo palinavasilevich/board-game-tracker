@@ -9,6 +9,7 @@ import { ROUTES } from "@/shared/constants/routes";
 import { cn } from "@/lib/utils";
 import { User } from "@/lib/generated/prisma/client";
 import { UserAvatarButton } from "@/components/user-avatar-button/user-avatar-button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type HeaderNavProps = {
   user: User | null;
@@ -25,10 +26,11 @@ export function HeaderNav({ user }: HeaderNavProps) {
 
   if (!user) {
     return (
-      <div className="flex justify-end">
+      <div className="flex gap-2 justify-end">
         <Button variant="secondary" asChild>
           <Link href={ROUTES.LOGIN}>Sign in</Link>
         </Button>
+        <ThemeToggle />
       </div>
     );
   }

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { HourglassIcon, PersonStandingIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export default async function GamePage(props: PageProps<"/game/[gameId]">) {
   const { gameId } = await props.params;
@@ -88,16 +89,15 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
             </div>
 
             {game.genres.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-2">
                 {game.genres.map((genre) => (
-                  <span
-                    key={genre}
-                    className="text-xs px-2 py-1 rounded-full border border-accent/50 text-accent"
-                  >
-                    {genre}
-                  </span>
+                  <li key={genre}>
+                    <Badge variant="outline" className="p-2">
+                      {genre}
+                    </Badge>
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
 
             {game.description && (

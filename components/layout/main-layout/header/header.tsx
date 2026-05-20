@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/layout/logo";
 import { User as AuthUser } from "next-auth";
 import { UserAvatarButton } from "@/components/user-avatar-button/user-avatar-button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type HeaderProps = {
   user?: AuthUser;
@@ -21,6 +22,7 @@ export async function Header({ user }: HeaderProps) {
             </div>
           </nav>
         )}
+        <ThemeToggle />
       </div>
     </header>
   );
