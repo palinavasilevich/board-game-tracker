@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/layout/logo";
-import { UserAvatar } from "@/components/user-avatar";
 import { User as AuthUser } from "next-auth";
-import { LogoutButton } from "./logout-button";
+import { UserAvatarButton } from "@/components/user-avatar-button/user-avatar-button";
 
 type HeaderProps = {
   user?: AuthUser;
@@ -18,8 +17,7 @@ export async function Header({ user }: HeaderProps) {
         {user && (
           <nav>
             <div className="flex gap-2">
-              <UserAvatar user={user} />
-              <LogoutButton />
+              <UserAvatarButton user={user} />
             </div>
           </nav>
         )}

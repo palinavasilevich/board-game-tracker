@@ -8,8 +8,7 @@ import { ROUTES } from "@/shared/constants/routes";
 
 import { cn } from "@/lib/utils";
 import { User } from "@/lib/generated/prisma/client";
-
-import { HeaderNavUser } from "./header-nav-user";
+import { UserAvatarButton } from "@/components/user-avatar-button/user-avatar-button";
 
 type HeaderNavProps = {
   user: User | null;
@@ -53,7 +52,7 @@ export function HeaderNav({ user }: HeaderNavProps) {
         ))}
       </nav>
 
-      {user && <HeaderNavUser user={user} />}
+      {user && <UserAvatarButton user={user} />}
     </div>
   );
 }

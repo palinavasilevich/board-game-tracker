@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { getUserInitials } from "@/lib/get-user-initials";
 import { User as AuthUser } from "next-auth";
 
@@ -9,11 +8,11 @@ type UserAvatarProps = {
 
 export function UserAvatar({ user }: UserAvatarProps) {
   return (
-    <div className="flex gap-2">
+    <>
       <Avatar className="h-8 w-8 rounded-lg grayscale">
         <AvatarImage
           src={user?.image ?? ""}
-          alt={user?.name ?? "User Avatar"}
+          alt={user?.name ?? "User Avatar Image"}
         />
         <AvatarFallback className="text-xs">
           {getUserInitials(user?.name ?? "")}
@@ -25,6 +24,6 @@ export function UserAvatar({ user }: UserAvatarProps) {
           {user.email}
         </span>
       </div>
-    </div>
+    </>
   );
 }
