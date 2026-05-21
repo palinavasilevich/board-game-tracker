@@ -1,4 +1,4 @@
-import { getHotGames, searchGames } from "@/src/lib/bgg-api";
+import { getHotGames, searchGames } from "@/src/shared/api/bgg-api";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -41,10 +41,10 @@ export async function GET(request: NextRequest) {
     games = [...games].sort((a, b) => {
       if (sortBy === "name") return a.name.localeCompare(b.name);
       if (sortBy === "rank") {
-        if (a.rank === 0 || b.rank === 0) {
-          return 1;
-        }
-        return Number(a.rank) - Number(b.rank);
+        if (a.rank === 0 && b.rank === 0) return 0;
+        if (a.rank === 0) return 1;
+        if (b.rank === 0) return -1;
+        return a.rank - b.rank;
       }
       if (sortBy === "newest")
         return Number(b.yearPublished) - Number(a.yearPublished);

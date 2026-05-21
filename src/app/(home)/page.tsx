@@ -1,7 +1,6 @@
-import { FilteredGameList } from "@/src/components/game-list/filtered-game-list";
 import { SearchInput } from "@/src/components/filters/search-input";
 import { Suspense } from "react";
-import { GameCarousel } from "@/src/components/game-list/game-carousel";
+import { GameSection } from "@/src/components/game-list/game-section";
 
 export default function Home() {
   return (
@@ -15,11 +14,11 @@ export default function Home() {
         </p>
       </div>
 
-      <GameCarousel />
-
       <SearchInput />
 
-      <Suspense>{/* <FilteredGameList /> */}</Suspense>
+      <Suspense>
+        <GameSection />
+      </Suspense>
     </div>
   );
 }

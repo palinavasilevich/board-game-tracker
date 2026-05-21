@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getGameById } from "@/src/lib/bgg-api";
+import { getGameById } from "@/src/shared/api/bgg-api";
 import {
   Card,
   CardDescription,

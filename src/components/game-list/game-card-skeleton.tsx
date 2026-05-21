@@ -1,7 +1,5 @@
 import { Skeleton } from "@/src/components/ui/skeleton";
 
-type GameCardSkeletonProps = {};
-
 export function GameCardSkeleton() {
   return (
     <div className="relative aspect-3/4 rounded-xl overflow-hidden border border-white/10">

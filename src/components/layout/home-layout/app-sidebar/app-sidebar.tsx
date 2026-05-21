@@ -10,7 +10,7 @@ import {
 } from "@/src/components/ui/sidebar";
 import { Logo } from "@/src/components/layout/logo";
 import { AppSidebarNav } from "@/src/components/layout/home-layout/app-sidebar/app-sidebar-nav";
-import { BGG_DOMAINS } from "@/src/lib/bgg-api";
+import { BGG_DOMAINS } from "@/src/shared/api/bgg-api";
 
 export async function AppSidebar({
   ...props
