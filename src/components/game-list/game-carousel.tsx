@@ -1,0 +1,72 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/src/components/ui/carousel";
+import { Skeleton } from "@/src/components/ui/skeleton";
+import { useGames } from "@/src/hooks/use-games";
+
+export function GameCarousel() {
+  const { games, isLoading, error } = useGames("");
+
+  if (error) {
+    return (
+      <div className="text-center mt-12 space-y-2 px-4">
+        <p className="text-red-400">{error}</p>
+        <p className="text-white/50 text-sm">Could not load games.</p>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full px-12">
+        <div className="flex gap-4">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton
+              key={i}
+              className="aspect-3/4 basis-1/2 shrink-0 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 rounded-xl"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Carousel opts={{ align: "start" }} className="w-full">
+      <CarouselContent>
+        {games.map((game, index) => (
+          <CarouselItem
+            key={game.id}
+            className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+          >
+            <div className="px-1.5">
+              <Link
+                href={`/game/${game.id}`}
+                className="group block rounded-xl overflow-hidden border border-accent/70 shadow-lg hover:border-white/20 transition-all duration-300"
+              >
+                <Image
+                  src={game.thumbnail || "/images/placeholder.jpg"}
+                  alt={game.name}
+                  width={200}
+                  height={267}
+                  priority={index < 3}
+                  className="w-full aspect-3/4 object-cover"
+                />
+              </Link>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="left-2" />
+      <CarouselNext className="right-0" />
+    </Carousel>
+  );
+}

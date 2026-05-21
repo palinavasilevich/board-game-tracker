@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { ROUTES } from "./shared/constants/routes";
+import { ROUTES } from "@/src/shared/constants/routes";
 
 const PUBLIC_PATHS = new Set(["/", "/login", "/signup"]);
 
