@@ -17,11 +17,10 @@ export function GameCard({ game, priority }: GameCardProps) {
       <Image
         src={game.thumbnail || "/images/placeholder.jpg"}
         alt={game.name}
+        fill
         unoptimized
         priority={priority}
-        width={200}
-        height={267}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
 
