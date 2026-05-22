@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BGGGame } from "@/src/shared/types/game.types";
+import { AppGame } from "@/src/shared/types/game.types";
 import { cn } from "@/src/lib/utils";
 
 interface GameCardProps {
-  game: BGGGame;
+  game: AppGame;
   priority?: boolean;
 }
 
@@ -15,7 +15,7 @@ export function GameCard({ game, priority }: GameCardProps) {
       className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:shadow-xl hover:border-white/20 block"
     >
       <Image
-        src={game.thumbnail || "/images/placeholder.jpg"}
+        src={game.imageUrl || "/images/placeholder.jpg"}
         alt={game.name}
         fill
         unoptimized
@@ -26,20 +26,20 @@ export function GameCard({ game, priority }: GameCardProps) {
 
       <div
         className="absolute top-3 right-3 font-bold text-sm bg-black/70 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15"
-        title={`Rating: ${game.rating} / 10`}
+        title={`Rating: ${game.metaScore} / 10`}
       >
         <span className="text-white">#{game.rank}</span>
         <span
           className={cn(
-            game.rating >= 6
+            game.metaScore >= 6
               ? "text-emerald-500"
-              : game.rating >= 4
+              : game.metaScore >= 4
                 ? "text-yellow-500"
                 : "text-red-500",
           )}
         >
           {" "}
-          ({game.rating})
+          ({game.metaScore})
         </span>
       </div>
 

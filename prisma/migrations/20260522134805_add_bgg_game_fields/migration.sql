@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "games" ADD COLUMN     "max_players" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "max_playtime" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "min_players" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "min_playtime" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "rank" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "yearPublished" TEXT,
+ALTER COLUMN "meta_score" SET DEFAULT 0,
+ALTER COLUMN "user_score" SET DEFAULT 0;

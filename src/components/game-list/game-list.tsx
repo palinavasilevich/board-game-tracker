@@ -1,9 +1,9 @@
 import { GameCard } from "./game-card";
 import { GameCardSkeleton } from "./game-card-skeleton";
-import { BGGGame } from "@/src/shared/types/game.types";
+import { AppGame } from "@/src/shared/types/game.types";
 
 interface GameListProps {
-  games: BGGGame[];
+  games: AppGame[];
   isLoading: boolean;
 }
 

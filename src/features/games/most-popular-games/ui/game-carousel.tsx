@@ -10,10 +10,10 @@ import {
   CarouselPrevious,
 } from "@/src/components/ui/carousel";
 import { Skeleton } from "@/src/components/ui/skeleton";
-import { useGames } from "@/src/hooks/use-games";
+import { useMostPopularGamesQuery } from "@/src/features/games/most-popular-games/lib/use-most-popular-games-query";
 
 export function GameCarousel() {
-  const { games, isLoading, error } = useGames("");
+  const { games, isLoading, error } = useMostPopularGamesQuery();
 
   if (error) {
     return (

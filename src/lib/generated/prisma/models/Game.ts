@@ -27,11 +27,21 @@ export type AggregateGame = {
 }
 
 export type GameAvgAggregateOutputType = {
+  rank: number | null
+  minPlayers: number | null
+  maxPlayers: number | null
+  minPlaytime: number | null
+  maxPlaytime: number | null
   metaScore: number | null
   userScore: number | null
 }
 
 export type GameSumAggregateOutputType = {
+  rank: number | null
+  minPlayers: number | null
+  maxPlayers: number | null
+  minPlaytime: number | null
+  maxPlaytime: number | null
   metaScore: number | null
   userScore: number | null
 }
@@ -42,6 +52,12 @@ export type GameMinAggregateOutputType = {
   name: string | null
   description: string | null
   imageUrl: string | null
+  yearPublished: string | null
+  rank: number | null
+  minPlayers: number | null
+  maxPlayers: number | null
+  minPlaytime: number | null
+  maxPlaytime: number | null
   metaScore: number | null
   userScore: number | null
   createdAt: Date | null
@@ -54,6 +70,12 @@ export type GameMaxAggregateOutputType = {
   name: string | null
   description: string | null
   imageUrl: string | null
+  yearPublished: string | null
+  rank: number | null
+  minPlayers: number | null
+  maxPlayers: number | null
+  minPlaytime: number | null
+  maxPlaytime: number | null
   metaScore: number | null
   userScore: number | null
   createdAt: Date | null
@@ -66,6 +88,12 @@ export type GameCountAggregateOutputType = {
   name: number
   description: number
   imageUrl: number
+  yearPublished: number
+  rank: number
+  minPlayers: number
+  maxPlayers: number
+  minPlaytime: number
+  maxPlaytime: number
   metaScore: number
   userScore: number
   createdAt: number
@@ -75,11 +103,21 @@ export type GameCountAggregateOutputType = {
 
 
 export type GameAvgAggregateInputType = {
+  rank?: true
+  minPlayers?: true
+  maxPlayers?: true
+  minPlaytime?: true
+  maxPlaytime?: true
   metaScore?: true
   userScore?: true
 }
 
 export type GameSumAggregateInputType = {
+  rank?: true
+  minPlayers?: true
+  maxPlayers?: true
+  minPlaytime?: true
+  maxPlaytime?: true
   metaScore?: true
   userScore?: true
 }
@@ -90,6 +128,12 @@ export type GameMinAggregateInputType = {
   name?: true
   description?: true
   imageUrl?: true
+  yearPublished?: true
+  rank?: true
+  minPlayers?: true
+  maxPlayers?: true
+  minPlaytime?: true
+  maxPlaytime?: true
   metaScore?: true
   userScore?: true
   createdAt?: true
@@ -102,6 +146,12 @@ export type GameMaxAggregateInputType = {
   name?: true
   description?: true
   imageUrl?: true
+  yearPublished?: true
+  rank?: true
+  minPlayers?: true
+  maxPlayers?: true
+  minPlaytime?: true
+  maxPlaytime?: true
   metaScore?: true
   userScore?: true
   createdAt?: true
@@ -114,6 +164,12 @@ export type GameCountAggregateInputType = {
   name?: true
   description?: true
   imageUrl?: true
+  yearPublished?: true
+  rank?: true
+  minPlayers?: true
+  maxPlayers?: true
+  minPlaytime?: true
+  maxPlaytime?: true
   metaScore?: true
   userScore?: true
   createdAt?: true
@@ -213,6 +269,12 @@ export type GameGroupByOutputType = {
   name: string
   description: string | null
   imageUrl: string | null
+  yearPublished: string | null
+  rank: number
+  minPlayers: number
+  maxPlayers: number
+  minPlaytime: number
+  maxPlaytime: number
   metaScore: number
   userScore: number
   createdAt: Date
@@ -248,6 +310,12 @@ export type GameWhereInput = {
   name?: Prisma.StringFilter<"Game"> | string
   description?: Prisma.StringNullableFilter<"Game"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Game"> | string | null
+  yearPublished?: Prisma.StringNullableFilter<"Game"> | string | null
+  rank?: Prisma.IntFilter<"Game"> | number
+  minPlayers?: Prisma.IntFilter<"Game"> | number
+  maxPlayers?: Prisma.IntFilter<"Game"> | number
+  minPlaytime?: Prisma.IntFilter<"Game"> | number
+  maxPlaytime?: Prisma.IntFilter<"Game"> | number
   metaScore?: Prisma.FloatFilter<"Game"> | number
   userScore?: Prisma.FloatFilter<"Game"> | number
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
@@ -264,6 +332,12 @@ export type GameOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearPublished?: Prisma.SortOrderInput | Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -283,6 +357,12 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Game"> | string
   description?: Prisma.StringNullableFilter<"Game"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Game"> | string | null
+  yearPublished?: Prisma.StringNullableFilter<"Game"> | string | null
+  rank?: Prisma.IntFilter<"Game"> | number
+  minPlayers?: Prisma.IntFilter<"Game"> | number
+  maxPlayers?: Prisma.IntFilter<"Game"> | number
+  minPlaytime?: Prisma.IntFilter<"Game"> | number
+  maxPlaytime?: Prisma.IntFilter<"Game"> | number
   metaScore?: Prisma.FloatFilter<"Game"> | number
   userScore?: Prisma.FloatFilter<"Game"> | number
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
@@ -299,6 +379,12 @@ export type GameOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  yearPublished?: Prisma.SortOrderInput | Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -319,6 +405,12 @@ export type GameScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Game"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Game"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Game"> | string | null
+  yearPublished?: Prisma.StringNullableWithAggregatesFilter<"Game"> | string | null
+  rank?: Prisma.IntWithAggregatesFilter<"Game"> | number
+  minPlayers?: Prisma.IntWithAggregatesFilter<"Game"> | number
+  maxPlayers?: Prisma.IntWithAggregatesFilter<"Game"> | number
+  minPlaytime?: Prisma.IntWithAggregatesFilter<"Game"> | number
+  maxPlaytime?: Prisma.IntWithAggregatesFilter<"Game"> | number
   metaScore?: Prisma.FloatWithAggregatesFilter<"Game"> | number
   userScore?: Prisma.FloatWithAggregatesFilter<"Game"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Game"> | Date | string
@@ -331,8 +423,14 @@ export type GameCreateInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -347,8 +445,14 @@ export type GameUncheckedCreateInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -363,6 +467,12 @@ export type GameUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -379,6 +489,12 @@ export type GameUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -395,8 +511,14 @@ export type GameCreateManyInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -407,6 +529,12 @@ export type GameUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -419,6 +547,12 @@ export type GameUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -436,6 +570,12 @@ export type GameCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  yearPublished?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -443,6 +583,11 @@ export type GameCountOrderByAggregateInput = {
 }
 
 export type GameAvgOrderByAggregateInput = {
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
 }
@@ -453,6 +598,12 @@ export type GameMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  yearPublished?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -465,6 +616,12 @@ export type GameMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  yearPublished?: Prisma.SortOrder
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -472,6 +629,11 @@ export type GameMinOrderByAggregateInput = {
 }
 
 export type GameSumOrderByAggregateInput = {
+  rank?: Prisma.SortOrder
+  minPlayers?: Prisma.SortOrder
+  maxPlayers?: Prisma.SortOrder
+  minPlaytime?: Prisma.SortOrder
+  maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
   userScore?: Prisma.SortOrder
 }
@@ -492,6 +654,14 @@ export type GameUpdateOneRequiredWithoutGenresNestedInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type FloatFieldUpdateOperationsInput = {
@@ -554,8 +724,14 @@ export type GameCreateWithoutGenresInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userGames?: Prisma.UserGameCreateNestedManyWithoutGameInput
@@ -569,8 +745,14 @@ export type GameUncheckedCreateWithoutGenresInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userGames?: Prisma.UserGameUncheckedCreateNestedManyWithoutGameInput
@@ -600,6 +782,12 @@ export type GameUpdateWithoutGenresInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -615,6 +803,12 @@ export type GameUncheckedUpdateWithoutGenresInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -630,8 +824,14 @@ export type GameCreateWithoutPlaySessionsInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -645,8 +845,14 @@ export type GameUncheckedCreateWithoutPlaySessionsInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -676,6 +882,12 @@ export type GameUpdateWithoutPlaySessionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -691,6 +903,12 @@ export type GameUncheckedUpdateWithoutPlaySessionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -706,8 +924,14 @@ export type GameCreateWithoutReviewsInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -721,8 +945,14 @@ export type GameUncheckedCreateWithoutReviewsInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -752,6 +982,12 @@ export type GameUpdateWithoutReviewsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -767,6 +1003,12 @@ export type GameUncheckedUpdateWithoutReviewsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -782,8 +1024,14 @@ export type GameCreateWithoutUserGamesInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -797,8 +1045,14 @@ export type GameUncheckedCreateWithoutUserGamesInput = {
   name: string
   description?: string | null
   imageUrl?: string | null
-  metaScore: number
-  userScore: number
+  yearPublished?: string | null
+  rank?: number
+  minPlayers?: number
+  maxPlayers?: number
+  minPlaytime?: number
+  maxPlaytime?: number
+  metaScore?: number
+  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -828,6 +1082,12 @@ export type GameUpdateWithoutUserGamesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -843,6 +1103,12 @@ export type GameUncheckedUpdateWithoutUserGamesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlayers?: Prisma.IntFieldUpdateOperationsInput | number
+  minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
   userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -916,6 +1182,12 @@ export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   description?: boolean
   imageUrl?: boolean
+  yearPublished?: boolean
+  rank?: boolean
+  minPlayers?: boolean
+  maxPlayers?: boolean
+  minPlaytime?: boolean
+  maxPlaytime?: boolean
   metaScore?: boolean
   userScore?: boolean
   createdAt?: boolean
@@ -933,6 +1205,12 @@ export type GameSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   imageUrl?: boolean
+  yearPublished?: boolean
+  rank?: boolean
+  minPlayers?: boolean
+  maxPlayers?: boolean
+  minPlaytime?: boolean
+  maxPlaytime?: boolean
   metaScore?: boolean
   userScore?: boolean
   createdAt?: boolean
@@ -945,6 +1223,12 @@ export type GameSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   imageUrl?: boolean
+  yearPublished?: boolean
+  rank?: boolean
+  minPlayers?: boolean
+  maxPlayers?: boolean
+  minPlaytime?: boolean
+  maxPlaytime?: boolean
   metaScore?: boolean
   userScore?: boolean
   createdAt?: boolean
@@ -957,13 +1241,19 @@ export type GameSelectScalar = {
   name?: boolean
   description?: boolean
   imageUrl?: boolean
+  yearPublished?: boolean
+  rank?: boolean
+  minPlayers?: boolean
+  maxPlayers?: boolean
+  minPlaytime?: boolean
+  maxPlaytime?: boolean
   metaScore?: boolean
   userScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "externalId" | "name" | "description" | "imageUrl" | "metaScore" | "userScore" | "createdAt" | "updatedAt", ExtArgs["result"]["game"]>
+export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "externalId" | "name" | "description" | "imageUrl" | "yearPublished" | "rank" | "minPlayers" | "maxPlayers" | "minPlaytime" | "maxPlaytime" | "metaScore" | "userScore" | "createdAt" | "updatedAt", ExtArgs["result"]["game"]>
 export type GameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | Prisma.Game$genresArgs<ExtArgs>
   userGames?: boolean | Prisma.Game$userGamesArgs<ExtArgs>
@@ -988,6 +1278,12 @@ export type $GamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     description: string | null
     imageUrl: string | null
+    yearPublished: string | null
+    rank: number
+    minPlayers: number
+    maxPlayers: number
+    minPlaytime: number
+    maxPlaytime: number
     metaScore: number
     userScore: number
     createdAt: Date
@@ -1424,6 +1720,12 @@ export interface GameFieldRefs {
   readonly name: Prisma.FieldRef<"Game", 'String'>
   readonly description: Prisma.FieldRef<"Game", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Game", 'String'>
+  readonly yearPublished: Prisma.FieldRef<"Game", 'String'>
+  readonly rank: Prisma.FieldRef<"Game", 'Int'>
+  readonly minPlayers: Prisma.FieldRef<"Game", 'Int'>
+  readonly maxPlayers: Prisma.FieldRef<"Game", 'Int'>
+  readonly minPlaytime: Prisma.FieldRef<"Game", 'Int'>
+  readonly maxPlaytime: Prisma.FieldRef<"Game", 'Int'>
   readonly metaScore: Prisma.FieldRef<"Game", 'Float'>
   readonly userScore: Prisma.FieldRef<"Game", 'Float'>
   readonly createdAt: Prisma.FieldRef<"Game", 'DateTime'>

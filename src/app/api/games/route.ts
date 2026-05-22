@@ -1,12 +1,13 @@
-import { getHotGames, searchGames } from "@/src/shared/api/bgg-api";
+import { prisma } from "@/src/lib/db";
+import { Prisma } from "@/src/lib/generated/prisma/client";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const limit = Math.min(Number(searchParams.get("limit") ?? 20), 100);
+  const offset = Math.max(Number(searchParams.get("offset") ?? 0), 0);
   const search = searchParams.get("search") ?? undefined;
   const genres = searchParams.get("genres")?.split(",").filter(Boolean);
-
   const sortBy = searchParams.get("sortBy");
   const playerCount = searchParams.get("playerCount")
     ? Number(searchParams.get("playerCount"))
@@ -15,42 +16,50 @@ export async function GET(request: NextRequest) {
     ? Number(searchParams.get("playTime"))
     : undefined;
 
-  let games = search ? await searchGames(search) : await getHotGames();
+  const AND: Prisma.GameWhereInput[] = [];
+
+  if (search) {
+    AND.push({ name: { contains: search, mode: "insensitive" } });
+  }
 
   if (genres && genres.length > 0) {
-    games = games.filter((game) =>
-      genres.some((genre) => game.genres.includes(genre)),
-    );
+    AND.push({ genres: { some: { genre: { name: { in: genres } } } } });
   }
 
   if (playerCount != null) {
-    games = games.filter(
-      (game) =>
-        (game.minPlayers === 0 && game.maxPlayers === 0) ||
-        (game.minPlayers <= playerCount && game.maxPlayers >= playerCount),
-    );
-  }
-
-  if (playTime != null) {
-    games = games.filter(
-      (game) => game.minPlaytime === 0 || game.minPlaytime <= playTime,
-    );
-  }
-
-  if (sortBy) {
-    games = [...games].sort((a, b) => {
-      if (sortBy === "name") return a.name.localeCompare(b.name);
-      if (sortBy === "rank") {
-        if (a.rank === 0 && b.rank === 0) return 0;
-        if (a.rank === 0) return 1;
-        if (b.rank === 0) return -1;
-        return a.rank - b.rank;
-      }
-      if (sortBy === "newest")
-        return Number(b.yearPublished) - Number(a.yearPublished);
-      return 0;
+    AND.push({
+      OR: [
+        { minPlayers: 0, maxPlayers: 0 },
+        { minPlayers: { lte: playerCount }, maxPlayers: { gte: playerCount } },
+      ],
     });
   }
 
-  return Response.json(games.slice(0, limit));
+  if (playTime != null) {
+    AND.push({
+      OR: [{ minPlaytime: 0 }, { minPlaytime: { lte: playTime } }],
+    });
+  }
+
+  const where: Prisma.GameWhereInput = AND.length > 0 ? { AND } : {};
+
+  const orderBy: Prisma.GameOrderByWithRelationInput = (() => {
+    if (sortBy === "name") return { name: "asc" };
+    if (sortBy === "rank") return { rank: "asc" };
+    if (sortBy === "newest") return { yearPublished: "desc" };
+    return { createdAt: "desc" };
+  })();
+
+  const [games, total] = await Promise.all([
+    prisma.game.findMany({
+      where,
+      orderBy,
+      skip: offset,
+      take: limit,
+      include: { genres: { include: { genre: true } } },
+    }),
+    prisma.game.count({ where }),
+  ]);
+
+  return Response.json({ games, total });
 }

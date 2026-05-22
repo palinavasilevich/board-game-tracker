@@ -8,15 +8,22 @@ const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: "@_",
   isArray: (name) => ["item", "link", "rank"].includes(name),
+  processEntities: true,
+  htmlEntities: true,
 });
 
 async function bggFetch(path: string, revalidate?: number): Promise<string> {
   const url = `${BGG_BASE}${path}`;
+
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${process.env.BGG_API_TOKEN}` },
     ...(revalidate != null ? { next: { revalidate } } : {}),
   });
-  if (!res.ok) throw new Error(`BGG API ${res.status}: ${url}`);
+
+  if (!res.ok) {
+    throw new Error(`BGG API ${res.status}: ${url}`);
+  }
+
   return res.text();
 }
 
@@ -34,7 +41,7 @@ function parseThings(xml: string): BGGGame[] {
 
     const links = (item.link ?? []) as Record<string, string>[];
     const genres = links
-      .filter((l) => l["@_type"] === "boardgamedomain")
+      .filter((l) => l["@_type"] === "boardgamecategory")
       .map((l) => l["@_value"]);
 
     const ratings = (item.statistics as Record<string, unknown>)
@@ -108,13 +115,20 @@ export async function getHotGames(): Promise<BGGGame[]> {
   });
 }
 
-export async function searchGames(query: string): Promise<BGGGame[]> {
+export async function searchGames(
+  query: string,
+  offset = 0,
+): Promise<BGGGame[]> {
   const xml = await bggFetch(
     `/search?query=${encodeURIComponent(query)}&type=boardgame`,
+    600,
   );
   const parsed = parser.parse(xml);
   const items = (parsed?.items?.item ?? []) as Record<string, string>[];
-  const ids = items.slice(0, 20).map((item) => item["@_id"]);
+  const ids = items
+    .slice(offset, offset + BATCH_SIZE)
+    .map((item) => item["@_id"]);
+  if (ids.length === 0) return [];
   return fetchThingsBatch(ids);
 }
 
@@ -123,13 +137,3 @@ export async function getGameById(id: string): Promise<BGGGame | null> {
   return parseThings(xml)[0] ?? null;
 }
 
-export const BGG_DOMAINS = [
-  "Abstract Games",
-  "Children's Games",
-  "Customizable Games",
-  "Family Games",
-  "Party Games",
-  "Strategy Games",
-  "Thematic Games",
-  "War Games",
-];

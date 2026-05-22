@@ -10,12 +10,12 @@ import {
 } from "@/src/components/ui/sidebar";
 import { Logo } from "@/src/components/layout/logo";
 import { AppSidebarNav } from "@/src/components/layout/home-layout/app-sidebar/app-sidebar-nav";
-import { BGG_DOMAINS } from "@/src/shared/api/bgg-api";
+import { prisma } from "@/src/lib/db";
 
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const genres = BGG_DOMAINS.map((name) => ({ id: name, name }));
+  const genres = await prisma.genre.findMany({ orderBy: { name: "asc" } });
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>

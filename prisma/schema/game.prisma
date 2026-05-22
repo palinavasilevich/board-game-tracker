@@ -2,12 +2,19 @@ model Game {
     id         String @id @default(cuid())
     externalId String @unique
 
-    name        String
-    description String?
-    imageUrl    String?
+    name          String
+    description   String?
+    imageUrl      String?
+    yearPublished String?
 
-    metaScore Float @map("meta_score")
-    userScore  Float @map("user_score")
+    rank       Int @default(0)
+    minPlayers Int @default(0) @map("min_players")
+    maxPlayers Int @default(0) @map("max_players")
+    minPlaytime Int @default(0) @map("min_playtime")
+    maxPlaytime Int @default(0) @map("max_playtime")
+
+    metaScore Float @default(0) @map("meta_score")
+    userScore  Float @default(0) @map("user_score")
 
     genres       GameGenre[]
     userGames    UserGame[]
