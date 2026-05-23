@@ -2,7 +2,6 @@ import { cn } from "@/src/lib/utils";
 import { ROUTES } from "@/src/shared/constants/routes";
 import { DicesIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
 
 type LogoProps = {
   className?: string;

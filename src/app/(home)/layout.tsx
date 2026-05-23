@@ -1,28 +1,14 @@
-import type { PropsWithChildren } from "react";
-import { Header } from "@/src/components/layout/home-layout/header/header";
-import { AppSidebar } from "@/src/components/layout/home-layout/app-sidebar/app-sidebar";
-import { SidebarInset, SidebarProvider } from "@/src/components/ui/sidebar";
-import { TooltipProvider } from "@/src/components/ui/tooltip";
+import { MainLayout } from "@/src/components/layout/main-layout/main-layout";
+import withAuth from "@/src/shared/hoc/withAuth";
+import { User as AuthUser } from "next-auth";
 
-export default function HomeLayout({ children }: PropsWithChildren) {
-  return (
-    <TooltipProvider>
-      <SidebarProvider
-        style={
-          {
-            "--sidebar-width": "calc(var(--spacing) * 72)",
-            "--header-height": "calc(var(--spacing) * 12)",
-          } as React.CSSProperties
-        }
-      >
-        <AppSidebar variant="inset" />
-        <SidebarInset>
-          <Header />
-          <div className="@container/main flex flex-1 flex-col p-6">
-            {children}
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </TooltipProvider>
-  );
+type HomeLayoutProps = {
+  children: React.ReactNode;
+  user?: AuthUser;
+};
+
+function HomeLayout({ user, children }: HomeLayoutProps) {
+  return <MainLayout user={user}>{children}</MainLayout>;
 }
+
+export default withAuth(HomeLayout);

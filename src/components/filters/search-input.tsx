@@ -17,7 +17,7 @@ export function SearchInput() {
   );
   const debouncedSearch = useDebounce(searchTerm, 500);
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(searchParams.toString());
     if (debouncedSearch) {
       params.set("search", debouncedSearch);
     } else {

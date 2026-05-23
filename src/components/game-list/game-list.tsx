@@ -1,16 +1,16 @@
-import { GameCard } from "./game-card";
+import { GameCard, GameCardData } from "./game-card";
 import { GameCardSkeleton } from "./game-card-skeleton";
-import { AppGame } from "@/src/shared/types/game.types";
 
 interface GameListProps {
-  games: AppGame[];
+  games: GameCardData[];
   isLoading: boolean;
 }
 
-const SKELETON_COUNT = 8;
+const SKELETON_COUNT = 10;
 
 export function GameList({ games, isLoading }: GameListProps) {
-  const gridClass = "grid grid-cols-4 gap-5";
+  const gridClass =
+    "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5";
 
   if (isLoading) {
     return (
@@ -31,7 +31,7 @@ export function GameList({ games, isLoading }: GameListProps) {
   return (
     <div className={gridClass}>
       {games.map((game, i) => (
-        <GameCard key={game.id} game={game} priority={i === 0} />
+        <GameCard key={game.id} game={game} priority={i === 0} compact />
       ))}
     </div>
   );

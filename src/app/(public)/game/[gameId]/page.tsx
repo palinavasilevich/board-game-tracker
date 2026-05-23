@@ -2,13 +2,14 @@ import Image from "next/image";
 import { getGameById } from "@/src/shared/api/bgg-api";
 import {
   Card,
-  CardDescription,
+  CardContent,
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import { HourglassIcon, PersonStandingIcon } from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
+import { ExpandableDescription } from "./expandable-description";
 
 export default async function GamePage(props: PageProps<"/game/[gameId]">) {
   const { gameId } = await props.params;
@@ -35,7 +36,7 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
             </div>
           )}
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
             <CardTitle className="font-serif text-4xl font-semibold tracking-tight">
               {game.name}
               <span className="text-muted-foreground text-2xl ml-2">
@@ -43,75 +44,77 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
               </span>
             </CardTitle>
 
-            <CardDescription className="flex flex-col gap-4">
-              <div className="flex gap-4 text-muted-foreground font-semibold">
-                <span>Rank #{game.rank}</span>
+            <div className="flex gap-4 text-sm text-muted-foreground font-semibold">
+              <span>Rank #{game.rank}</span>
+              <span>
+                Rating{" "}
+                <span
+                  className={cn(
+                    game.rating >= 6
+                      ? "text-emerald-500"
+                      : game.rating >= 4
+                        ? "text-yellow-500"
+                        : "text-red-500",
+                  )}
+                >
+                  {game.rating}
+                </span>
+                {` / 10`}
+              </span>
+            </div>
+
+            <div className="flex gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <PersonStandingIcon
+                  className="size-4 text-muted-foreground"
+                  strokeWidth={3}
+                />
                 <span>
-                  Rating{" "}
-                  <span
-                    className={cn(
-                      game.rating >= 6
-                        ? "text-emerald-500"
-                        : game.rating >= 4
-                          ? "text-yellow-500"
-                          : "text-red-500",
-                    )}
-                  >
-                    {game.rating}
-                  </span>
-                  {` / 10 `}
+                  {game.minPlayers === game.maxPlayers
+                    ? `${game.minPlayers} players`
+                    : `${game.minPlayers} – ${game.maxPlayers} players`}
                 </span>
               </div>
 
-              <div className="flex gap-4">
-                <div className="flex items-center gap-2">
-                  <PersonStandingIcon
-                    className="size-5! text-muted-foreground"
-                    strokeWidth={3}
-                  />
-                  <span>
-                    {game.minPlayers === game.maxPlayers
-                      ? `${game.minPlayers} players`
-                      : `${game.minPlayers} – ${game.maxPlayers} players`}
-                  </span>
-                </div>
-
+              {(game.minPlaytime > 0 || game.maxPlaytime > 0) && (
                 <div className="flex items-center gap-2">
                   <HourglassIcon
-                    className="size-5! text-muted-foreground font-semibold"
+                    className="size-4 text-muted-foreground"
                     strokeWidth={2}
                   />
-                  {(game.minPlaytime > 0 || game.maxPlaytime > 0) && (
-                    <span>
-                      {game.minPlaytime === game.maxPlaytime
-                        ? `${game.minPlaytime} min`
-                        : `${game.minPlaytime}–${game.maxPlaytime} min`}
-                    </span>
-                  )}
+                  <span>
+                    {game.minPlaytime === game.maxPlaytime
+                      ? `${game.minPlaytime} min`
+                      : `${game.minPlaytime}–${game.maxPlaytime} min`}
+                  </span>
                 </div>
-              </div>
-
-              {game.genres.length > 0 && (
-                <ul className="flex flex-wrap gap-2">
-                  {game.genres.map((genre) => (
-                    <li key={genre}>
-                      <Badge variant="outline" className="p-2">
-                        {genre}
-                      </Badge>
-                    </li>
-                  ))}
-                </ul>
               )}
+            </div>
 
-              {game.description && (
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  {game.description.slice(0, 1).toUpperCase() +
-                    game.description.slice(1)}
-                </p>
-              )}
-            </CardDescription>
+            {game.genres.length > 0 && (
+              <ul className="flex flex-wrap gap-2">
+                {game.genres.map((genre) => (
+                  <li key={genre}>
+                    <Badge variant="outline" className="p-2">
+                      {genre}
+                    </Badge>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </CardHeader>
+
+        {game.description && (
+          <CardContent>
+            <ExpandableDescription
+              text={
+                game.description.slice(0, 1).toUpperCase() +
+                game.description.slice(1)
+              }
+            />
+          </CardContent>
+        )}
       </Card>
     </div>
   );

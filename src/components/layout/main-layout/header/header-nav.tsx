@@ -5,14 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../../../ui/button";
 import { ROUTES } from "@/src/shared/constants/routes";
-
 import { cn } from "@/src/lib/utils";
-import { User } from "@/src/lib/generated/prisma/client";
 import { UserAvatarButton } from "@/src/components/user-avatar-button/user-avatar-button";
 import { ThemeToggle } from "@/src/components/theme-toggle";
 
+import { User as AuthUser } from "next-auth";
+import { Logo } from "./logo";
+
 type HeaderNavProps = {
-  user: User | null;
+  user?: AuthUser;
 };
 
 const NAV_LINKS = [{ href: ROUTES.MY_GAMES, label: "My Games" }] as const;
@@ -26,18 +27,28 @@ export function HeaderNav({ user }: HeaderNavProps) {
 
   if (!user) {
     return (
-      <div className="flex gap-2 justify-end">
-        <Button variant="secondary" asChild>
-          <Link href={ROUTES.LOGIN}>Sign in</Link>
+      <nav className="w-full flex items-center justify-between">
+        <Button variant="ghost" asChild>
+          <Logo />
         </Button>
-        <ThemeToggle />
-      </div>
+        <div className="flex gap-1">
+          <Button variant="secondary" asChild>
+            <Link href={ROUTES.LOGIN}>Sign in</Link>
+          </Button>
+
+          <ThemeToggle />
+        </div>
+      </nav>
     );
   }
 
   return (
-    <div className="flex items-center justify-end gap-4">
-      <nav className="flex items-center gap-1">
+    <nav className="w-full flex items-center justify-between">
+      <Button variant="ghost" asChild>
+        <Logo />
+      </Button>
+
+      <div className="flex gap-1">
         {NAV_LINKS.map(({ href, label }) => (
           <Link
             key={href}
@@ -52,9 +63,11 @@ export function HeaderNav({ user }: HeaderNavProps) {
             {label}
           </Link>
         ))}
-      </nav>
 
-      {user && <UserAvatarButton user={user} />}
-    </div>
+        <UserAvatarButton user={user} />
+
+        <ThemeToggle />
+      </div>
+    </nav>
   );
 }

@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -10,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/src/components/ui/carousel";
 import { Skeleton } from "@/src/components/ui/skeleton";
+import { GameCard } from "@/src/components/game-list/game-card";
 import { useMostPopularGamesQuery } from "@/src/features/games/most-popular-games/lib/use-most-popular-games-query";
 
 export function GameCarousel() {
@@ -40,33 +39,32 @@ export function GameCarousel() {
   }
 
   return (
-    <Carousel opts={{ align: "start" }} className="w-full">
+    <Carousel opts={{ align: "start" }} className="w-full bg-background">
       <CarouselContent>
         {games.map((game, index) => (
           <CarouselItem
             key={game.id}
             className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
           >
-            <div className="px-1.5">
-              <Link
-                href={`/game/${game.id}`}
-                className="group block rounded-xl overflow-hidden border border-accent/70 shadow-lg hover:border-white/20 transition-all duration-300"
-              >
-                <Image
-                  src={game.thumbnail || "/images/placeholder.jpg"}
-                  alt={game.name}
-                  width={200}
-                  height={267}
-                  priority={index < 3}
-                  className="w-full aspect-3/4 object-cover"
-                />
-              </Link>
+            <div className="px-1">
+              <GameCard
+                game={{
+                  id: game.id,
+                  name: game.name,
+                  imageUrl: game.thumbnail,
+                  yearPublished: game.yearPublished,
+                  rank: game.rank,
+                  metaScore: game.rating,
+                }}
+                priority={index < 3}
+                compact
+              />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
       <CarouselPrevious className="left-2" />
-      <CarouselNext className="right-0" />
+      <CarouselNext className="right-2" />
     </Carousel>
   );
 }

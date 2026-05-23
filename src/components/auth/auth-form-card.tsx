@@ -19,7 +19,7 @@ export function AuthFormCard({
   description,
 }: AuthFormCardProps) {
   return (
-    <Card>
+    <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}

@@ -1,14 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AppGame } from "@/src/shared/types/game.types";
 import { cn } from "@/src/lib/utils";
 
+export type GameCardData = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  yearPublished: string | null;
+  rank: number;
+  metaScore: number;
+};
+
 interface GameCardProps {
-  game: AppGame;
+  game: GameCardData;
   priority?: boolean;
+  compact?: boolean;
 }
 
-export function GameCard({ game, priority }: GameCardProps) {
+export function GameCard({ game, priority, compact }: GameCardProps) {
   return (
     <Link
       href={`/game/${game.id}`}
@@ -25,7 +34,10 @@ export function GameCard({ game, priority }: GameCardProps) {
       <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
 
       <div
-        className="absolute top-3 right-3 font-bold text-sm bg-black/70 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15"
+        className={cn(
+          "absolute top-2 right-2 font-bold bg-black/70 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15",
+          compact ? "text-xs" : "text-sm",
+        )}
         title={`Rating: ${game.metaScore} / 10`}
       >
         <span className="text-white">#{game.rank}</span>
@@ -43,8 +55,13 @@ export function GameCard({ game, priority }: GameCardProps) {
         </span>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <h3 className="text-xl text-white font-semibold">
+      <div className={cn("absolute bottom-0 right-0 left-0 p-4")}>
+        <h3
+          className={cn(
+            "text-white font-semibold",
+            compact ? "text-sm" : "text-xl",
+          )}
+        >
           {game.name}
           <span className="text-accent/80 tracking-wider">
             {" "}
