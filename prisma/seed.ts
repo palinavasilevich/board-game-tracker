@@ -15,107 +15,174 @@ async function main() {
 
   // Genres
   console.log("Adding genres...");
-  const [strategy, party, family, cooperative, deckBuilding] =
-    await Promise.all([
-      prisma.genre.upsert({
-        where: { name: "Strategy" },
-        update: {},
-        create: { name: "Strategy" },
-      }),
-      prisma.genre.upsert({
-        where: { name: "Party" },
-        update: {},
-        create: { name: "Party" },
-      }),
-      prisma.genre.upsert({
-        where: { name: "Family" },
-        update: {},
-        create: { name: "Family" },
-      }),
-      prisma.genre.upsert({
-        where: { name: "Cooperative" },
-        update: {},
-        create: { name: "Cooperative" },
-      }),
-      prisma.genre.upsert({
-        where: { name: "Deck-building" },
-        update: {},
-        create: { name: "Deck-building" },
-      }),
-    ]);
+  const [
+    strategy,
+    cooperative,
+    deckBuilding,
+    areaControl,
+    engineBuilding,
+    thematic,
+    adventure,
+  ] = await Promise.all([
+    prisma.genre.upsert({
+      where: { name: "Strategy" },
+      update: {},
+      create: { name: "Strategy" },
+    }),
+    prisma.genre.upsert({
+      where: { name: "Cooperative" },
+      update: {},
+      create: { name: "Cooperative" },
+    }),
+    prisma.genre.upsert({
+      where: { name: "Deck-building" },
+      update: {},
+      create: { name: "Deck-building" },
+    }),
+    prisma.genre.upsert({
+      where: { name: "Area Control" },
+      update: {},
+      create: { name: "Area Control" },
+    }),
+    prisma.genre.upsert({
+      where: { name: "Engine Building" },
+      update: {},
+      create: { name: "Engine Building" },
+    }),
+    prisma.genre.upsert({
+      where: { name: "Thematic" },
+      update: {},
+      create: { name: "Thematic" },
+    }),
+    prisma.genre.upsert({
+      where: { name: "Adventure" },
+      update: {},
+      create: { name: "Adventure" },
+    }),
+  ]);
 
   // Games
   console.log("Adding games...");
-  const [catan, pandemic, codenames, dominion, ticketToRide] =
+  const [inis, scythe, keepTheHeroesOut, thorgal, lotrFate, arkhamHorror] =
     await Promise.all([
       prisma.game.upsert({
-        where: { externalId: "BGG-13" },
+        where: { externalId: "155821" },
         update: {},
         create: {
-          externalId: "BGG-13",
-          name: "Catan",
+          externalId: "155821",
+          name: "Inis",
           description:
-            "Trade, build, and settle the island of Catan in this classic resource-management game.",
+            "A Celtic mythology area-control game where players compete to fulfill the conditions for becoming High King of Ireland — through territory, leadership, or sacred sites.",
+          yearPublished: "2016",
+          minPlayers: 2,
+          maxPlayers: 4,
+          minPlaytime: 60,
+          maxPlaytime: 90,
+          rank: 97,
+          metaScore: 7.8,
+          userScore: 7.7,
           imageUrl:
-            "https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7UnpR9FKu4tXMCRHY=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
-          metaScore: 7.2,
-          userScore: 7.1,
+            "https://cf.geekdo-images.com/6QE8mnPFmauoj2THsyUYPA__imagepage/img/9pyk8cWtJkL4lytcpa-5QF94zaE=/fit-in/900x600/filters:no_upscale():strip_icc()/pic4739757.jpg",
         },
       }),
       prisma.game.upsert({
-        where: { externalId: "BGG-30549" },
+        where: { externalId: "169786" },
         update: {},
         create: {
-          externalId: "BGG-30549",
-          name: "Pandemic",
+          externalId: "169786",
+          name: "Scythe",
           description:
-            "Work together to stop four diseases from spreading across the globe.",
+            "An engine-building game set in an alternate-history 1920s Eastern Europa, where factions compete for land and resources in the shadow of giant mechs.",
+          yearPublished: "2016",
+          minPlayers: 1,
+          maxPlayers: 5,
+          minPlaytime: 90,
+          maxPlaytime: 120,
+          rank: 17,
+          metaScore: 8.2,
+          userScore: 8.1,
           imageUrl:
-            "https://cf.geekdo-images.com/S3ybV1LAp-8SnHIXLLjVqA__thumb/img/a6lXwgBfQLlmMBBLRPo5BAPYH5A=/fit-in/200x150/filters:strip_icc()/pic1534148.jpg",
+            "https://cf.geekdo-images.com/7k_nOxpO9OGIjhLq2BUZdA__imagepage@2x/img/DjzadozjcJUwXDwyQ-o7mQIqYfw=/fit-in/1800x1200/filters:strip_icc()/pic3163924.jpg",
+        },
+      }),
+      prisma.game.upsert({
+        where: { externalId: "359669" },
+        update: {},
+        create: {
+          externalId: "359669",
+          name: "Keep the Heroes Out",
+          description:
+            "A cooperative tower-defense game where players take the role of dungeon monsters defending their lair and treasure from waves of invading heroes.",
+          yearPublished: "2022",
+          minPlayers: 1,
+          maxPlayers: 4,
+          minPlaytime: 20,
+          maxPlaytime: 40,
+          rank: 312,
+          metaScore: 7.5,
+          userScore: 7.4,
+          imageUrl:
+            "https://cf.geekdo-images.com/lfFKMNCzIJesp8IFHK8dEw__imagepagezoom/img/c5E0zRlzFTjkfKlyORshX1bmybI=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic6985339.jpg",
+        },
+      }),
+      prisma.game.upsert({
+        where: { externalId: "371942" },
+        update: {},
+        create: {
+          externalId: "371942",
+          name: "Thorgal",
+          description:
+            "An adventure game based on the beloved Belgian comic series, following Thorgal Aegirsson through perilous quests in a world blending Norse mythology and science fiction.",
+          yearPublished: "2023",
+          minPlayers: 1,
+          maxPlayers: 4,
+          minPlaytime: 60,
+          maxPlaytime: 120,
+          rank: 580,
           metaScore: 7.6,
           userScore: 7.5,
+          imageUrl:
+            "https://cf.geekdo-images.com/6LmOBOKXXS8I3nX7I4hz_g__imagepage@2x/img/XDYXu0Qia15fcRWXHYVjnibd-cM=/fit-in/1800x1200/filters:strip_icc()/pic6724739.jpg",
         },
       }),
       prisma.game.upsert({
-        where: { externalId: "BGG-178900" },
+        where: { externalId: "436217" },
         update: {},
         create: {
-          externalId: "BGG-178900",
-          name: "Codenames",
+          externalId: "436217",
+          name: "The Lord of the Rings: Fate of the Fellowship",
           description:
-            "Give one-word clues to help your team identify secret agents on a grid of words.",
+            "A cooperative game set in Middle-earth where players guide the Fellowship on their desperate quest to destroy the One Ring before Sauron's forces close in.",
+          yearPublished: "2025",
+          minPlayers: 1,
+          maxPlayers: 5,
+          minPlaytime: 60,
+          maxPlaytime: 150,
+          rank: 87,
+          metaScore: 8.3,
+          userScore: 9,
           imageUrl:
-            "https://cf.geekdo-images.com/F_KDEu0GjdClml8N7c8Imw__thumb/img/bdR2DAbOHsQbVhBcGS_xFxnGdAs=/fit-in/200x150/filters:strip_icc()/pic2582929.jpg",
-          metaScore: 7.7,
-          userScore: 7.6,
+            "https://cf.geekdo-images.com/scw36iBIad7l-rGzxPGcGg__imagepage@2x/img/UrtnTbXuVEX0vYPD-kmN3UaEwqg=/fit-in/1800x1200/filters:strip_icc()/pic8662670.png",
         },
       }),
       prisma.game.upsert({
-        where: { externalId: "BGG-36218" },
+        where: { externalId: "205637" },
         update: {},
         create: {
-          externalId: "BGG-36218",
-          name: "Dominion",
+          externalId: "205637",
+          name: "Arkham Horror: The Card Game",
           description:
-            "Build your deck from a shared supply of cards to gain the most victory points.",
+            "A cooperative living card game set in Lovecraft's Arkham. Investigators build custom decks and work together to survive escalating mythos threats across linked scenarios.",
+          yearPublished: "2016",
+          minPlayers: 1,
+          maxPlayers: 2,
+          minPlaytime: 60,
+          maxPlaytime: 120,
+          rank: 9,
+          metaScore: 8.5,
+          userScore: 8.4,
           imageUrl:
-            "https://cf.geekdo-images.com/j4rr4dBVIgBW3QIh9EHSkA__thumb/img/ZhtPPPGNAMSAWc9A3M6FZQT0Tic=/fit-in/200x150/filters:strip_icc()/pic394356.jpg",
-          metaScore: 7.6,
-          userScore: 7.4,
-        },
-      }),
-      prisma.game.upsert({
-        where: { externalId: "BGG-9209" },
-        update: {},
-        create: {
-          externalId: "BGG-9209",
-          name: "Ticket to Ride",
-          description:
-            "Collect cards and claim railway routes across the map to connect cities.",
-          imageUrl:
-            "https://cf.geekdo-images.com/ZWJg0dCdrWHxVnc0eFXK8w__thumb/img/ufM6Rq7TJCJv9DaQXxGBqYTsOQI=/fit-in/200x150/filters:strip_icc()/pic38668.jpg",
-          metaScore: 7.4,
-          userScore: 7.4,
+            "https://cf.geekdo-images.com/B5F5ulz0UivNgrI9Ky0euA__imagepage/img/tgpLRvv6AIsClnegErNpAoieeMo=/fit-in/900x600/filters:no_upscale():strip_icc()/pic3122349.jpg",
         },
       }),
     ]);
@@ -123,15 +190,19 @@ async function main() {
   // Game–Genre relations
   console.log("Linking genres to games...");
   const gameGenreLinks = [
-    { gameId: catan.id, genreId: strategy.id },
-    { gameId: catan.id, genreId: family.id },
-    { gameId: pandemic.id, genreId: strategy.id },
-    { gameId: pandemic.id, genreId: cooperative.id },
-    { gameId: codenames.id, genreId: party.id },
-    { gameId: dominion.id, genreId: strategy.id },
-    { gameId: dominion.id, genreId: deckBuilding.id },
-    { gameId: ticketToRide.id, genreId: strategy.id },
-    { gameId: ticketToRide.id, genreId: family.id },
+    { gameId: inis.id, genreId: strategy.id },
+    { gameId: inis.id, genreId: areaControl.id },
+    { gameId: scythe.id, genreId: strategy.id },
+    { gameId: scythe.id, genreId: engineBuilding.id },
+    { gameId: scythe.id, genreId: areaControl.id },
+    { gameId: keepTheHeroesOut.id, genreId: cooperative.id },
+    { gameId: thorgal.id, genreId: adventure.id },
+    { gameId: thorgal.id, genreId: strategy.id },
+    { gameId: lotrFate.id, genreId: cooperative.id },
+    { gameId: lotrFate.id, genreId: thematic.id },
+    { gameId: arkhamHorror.id, genreId: cooperative.id },
+    { gameId: arkhamHorror.id, genreId: deckBuilding.id },
+    { gameId: arkhamHorror.id, genreId: thematic.id },
   ];
 
   for (const link of gameGenreLinks) {
@@ -144,109 +215,60 @@ async function main() {
 
   // Users
   console.log("Adding users...");
-  const [alice, bob] = await Promise.all([
-    prisma.user.upsert({
-      where: { email: "alice@example.com" },
-      update: {},
-      create: {
-        email: "alice@example.com",
-        name: "Alice",
-        password: defaultPassword,
-      },
-    }),
-    prisma.user.upsert({
-      where: { email: "bob@example.com" },
-      update: {},
-      create: {
-        email: "bob@example.com",
-        name: "Bob",
-        password: defaultPassword,
-      },
-    }),
-  ]);
+  const admin = await prisma.user.upsert({
+    where: { email: "admin@gmail.com" },
+    update: {},
+    create: {
+      email: "admin@gmail.com",
+      name: "Admin",
+      password: defaultPassword,
+    },
+  });
 
-  // UserGame collections
+  // UserGame collections — personal collection as OWNED
   console.log("Adding user game collections...");
-  await Promise.all([
-    prisma.userGame.upsert({
-      where: { userId_gameId: { userId: alice.id, gameId: catan.id } },
-      update: {},
-      create: { userId: alice.id, gameId: catan.id, status: "OWNED" },
-    }),
-    prisma.userGame.upsert({
-      where: { userId_gameId: { userId: alice.id, gameId: pandemic.id } },
-      update: {},
-      create: { userId: alice.id, gameId: pandemic.id, status: "OWNED" },
-    }),
-    prisma.userGame.upsert({
-      where: { userId_gameId: { userId: alice.id, gameId: dominion.id } },
-      update: {},
-      create: { userId: alice.id, gameId: dominion.id, status: "WISHLIST" },
-    }),
-    prisma.userGame.upsert({
-      where: { userId_gameId: { userId: bob.id, gameId: catan.id } },
-      update: {},
-      create: { userId: bob.id, gameId: catan.id, status: "PLAYED" },
-    }),
-    prisma.userGame.upsert({
-      where: { userId_gameId: { userId: bob.id, gameId: codenames.id } },
-      update: {},
-      create: { userId: bob.id, gameId: codenames.id, status: "OWNED" },
-    }),
-    prisma.userGame.upsert({
-      where: {
-        userId_gameId: { userId: bob.id, gameId: ticketToRide.id },
-      },
-      update: {},
-      create: {
-        userId: bob.id,
-        gameId: ticketToRide.id,
-        status: "OWNED",
-      },
-    }),
-  ]);
+  await Promise.all(
+    [inis, scythe, keepTheHeroesOut, thorgal, lotrFate, arkhamHorror].map(
+      (game) =>
+        prisma.userGame.upsert({
+          where: { userId_gameId: { userId: admin.id, gameId: game.id } },
+          update: {},
+          create: { userId: admin.id, gameId: game.id, status: "OWNED" },
+        }),
+    ),
+  );
 
   // Reviews
   console.log("Adding reviews...");
   await Promise.all([
     prisma.review.upsert({
-      where: { userId_gameId: { userId: alice.id, gameId: catan.id } },
+      where: { userId_gameId: { userId: admin.id, gameId: inis.id } },
       update: {},
       create: {
-        userId: alice.id,
-        gameId: catan.id,
-        rating: 8,
-        body: "A classic that never gets old. Great for introducing new players.",
-      },
-    }),
-    prisma.review.upsert({
-      where: { userId_gameId: { userId: alice.id, gameId: pandemic.id } },
-      update: {},
-      create: {
-        userId: alice.id,
-        gameId: pandemic.id,
+        userId: admin.id,
+        gameId: inis.id,
         rating: 9,
-        body: "Best cooperative game out there. Tense and rewarding.",
+        body: "Incredibly elegant design. Every card serves triple duty and the three victory conditions keep everyone in constant tension until the final turn.",
       },
     }),
     prisma.review.upsert({
-      where: { userId_gameId: { userId: bob.id, gameId: catan.id } },
+      where: { userId_gameId: { userId: admin.id, gameId: scythe.id } },
       update: {},
       create: {
-        userId: bob.id,
-        gameId: catan.id,
-        rating: 7,
-        body: "Fun but can drag with 4+ players.",
-      },
-    }),
-    prisma.review.upsert({
-      where: { userId_gameId: { userId: bob.id, gameId: codenames.id } },
-      update: {},
-      create: {
-        userId: bob.id,
-        gameId: codenames.id,
+        userId: admin.id,
+        gameId: scythe.id,
         rating: 9,
-        body: "Perfect party game. Works for any group size.",
+        body: "The production quality is stunning and the engine-building is deeply satisfying. Each faction feels meaningfully different.",
+      },
+    }),
+    prisma.review.upsert({
+      where: { userId_gameId: { userId: admin.id, gameId: arkhamHorror.id } },
+      update: {},
+      create: {
+        userId: admin.id,
+        gameId: arkhamHorror.id,
+        rating: 10,
+        body: "The best cooperative card game ever made. The campaign system and narrative depth are unmatched — every session tells a unique story.",
       },
     }),
   ]);
@@ -264,6 +286,7 @@ async function main() {
   console.log(`  - ${userCount} users`);
   console.log(`  - ${reviewCount} reviews`);
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect();
