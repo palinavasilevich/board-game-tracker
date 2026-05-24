@@ -9,6 +9,7 @@ export type GameCardData = {
   yearPublished: string | null;
   rank: number;
   metaScore: number;
+  userScore?: number;
 };
 
 interface GameCardProps {
@@ -55,7 +56,7 @@ export function GameCard({ game, priority, compact }: GameCardProps) {
         </span>
       </div>
 
-      <div className={cn("absolute bottom-0 right-0 left-0 p-4")}>
+      <div className="absolute bottom-0 right-0 left-0 p-4">
         <h3
           className={cn(
             "text-white font-semibold",
@@ -68,6 +69,22 @@ export function GameCard({ game, priority, compact }: GameCardProps) {
             ({game.yearPublished})
           </span>
         </h3>
+        {game.userScore && (
+          <p
+            className={cn(
+              "font-medium mt-0.5",
+              compact ? "text-xs" : "text-sm",
+              game.userScore >= 6
+                ? "text-emerald-400"
+                : game.userScore >= 4
+                  ? "text-yellow-400"
+                  : "text-red-400",
+            )}
+            title={`User Rating: ${game.userScore} / 10`}
+          >
+            ★ {game.userScore}
+          </p>
+        )}
       </div>
     </Link>
   );
