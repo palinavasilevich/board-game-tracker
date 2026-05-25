@@ -20,9 +20,9 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
   }
 
   return (
-    <div className="w-full">
-      <Card>
-        <CardHeader className="flex gap-8">
+    <div className="flex w-full items-center justify-center py-12">
+      <Card className="w-full max-w-4xl mx-auto pt-6 shadow-sm border">
+        <CardHeader className="flex gap-6">
           {game.thumbnail && (
             <div className="w-48 shrink-0 aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg">
               <Image

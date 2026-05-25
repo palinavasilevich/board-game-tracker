@@ -17,6 +17,7 @@ export type AppGame = {
 
 export type GameCardData = {
   id: string;
+  externalId?: string;
   name: string;
   imageUrl: string | null;
   yearPublished: string | null;

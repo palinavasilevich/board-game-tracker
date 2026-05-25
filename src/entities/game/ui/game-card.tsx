@@ -12,7 +12,7 @@ interface GameCardProps {
 export function GameCard({ game, priority, compact }: GameCardProps) {
   return (
     <Link
-      href={`/game/${game.id}`}
+      href={`/game/${game.externalId || game.id}`}
       className="group relative aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:shadow-xl hover:border-white/20 block"
     >
       <Image

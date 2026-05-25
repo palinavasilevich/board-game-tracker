@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useInfiniteGames } from "../api/use-infinite-games";
+import { useInfiniteGames } from "../lib/use-infinite-games";
 import { GameList } from "./game-list";
 import { GameCardSkeleton } from "@/src/entities/game";
 import { Button } from "@/src/components/ui/button";

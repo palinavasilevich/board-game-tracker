@@ -16,9 +16,9 @@ export function ExpandableDescription({ text }: { text: string }) {
       </p>
       {text.length > CHAR_LIMIT && (
         <Button
-          variant="ghost"
+          variant="link"
           size="sm"
-          className="px-0 h-auto text-muted-foreground hover:text-foreground"
+          className="px-0 text-muted-foreground hover:text-foreground"
           onClick={() => setExpanded((e) => !e)}
         >
           {expanded ? "Show less" : "Show more"}
