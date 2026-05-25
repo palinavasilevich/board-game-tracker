@@ -1,7 +1,6 @@
 enum UserGameStatus {
     OWNED
     WISHLIST
-    PLAYED
 }
 
 model UserGame {
@@ -13,6 +12,8 @@ model UserGame {
 
     gameId String @map("game_id")
     game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+    userScore Float? @map("user_score")
 
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")

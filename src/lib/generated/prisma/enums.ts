@@ -11,8 +11,7 @@
 
 export const UserGameStatus = {
   OWNED: 'OWNED',
-  WISHLIST: 'WISHLIST',
-  PLAYED: 'PLAYED'
+  WISHLIST: 'WISHLIST'
 } as const
 
 export type UserGameStatus = (typeof UserGameStatus)[keyof typeof UserGameStatus]

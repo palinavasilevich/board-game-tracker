@@ -160,6 +160,7 @@ export const UserGameScalarFieldEnum = {
   status: 'status',
   userId: 'userId',
   gameId: 'gameId',
+  userScore: 'userScore',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
