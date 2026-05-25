@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useInfiniteGames } from "@/src/hooks/use-infinite-games";
+import { useInfiniteGames } from "../api/use-infinite-games";
 import { GameList } from "./game-list";
-import { GameCardSkeleton } from "./game-card-skeleton";
+import { GameCardSkeleton } from "@/src/entities/game";
 import { Button } from "@/src/components/ui/button";
 
 export function FilteredGameList() {
@@ -13,9 +13,10 @@ export function FilteredGameList() {
 
   if (error) {
     return (
-      <div className="text-center mt-12 space-y-2 px-4">
-        <p className="text-red-400">{error}</p>
-        <p className="text-white/50 text-sm">Could not reach the GAME API.</p>
+      <div className="text-center">
+        <p className="text-sm text-muted-foreground">
+          Failed to fetch Games. Please try again later.
+        </p>
       </div>
     );
   }
@@ -26,7 +27,7 @@ export function FilteredGameList() {
 
       {isLoadingMore && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <GameCardSkeleton key={i} />
           ))}
         </div>
@@ -34,7 +35,11 @@ export function FilteredGameList() {
 
       {!isLoading && hasMore && (
         <div className="flex justify-center">
-          <Button variant="outline" onClick={() => loadMore()} disabled={isLoadingMore}>
+          <Button
+            variant="outline"
+            onClick={() => loadMore()}
+            disabled={isLoadingMore}
+          >
             Show More
           </Button>
         </div>

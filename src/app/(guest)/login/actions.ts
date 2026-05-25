@@ -56,7 +56,7 @@ export async function loginAction(
         return { apiError: "Invalid email or password" };
       }
 
-      return { apiError: "Login request failed. Please try again." };
+      return { apiError: "Login request failed. Please try again later." };
     }
 
     throw error;

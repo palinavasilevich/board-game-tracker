@@ -1,7 +1,7 @@
 "use client";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { AppGame } from "@/src/shared/types/game.types";
+import type { AppGame } from "@/src/entities/game";
 
 const PAGE_SIZE = 20;
 

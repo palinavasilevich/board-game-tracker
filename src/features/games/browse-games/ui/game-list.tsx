@@ -1,12 +1,12 @@
-import { GameCard, GameCardData } from "./game-card";
-import { GameCardSkeleton } from "./game-card-skeleton";
+import { GameCard, GameCardSkeleton } from "@/src/entities/game";
+import type { GameCardData } from "@/src/entities/game";
 
 interface GameListProps {
   games: GameCardData[];
   isLoading: boolean;
 }
 
-const SKELETON_COUNT = 10;
+const SKELETON_COUNT = 8;
 
 export function GameList({ games, isLoading }: GameListProps) {
   const gridClass =

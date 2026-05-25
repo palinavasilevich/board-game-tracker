@@ -6,8 +6,8 @@ import { Button } from "@/src/components/ui/button";
 import { ButtonGroup } from "@/src/components/ui/button-group";
 import { Input } from "@/src/components/ui/input";
 import { SearchIcon, XIcon } from "lucide-react";
-import { Field } from "../ui/field";
-import { useDebounce } from "@/src/hooks/use-debounce";
+import { Field } from "@/src/components/ui/field";
+import { useDebounce } from "@/src/shared/lib/use-debounce";
 
 export function SearchInput() {
   const router = useRouter();

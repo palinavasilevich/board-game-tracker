@@ -28,11 +28,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-interface AppSidebarFiltersProps {
+interface SidebarFiltersProps {
   genres: { id: string; name: string }[];
 }
 
-export function AppSidebarFilters({ genres }: AppSidebarFiltersProps) {
+export function SidebarFilters({ genres }: SidebarFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 

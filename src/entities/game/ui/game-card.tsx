@@ -1,16 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/src/lib/utils";
-
-export type GameCardData = {
-  id: string;
-  name: string;
-  imageUrl: string | null;
-  yearPublished: string | null;
-  rank: number;
-  metaScore: number;
-  userScore?: number;
-};
+import type { GameCardData } from "../model/types";
 
 interface GameCardProps {
   game: GameCardData;

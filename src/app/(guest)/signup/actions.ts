@@ -96,7 +96,7 @@ export async function signupAction(
   } catch (e) {
     if (e instanceof AuthError) {
       return {
-        apiError: "Account created but login failed. Please sign in manually.",
+        apiError: "Account created but login failed. Please try again later.",
         fields: { name, email },
       };
     }

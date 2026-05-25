@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { AppGame } from "@/src/shared/types/game.types";
+import type { AppGame } from "@/src/entities/game";
 
 type GamesResponse = { games: AppGame[]; total: number };
 

@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/src/components/ui/carousel";
 import { Skeleton } from "@/src/components/ui/skeleton";
-import { GameCard } from "@/src/components/game-list/game-card";
+import { GameCard } from "@/src/entities/game";
 import { useMostPopularGamesQuery } from "@/src/features/games/most-popular-games/lib/use-most-popular-games-query";
 
 export function GameCarousel() {
