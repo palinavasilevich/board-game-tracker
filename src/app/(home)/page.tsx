@@ -9,7 +9,7 @@ import { GameCardSkeleton } from "@/src/entities/game";
 
 export default async function Home() {
   return (
-    <div className="w-full mt-6 flex flex-col gap-6 pb-6">
+    <div className="w-full flex flex-col gap-12 py-6">
       <div className="flex flex-col gap-6 text-center">
         <div>
           <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">

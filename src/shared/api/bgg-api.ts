@@ -134,6 +134,6 @@ export async function searchGames(
 
 export async function getGameById(id: string): Promise<BGGGame | null> {
   const xml = await bggFetch(`/thing?id=${id}&stats=1`);
+
   return parseThings(xml)[0] ?? null;
 }
-

@@ -1,12 +1,21 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import { HourglassIcon, PersonStandingIcon } from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
 import { BGGGame } from "@/src/shared/types/game.types";
 import { ExpandableDescription } from "./expandable-description";
 
-export function GameDetailCard({ game }: { game: BGGGame }) {
+type GameDetailCardProps = {
+  game: BGGGame & { userScore?: number };
+};
+
+export function GameDetailCard({ game }: GameDetailCardProps) {
   return (
     <Card className="w-full max-w-4xl mx-auto pt-6 shadow-sm border">
       <CardHeader className="flex gap-6">
@@ -49,6 +58,27 @@ export function GameDetailCard({ game }: { game: BGGGame }) {
               {` / 10`}
             </span>
           </div>
+
+          {game.userScore && (
+            <p className="text-sm text-muted-foreground font-semibold">
+              <span>
+                User Rating{" "}
+                <span
+                  className={cn(
+                    game.userScore >= 6
+                      ? "text-emerald-400"
+                      : game.userScore >= 4
+                        ? "text-yellow-400"
+                        : "text-red-400",
+                  )}
+                  title={`User Rating: ${game.userScore} / 10`}
+                >
+                  {game.userScore}
+                </span>
+                {` / 10`}
+              </span>
+            </p>
+          )}
 
           <div className="flex gap-4 text-sm">
             <div className="flex items-center gap-2">
