@@ -14,7 +14,6 @@ model Game {
     maxPlaytime Int @default(0) @map("max_playtime")
 
     metaScore Float @default(0) @map("meta_score")
-    userScore  Float @default(0) @map("user_score")
 
     genres       GameGenre[]
     userGames    UserGame[]

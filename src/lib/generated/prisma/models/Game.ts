@@ -33,7 +33,6 @@ export type GameAvgAggregateOutputType = {
   minPlaytime: number | null
   maxPlaytime: number | null
   metaScore: number | null
-  userScore: number | null
 }
 
 export type GameSumAggregateOutputType = {
@@ -43,7 +42,6 @@ export type GameSumAggregateOutputType = {
   minPlaytime: number | null
   maxPlaytime: number | null
   metaScore: number | null
-  userScore: number | null
 }
 
 export type GameMinAggregateOutputType = {
@@ -59,7 +57,6 @@ export type GameMinAggregateOutputType = {
   minPlaytime: number | null
   maxPlaytime: number | null
   metaScore: number | null
-  userScore: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -77,7 +74,6 @@ export type GameMaxAggregateOutputType = {
   minPlaytime: number | null
   maxPlaytime: number | null
   metaScore: number | null
-  userScore: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -95,7 +91,6 @@ export type GameCountAggregateOutputType = {
   minPlaytime: number
   maxPlaytime: number
   metaScore: number
-  userScore: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -109,7 +104,6 @@ export type GameAvgAggregateInputType = {
   minPlaytime?: true
   maxPlaytime?: true
   metaScore?: true
-  userScore?: true
 }
 
 export type GameSumAggregateInputType = {
@@ -119,7 +113,6 @@ export type GameSumAggregateInputType = {
   minPlaytime?: true
   maxPlaytime?: true
   metaScore?: true
-  userScore?: true
 }
 
 export type GameMinAggregateInputType = {
@@ -135,7 +128,6 @@ export type GameMinAggregateInputType = {
   minPlaytime?: true
   maxPlaytime?: true
   metaScore?: true
-  userScore?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -153,7 +145,6 @@ export type GameMaxAggregateInputType = {
   minPlaytime?: true
   maxPlaytime?: true
   metaScore?: true
-  userScore?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -171,7 +162,6 @@ export type GameCountAggregateInputType = {
   minPlaytime?: true
   maxPlaytime?: true
   metaScore?: true
-  userScore?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -276,7 +266,6 @@ export type GameGroupByOutputType = {
   minPlaytime: number
   maxPlaytime: number
   metaScore: number
-  userScore: number
   createdAt: Date
   updatedAt: Date
   _count: GameCountAggregateOutputType | null
@@ -317,7 +306,6 @@ export type GameWhereInput = {
   minPlaytime?: Prisma.IntFilter<"Game"> | number
   maxPlaytime?: Prisma.IntFilter<"Game"> | number
   metaScore?: Prisma.FloatFilter<"Game"> | number
-  userScore?: Prisma.FloatFilter<"Game"> | number
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   genres?: Prisma.GameGenreListRelationFilter
@@ -339,7 +327,6 @@ export type GameOrderByWithRelationInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   genres?: Prisma.GameGenreOrderByRelationAggregateInput
@@ -364,7 +351,6 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   minPlaytime?: Prisma.IntFilter<"Game"> | number
   maxPlaytime?: Prisma.IntFilter<"Game"> | number
   metaScore?: Prisma.FloatFilter<"Game"> | number
-  userScore?: Prisma.FloatFilter<"Game"> | number
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   genres?: Prisma.GameGenreListRelationFilter
@@ -386,7 +372,6 @@ export type GameOrderByWithAggregationInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.GameCountOrderByAggregateInput
@@ -412,7 +397,6 @@ export type GameScalarWhereWithAggregatesInput = {
   minPlaytime?: Prisma.IntWithAggregatesFilter<"Game"> | number
   maxPlaytime?: Prisma.IntWithAggregatesFilter<"Game"> | number
   metaScore?: Prisma.FloatWithAggregatesFilter<"Game"> | number
-  userScore?: Prisma.FloatWithAggregatesFilter<"Game"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Game"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Game"> | Date | string
 }
@@ -430,7 +414,6 @@ export type GameCreateInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -452,7 +435,6 @@ export type GameUncheckedCreateInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -474,7 +456,6 @@ export type GameUpdateInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUpdateManyWithoutGameNestedInput
@@ -496,7 +477,6 @@ export type GameUncheckedUpdateInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUncheckedUpdateManyWithoutGameNestedInput
@@ -518,7 +498,6 @@ export type GameCreateManyInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -536,7 +515,6 @@ export type GameUpdateManyMutationInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -554,7 +532,6 @@ export type GameUncheckedUpdateManyInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -577,7 +554,6 @@ export type GameCountOrderByAggregateInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -589,7 +565,6 @@ export type GameAvgOrderByAggregateInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
 }
 
 export type GameMaxOrderByAggregateInput = {
@@ -605,7 +580,6 @@ export type GameMaxOrderByAggregateInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -623,7 +597,6 @@ export type GameMinOrderByAggregateInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -635,7 +608,6 @@ export type GameSumOrderByAggregateInput = {
   minPlaytime?: Prisma.SortOrder
   maxPlaytime?: Prisma.SortOrder
   metaScore?: Prisma.SortOrder
-  userScore?: Prisma.SortOrder
 }
 
 export type GameCreateNestedOneWithoutGenresInput = {
@@ -731,7 +703,6 @@ export type GameCreateWithoutGenresInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userGames?: Prisma.UserGameCreateNestedManyWithoutGameInput
@@ -752,7 +723,6 @@ export type GameUncheckedCreateWithoutGenresInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userGames?: Prisma.UserGameUncheckedCreateNestedManyWithoutGameInput
@@ -789,7 +759,6 @@ export type GameUpdateWithoutGenresInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userGames?: Prisma.UserGameUpdateManyWithoutGameNestedInput
@@ -810,7 +779,6 @@ export type GameUncheckedUpdateWithoutGenresInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userGames?: Prisma.UserGameUncheckedUpdateManyWithoutGameNestedInput
@@ -831,7 +799,6 @@ export type GameCreateWithoutPlaySessionsInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -852,7 +819,6 @@ export type GameUncheckedCreateWithoutPlaySessionsInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -889,7 +855,6 @@ export type GameUpdateWithoutPlaySessionsInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUpdateManyWithoutGameNestedInput
@@ -910,7 +875,6 @@ export type GameUncheckedUpdateWithoutPlaySessionsInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUncheckedUpdateManyWithoutGameNestedInput
@@ -931,7 +895,6 @@ export type GameCreateWithoutReviewsInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -952,7 +915,6 @@ export type GameUncheckedCreateWithoutReviewsInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -989,7 +951,6 @@ export type GameUpdateWithoutReviewsInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUpdateManyWithoutGameNestedInput
@@ -1010,7 +971,6 @@ export type GameUncheckedUpdateWithoutReviewsInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUncheckedUpdateManyWithoutGameNestedInput
@@ -1031,7 +991,6 @@ export type GameCreateWithoutUserGamesInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreCreateNestedManyWithoutGameInput
@@ -1052,7 +1011,6 @@ export type GameUncheckedCreateWithoutUserGamesInput = {
   minPlaytime?: number
   maxPlaytime?: number
   metaScore?: number
-  userScore?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   genres?: Prisma.GameGenreUncheckedCreateNestedManyWithoutGameInput
@@ -1089,7 +1047,6 @@ export type GameUpdateWithoutUserGamesInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUpdateManyWithoutGameNestedInput
@@ -1110,7 +1067,6 @@ export type GameUncheckedUpdateWithoutUserGamesInput = {
   minPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   maxPlaytime?: Prisma.IntFieldUpdateOperationsInput | number
   metaScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  userScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genres?: Prisma.GameGenreUncheckedUpdateManyWithoutGameNestedInput
@@ -1189,7 +1145,6 @@ export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   minPlaytime?: boolean
   maxPlaytime?: boolean
   metaScore?: boolean
-  userScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   genres?: boolean | Prisma.Game$genresArgs<ExtArgs>
@@ -1212,7 +1167,6 @@ export type GameSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   minPlaytime?: boolean
   maxPlaytime?: boolean
   metaScore?: boolean
-  userScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["game"]>
@@ -1230,7 +1184,6 @@ export type GameSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   minPlaytime?: boolean
   maxPlaytime?: boolean
   metaScore?: boolean
-  userScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["game"]>
@@ -1248,12 +1201,11 @@ export type GameSelectScalar = {
   minPlaytime?: boolean
   maxPlaytime?: boolean
   metaScore?: boolean
-  userScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "externalId" | "name" | "description" | "imageUrl" | "yearPublished" | "rank" | "minPlayers" | "maxPlayers" | "minPlaytime" | "maxPlaytime" | "metaScore" | "userScore" | "createdAt" | "updatedAt", ExtArgs["result"]["game"]>
+export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "externalId" | "name" | "description" | "imageUrl" | "yearPublished" | "rank" | "minPlayers" | "maxPlayers" | "minPlaytime" | "maxPlaytime" | "metaScore" | "createdAt" | "updatedAt", ExtArgs["result"]["game"]>
 export type GameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   genres?: boolean | Prisma.Game$genresArgs<ExtArgs>
   userGames?: boolean | Prisma.Game$userGamesArgs<ExtArgs>
@@ -1285,7 +1237,6 @@ export type $GamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     minPlaytime: number
     maxPlaytime: number
     metaScore: number
-    userScore: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["game"]>
@@ -1727,7 +1678,6 @@ export interface GameFieldRefs {
   readonly minPlaytime: Prisma.FieldRef<"Game", 'Int'>
   readonly maxPlaytime: Prisma.FieldRef<"Game", 'Int'>
   readonly metaScore: Prisma.FieldRef<"Game", 'Float'>
-  readonly userScore: Prisma.FieldRef<"Game", 'Float'>
   readonly createdAt: Prisma.FieldRef<"Game", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Game", 'DateTime'>
 }

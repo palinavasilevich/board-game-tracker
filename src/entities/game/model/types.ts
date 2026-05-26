@@ -1,3 +1,5 @@
+import type { UserGameStatus } from "@/src/lib/generated/prisma/enums";
+
 export type AppGame = {
   id: string;
   externalId: string;
@@ -11,7 +13,8 @@ export type AppGame = {
   minPlaytime: number;
   maxPlaytime: number;
   metaScore: number;
-  userScore: number;
+  userScore: number | null;
+  userStatus?: UserGameStatus | null;
   genres: { genre: { id: string; name: string } }[];
 };
 
@@ -23,5 +26,6 @@ export type GameCardData = {
   yearPublished: string | null;
   rank: number;
   metaScore: number;
-  userScore?: number;
+  userScore?: number | null;
+  userStatus?: UserGameStatus | null;
 };

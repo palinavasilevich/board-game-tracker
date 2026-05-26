@@ -98,7 +98,6 @@ export const GameScalarFieldEnum = {
   minPlaytime: 'minPlaytime',
   maxPlaytime: 'maxPlaytime',
   metaScore: 'metaScore',
-  userScore: 'userScore',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

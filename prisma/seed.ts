@@ -80,7 +80,6 @@ async function main() {
           maxPlaytime: 90,
           rank: 97,
           metaScore: 7.8,
-          userScore: 7.7,
           imageUrl:
             "https://cf.geekdo-images.com/6QE8mnPFmauoj2THsyUYPA__imagepage/img/9pyk8cWtJkL4lytcpa-5QF94zaE=/fit-in/900x600/filters:no_upscale():strip_icc()/pic4739757.jpg",
         },
@@ -100,7 +99,6 @@ async function main() {
           maxPlaytime: 120,
           rank: 17,
           metaScore: 8.2,
-          userScore: 8.1,
           imageUrl:
             "https://cf.geekdo-images.com/7k_nOxpO9OGIjhLq2BUZdA__imagepage@2x/img/DjzadozjcJUwXDwyQ-o7mQIqYfw=/fit-in/1800x1200/filters:strip_icc()/pic3163924.jpg",
         },
@@ -120,7 +118,6 @@ async function main() {
           maxPlaytime: 40,
           rank: 312,
           metaScore: 7.5,
-          userScore: 7.4,
           imageUrl:
             "https://cf.geekdo-images.com/lfFKMNCzIJesp8IFHK8dEw__imagepagezoom/img/c5E0zRlzFTjkfKlyORshX1bmybI=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic6985339.jpg",
         },
@@ -140,7 +137,6 @@ async function main() {
           maxPlaytime: 120,
           rank: 580,
           metaScore: 7.6,
-          userScore: 7.5,
           imageUrl:
             "https://cf.geekdo-images.com/6LmOBOKXXS8I3nX7I4hz_g__imagepage@2x/img/XDYXu0Qia15fcRWXHYVjnibd-cM=/fit-in/1800x1200/filters:strip_icc()/pic6724739.jpg",
         },
@@ -160,7 +156,6 @@ async function main() {
           maxPlaytime: 150,
           rank: 87,
           metaScore: 8.3,
-          userScore: 9,
           imageUrl:
             "https://cf.geekdo-images.com/scw36iBIad7l-rGzxPGcGg__imagepage@2x/img/UrtnTbXuVEX0vYPD-kmN3UaEwqg=/fit-in/1800x1200/filters:strip_icc()/pic8662670.png",
         },
@@ -180,7 +175,6 @@ async function main() {
           maxPlaytime: 120,
           rank: 9,
           metaScore: 8.5,
-          userScore: 8.4,
           imageUrl:
             "https://cf.geekdo-images.com/B5F5ulz0UivNgrI9Ky0euA__imagepage/img/tgpLRvv6AIsClnegErNpAoieeMo=/fit-in/900x600/filters:no_upscale():strip_icc()/pic3122349.jpg",
         },

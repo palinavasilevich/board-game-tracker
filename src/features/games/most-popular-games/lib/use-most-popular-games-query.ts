@@ -2,8 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { BGGGame } from "@/src/shared/types/game.types";
+import type { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 
-async function fetchHotGames({ signal }: { signal: AbortSignal }): Promise<BGGGame[]> {
+export type HotGame = BGGGame & {
+  userScore?: number | null;
+  userStatus?: UserGameStatus | null;
+};
+
+async function fetchHotGames({ signal }: { signal: AbortSignal }): Promise<HotGame[]> {
   const res = await fetch(`/api/games/hot`, { signal });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();

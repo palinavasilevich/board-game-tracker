@@ -69,9 +69,14 @@ function GameRow({ item }: { item: UserGameItem }) {
         >
           {item.status.charAt(0) + item.status.slice(1).toLowerCase()}
         </span>
-        <span className="text-sm font-medium text-muted-foreground min-w-12">
-          ★ {item.game.metaScore}
+        <span className="text-sm font-medium text-muted-foreground min-w-12" title="BGG score">
+          {item.game.metaScore}
         </span>
+        {item.userScore != null && (
+          <span className="text-sm font-medium text-emerald-400 min-w-12" title="Your score">
+            ★ {item.userScore}
+          </span>
+        )}
         <Button
           variant="ghost"
           size="icon"

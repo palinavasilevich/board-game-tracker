@@ -9,6 +9,7 @@ export type UserGameItem = {
   status: UserGameStatus;
   gameId: string;
   createdAt: string;
+  userScore: number | null;
   game: AppGame;
 };
 

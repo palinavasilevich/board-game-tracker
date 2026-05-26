@@ -1,8 +1,12 @@
+import { auth } from "@/auth";
 import { prisma } from "@/src/lib/db";
 import { Prisma } from "@/src/lib/generated/prisma/client";
 import { type NextRequest } from "next/server";
 
+type UserGameData = { userScore: number | null; userStatus: string | null };
+
 export async function GET(request: NextRequest) {
+  const session = await auth();
   const searchParams = request.nextUrl.searchParams;
   const limit = Math.min(Number(searchParams.get("limit") ?? 20), 100);
   const offset = Math.max(Number(searchParams.get("offset") ?? 0), 0);
@@ -61,5 +65,27 @@ export async function GET(request: NextRequest) {
     prisma.game.count({ where }),
   ]);
 
-  return Response.json({ games, total });
+  const userGameMap = new Map<string, UserGameData>();
+
+  if (session?.user?.id) {
+    const gameIds = games.map((g) => g.id);
+    const userGames = await prisma.userGame.findMany({
+      where: { userId: session.user.id, gameId: { in: gameIds } },
+      select: { gameId: true, userScore: true, status: true },
+    });
+    userGames.forEach((ug) =>
+      userGameMap.set(ug.gameId, {
+        userScore: ug.userScore,
+        userStatus: ug.status,
+      }),
+    );
+  }
+
+  const gamesWithUserData = games.map((game) => ({
+    ...game,
+    userScore: userGameMap.get(game.id)?.userScore ?? null,
+    userStatus: userGameMap.get(game.id)?.userStatus ?? null,
+  }));
+
+  return Response.json({ games: gamesWithUserData, total });
 }

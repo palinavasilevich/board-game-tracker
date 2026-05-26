@@ -55,6 +55,8 @@ export function GameCarousel() {
                   yearPublished: game.yearPublished,
                   rank: game.rank,
                   metaScore: game.rating,
+                  userScore: game.userScore,
+                  userStatus: game.userStatus,
                 }}
                 priority={index < 3}
                 compact
