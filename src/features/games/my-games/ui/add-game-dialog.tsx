@@ -58,6 +58,7 @@ export function AddGameDialog() {
       return res.json();
     },
     enabled: open && debouncedSearch.length > 0,
+    placeholderData: (prev) => prev,
   });
 
   const { mutate: addFromBgg, isPending } = useAddUserGame();
@@ -120,12 +121,12 @@ export function AddGameDialog() {
             />
           </div>
 
-          <div className="flex max-h-56 flex-col overflow-y-auto rounded-md border bg-popover">
+          <div className={`flex max-h-56 flex-col overflow-y-auto rounded-md bg-popover ${games.length > 0 ? "border" : ""}`}>
             {debouncedSearch.length === 0 ? (
               <p className="py-8 text-center text-sm text-muted-foreground">
                 Type to search BoardGameGeek
               </p>
-            ) : isFetching ? (
+            ) : isFetching && games.length === 0 ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2Icon className="size-5 animate-spin text-muted-foreground" />
               </div>
@@ -140,7 +141,9 @@ export function AddGameDialog() {
                   type="button"
                   onClick={() => setSelected(game)}
                   className={`flex w-full items-center gap-3 px-3 py-2 text-left text-sm transition-colors hover:bg-accent ${
-                    selected?.id === game.id ? "bg-accent" : ""
+                    selected?.id === game.id
+                      ? "bg-accent font-semibold ring-1 ring-inset ring-ring"
+                      : ""
                   }`}
                 >
                   {game.thumbnail ? (
@@ -176,12 +179,14 @@ export function AddGameDialog() {
               min={0}
               max={10}
               step={1}
-              placeholder="Your Rating..."
+              placeholder="0 – 10"
               className="flex-1"
               value={userScore ?? ""}
               onChange={(e) =>
                 setUserScore(
-                  e.target.value ? Number(e.target.value) : undefined,
+                  e.target.value
+                    ? Math.min(10, Math.max(0, Number(e.target.value)))
+                    : undefined,
                 )
               }
             />
@@ -206,9 +211,11 @@ export function AddGameDialog() {
           <Button
             onClick={handleAdd}
             disabled={!selected || isPending}
-            className="w-full"
+            className="w-full gap-2"
           >
-            {isPending && <Loader2Icon className="size-4 animate-spin mr-2" />}
+            {isPending
+              ? <Loader2Icon className="size-4 animate-spin" />
+              : <span className="size-4" />}
             Add to Collection
           </Button>
         </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -6,16 +7,22 @@ import {
   CardTitle,
 } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
-import { HourglassIcon, PersonStandingIcon } from "lucide-react";
+import {
+  ExternalLinkIcon,
+  HourglassIcon,
+  PersonStandingIcon,
+} from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
 import { BGGGame } from "@/src/shared/types/game.types";
 import { ExpandableDescription } from "./expandable-description";
+import { Button } from "@/src/components/ui/button";
 
 type GameDetailCardProps = {
-  game: BGGGame & { userScore?: number };
+  game: BGGGame;
+  userScore?: number;
 };
 
-export function GameDetailCard({ game }: GameDetailCardProps) {
+export function GameDetailCard({ game, userScore }: GameDetailCardProps) {
   return (
     <Card className="w-full max-w-4xl mx-auto pt-6 shadow-sm border">
       <CardHeader className="flex gap-6">
@@ -59,21 +66,21 @@ export function GameDetailCard({ game }: GameDetailCardProps) {
             </span>
           </div>
 
-          {game.userScore && (
+          {userScore != null && (
             <p className="text-sm text-muted-foreground font-semibold">
               <span>
                 User Rating{" "}
                 <span
                   className={cn(
-                    game.userScore >= 6
+                    userScore >= 6
                       ? "text-emerald-400"
-                      : game.userScore >= 4
+                      : userScore >= 4
                         ? "text-yellow-400"
                         : "text-red-400",
                   )}
-                  title={`User Rating: ${game.userScore} / 10`}
+                  title={`User Rating: ${userScore} / 10`}
                 >
-                  {game.userScore}
+                  {userScore}
                 </span>
                 {` / 10`}
               </span>
@@ -119,6 +126,17 @@ export function GameDetailCard({ game }: GameDetailCardProps) {
               ))}
             </ul>
           )}
+
+          <Button variant="outline" className="self-start mt-auto" asChild>
+            <Link
+              href={`https://boardgamegeek.com/boardgame/${game.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on BoardGameGeek
+              <ExternalLinkIcon />
+            </Link>
+          </Button>
         </div>
       </CardHeader>
 

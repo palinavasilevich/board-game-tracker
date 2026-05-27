@@ -27,7 +27,7 @@ export function GameCard({ game, priority, compact }: GameCardProps) {
 
       <div
         className={cn(
-          "absolute top-2 right-2 font-bold bg-black/70 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15",
+          "absolute top-2 right-2 font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15",
           compact ? "text-xs" : "text-sm",
         )}
         title={`Rating: ${game.metaScore} / 10`}
@@ -48,14 +48,18 @@ export function GameCard({ game, priority, compact }: GameCardProps) {
       </div>
 
       {game.userStatus && (
-        <div className="absolute top-2 left-2">
+        <div
+          className={cn(
+            "absolute top-2 left-2 font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15",
+            compact ? "text-xs" : "text-sm",
+          )}
+          title={`Rating: ${game.metaScore} / 10`}
+        >
           <span
             className={cn(
-              "text-xs font-semibold px-1.5 py-0.5 rounded border backdrop-blur-sm",
-              compact ? "text-[10px]" : "text-xs",
               game.userStatus === "OWNED"
-                ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
-                : "bg-amber-500/20 text-amber-400 border-amber-500/30",
+                ? "text-emerald-400"
+                : "text-amber-400",
             )}
           >
             {game.userStatus === "OWNED" ? "Owned" : "Wishlist"}

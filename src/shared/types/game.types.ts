@@ -9,6 +9,6 @@ export type BGGGame = {
   maxPlayers: number;
   minPlaytime: number;
   maxPlaytime: number;
-  thumbnail: string;
+  thumbnail?: string;
   genres: string[];
 };

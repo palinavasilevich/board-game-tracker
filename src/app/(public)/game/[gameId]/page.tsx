@@ -28,7 +28,7 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
 
   return (
     <div className="flex w-full items-center justify-center py-12">
-      <GameDetailCard game={{ ...game, userScore }} />
+      <GameDetailCard game={game} userScore={userScore} />
     </div>
   );
 }
