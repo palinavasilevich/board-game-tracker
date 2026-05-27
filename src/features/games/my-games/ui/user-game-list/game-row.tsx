@@ -54,7 +54,7 @@ export function GameRow({ item }: { item: UserGameItem }) {
         </span>
 
         <span
-          className="text-sm font-medium text-muted-foreground"
+          className="text-sm font-medium text-muted-foreground min-w-7"
           title="BGG score"
         >
           {item.game.metaScore}

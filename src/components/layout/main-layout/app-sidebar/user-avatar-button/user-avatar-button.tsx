@@ -1,7 +1,6 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-
 import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
@@ -11,8 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-
-import { getUserInitials } from "@/src/lib/get-user-initials";
 import { ROUTES } from "@/src/shared/constants/routes";
 import { EllipsisVerticalIcon, LogOutIcon } from "lucide-react";
 import { User as AuthUser } from "next-auth";
@@ -47,13 +44,6 @@ export function UserAvatarButton({ user }: UserAvatarButtonProps) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {/* <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <CircleUserRoundIcon />
-            Account
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator /> */}
         <DropdownMenuItem>
           <Button
             variant="ghost"
