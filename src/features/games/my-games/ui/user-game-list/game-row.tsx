@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Trash2Icon, Loader2Icon, Edit2Icon } from "lucide-react";
+import { Edit2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/src/components/ui/button";
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import { useRemoveUserGame } from "@/src/features/games/my-games/lib/use-remove-user-game";
 import { type UserGameItem } from "@/src/features/games/my-games/lib/use-user-games";
 import { EditGameDialog } from "../../ui/edit-game-dialog";
+import { DeletionConfirmationDialog } from "./deletion-confirmation-dialog";
 
 const STATUS_COLORS: Record<UserGameStatus, string> = {
   OWNED: "bg-emerald-500/15 text-emerald-500 border-emerald-500/30",
@@ -74,19 +75,11 @@ export function GameRow({ item }: { item: UserGameItem }) {
               <Edit2Icon className="size-4 text-yellow-400" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-8 text-muted-foreground hover:text-destructive"
-              onClick={handleRemove}
-              disabled={isRemovePending}
-            >
-              {isRemovePending ? (
-                <Loader2Icon className="size-4 animate-spin" />
-              ) : (
-                <Trash2Icon className="size-4 text-red-400" />
-              )}
-            </Button>
+            <DeletionConfirmationDialog
+              gameName={item.game.name}
+              isRemovePending={isRemovePending}
+              onRemove={handleRemove}
+            />
           </div>
         </div>
       </div>
