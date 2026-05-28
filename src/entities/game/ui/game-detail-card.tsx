@@ -9,12 +9,15 @@ import {
 } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import {
+  CrownIcon,
   ExternalLinkIcon,
   HourglassIcon,
   PersonStandingIcon,
+  StarIcon,
 } from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
 import { BGGGame } from "@/src/shared/types/game.types";
+import { getScoreColor } from "../model/utils";
 import { ExpandableDescription } from "./expandable-description";
 import { Button } from "@/src/components/ui/button";
 import type { UserGameStatus } from "@/src/lib/generated/prisma/enums";
@@ -58,16 +61,17 @@ export function GameDetailCard({
               <div className="absolute top-2 right-2 font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15">
                 <span
                   className={cn(
-                    "text-xs font-medium",
-                    userScore >= 6
-                      ? "text-emerald-400"
-                      : userScore >= 4
-                        ? "text-yellow-400"
-                        : "text-red-400",
+                    "flex items-center gap-1 text-xs font-medium",
+                    getScoreColor(userScore),
                   )}
                   title={`Your rating: ${userScore} / 10`}
                 >
-                  ★ {userScore}
+                  <StarIcon
+                    className="size-3"
+                    fill="currentColor"
+                    strokeWidth={0}
+                  />
+                  {userScore}
                 </span>
               </div>
             )}
@@ -83,25 +87,20 @@ export function GameDetailCard({
           </CardTitle>
 
           <div className="flex gap-4 text-sm text-muted-foreground font-semibold">
-            <span>Rank #{game.rank}</span>
+            <span className="flex items-center gap-2">
+              <CrownIcon className="size-4" />
+              Rank #{game.rank}
+            </span>
             <span>
               Rating{" "}
-              <span
-                className={cn(
-                  game.rating >= 6
-                    ? "text-emerald-500"
-                    : game.rating >= 4
-                      ? "text-yellow-500"
-                      : "text-red-500",
-                )}
-              >
+              <span className={cn(getScoreColor(game.rating, "500"))}>
                 {game.rating}
               </span>
               {` / 10`}
             </span>
           </div>
 
-          <div className="flex gap-4 text-sm">
+          <div className="flex gap-4 text-sm text-muted-foreground font-semibold">
             <div className="flex items-center gap-2">
               <PersonStandingIcon
                 className="size-4 text-muted-foreground"
@@ -133,7 +132,7 @@ export function GameDetailCard({
             <ul className="flex flex-wrap gap-2">
               {game.genres.map((genre) => (
                 <li key={genre}>
-                  <Badge variant="outline" className="p-2">
+                  <Badge variant="outline" className="p-3 font-semibold">
                     {genre}
                   </Badge>
                 </li>

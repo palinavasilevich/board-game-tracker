@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Edit2Icon } from "lucide-react";
+import { Edit2Icon, StarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/src/components/ui/button";
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
@@ -59,10 +59,11 @@ export function GameRow({ item }: { item: UserGameItem }) {
           </span>
 
           <span
-            className="text-sm font-medium text-muted-foreground min-w-12"
+            className="flex items-center gap-1 text-sm font-medium text-muted-foreground min-w-12"
             title="BGG score"
           >
-            ★ {item.game.metaScore}
+            <StarIcon className="size-3" fill="currentColor" strokeWidth={0} />{" "}
+            {item.game.metaScore}
           </span>
 
           <div className="z-10">

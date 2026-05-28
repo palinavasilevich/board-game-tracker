@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/src/lib/utils";
 import type { GameCardData } from "../model/types";
+import { getScoreColor } from "../model/utils";
+import { StarIcon } from "lucide-react";
 
 interface GameCardProps {
   game: GameCardData;
@@ -33,15 +35,7 @@ export function GameCard({ game, priority, compact }: GameCardProps) {
         title={`Rating: ${game.metaScore} / 10`}
       >
         <span className="text-white">#{game.rank}</span>
-        <span
-          className={cn(
-            game.metaScore >= 6
-              ? "text-emerald-500"
-              : game.metaScore >= 4
-                ? "text-yellow-500"
-                : "text-red-500",
-          )}
-        >
+        <span className={cn(getScoreColor(game.metaScore, "500"))}>
           {" "}
           ({game.metaScore})
         </span>
@@ -83,17 +77,14 @@ export function GameCard({ game, priority, compact }: GameCardProps) {
         {game.userScore != null && (
           <p
             className={cn(
-              "font-medium mt-0.5",
+              "flex items-center justify-center gap-1 font-medium mt-0.5",
               compact ? "text-xs" : "text-sm",
-              game.userScore >= 6
-                ? "text-emerald-400"
-                : game.userScore >= 4
-                  ? "text-yellow-400"
-                  : "text-red-400",
+              getScoreColor(game.userScore),
             )}
             title={`Your rating: ${game.userScore} / 10`}
           >
-            ★ {game.userScore}
+            <StarIcon className="size-3" fill="currentColor" strokeWidth={0} />
+            {game.userScore}
           </p>
         )}
       </div>
