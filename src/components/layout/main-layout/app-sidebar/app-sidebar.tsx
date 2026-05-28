@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -12,23 +10,21 @@ import {
 
 import { Logo } from "../header/logo";
 import { AppSidebarNav } from "./app-sidebar-nav";
+import type { ComponentProps } from "react";
 import { User as AuthUser } from "next-auth";
 import { UserAvatarButton } from "./user-avatar-button/user-avatar-button";
 
 export async function AppSidebar({
   user,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { user: AuthUser }) {
+}: ComponentProps<typeof Sidebar> & { user: AuthUser }) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
-              <Logo />
+            <SidebarMenuButton size="lg" asChild>
+              <Logo isSidebar />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

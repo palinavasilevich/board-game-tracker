@@ -1,15 +1,17 @@
-import { Suspense } from "react";
-
+import { auth } from "@/auth";
 import { GameCarousel } from "@/src/features/games/most-popular-games/ui/game-carousel";
-import {
-  FilteredGameList,
-  SearchInput,
-} from "@/src/features/games/browse-games";
-import { GameCardSkeleton } from "@/src/entities/game";
+import { BrowseCollectionSection } from "@/src/features/games/browse-games";
+import { HeroSection } from "./_components/hero-section";
+import { cn } from "@/src/lib/utils";
 
 export default async function Home() {
+  const session = await auth();
+  const isLoggedIn = !!session?.user?.id;
+
   return (
-    <div className="w-full flex flex-col gap-12 py-6">
+    <div className={cn("w-full flex flex-col py-6", isLoggedIn && "gap-12")}>
+      {!isLoggedIn && <HeroSection />}
+
       <div className="flex flex-col gap-6 text-center">
         <div>
           <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
@@ -23,30 +25,7 @@ export default async function Home() {
         <GameCarousel />
       </div>
 
-      <div className="flex flex-col gap-6 text-center">
-        <div>
-          <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
-            Browse Collection
-          </h2>
-          <p className="text-muted-foreground mt-2 text-sm tracking-wide uppercase">
-            Filter and explore your games
-          </p>
-        </div>
-
-        <SearchInput />
-
-        <Suspense
-          fallback={
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <GameCardSkeleton key={i} />
-              ))}
-            </div>
-          }
-        >
-          <FilteredGameList />
-        </Suspense>
-      </div>
+      {isLoggedIn && <BrowseCollectionSection />}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import {
@@ -16,18 +17,24 @@ import { Badge } from "@/src/components/ui/badge";
 import { BGGGame } from "@/src/shared/types/game.types";
 import { ExpandableDescription } from "./expandable-description";
 import { Button } from "@/src/components/ui/button";
+import type { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 
 type GameDetailCardProps = {
   game: BGGGame;
-  userScore?: number;
+  userScore?: number | null;
+  status?: UserGameStatus | null;
 };
 
-export function GameDetailCard({ game, userScore }: GameDetailCardProps) {
+export function GameDetailCard({
+  game,
+  userScore,
+  status,
+}: GameDetailCardProps) {
   return (
     <Card className="w-full max-w-4xl mx-auto pt-6 shadow-sm border">
       <CardHeader className="flex gap-6">
         {game.thumbnail && (
-          <div className="w-48 shrink-0 aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg">
+          <div className="relative w-48 shrink-0 aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg">
             <Image
               src={game.thumbnail}
               alt={game.name}
@@ -36,6 +43,34 @@ export function GameDetailCard({ game, userScore }: GameDetailCardProps) {
               height={267}
               className="aspect-3/4 object-cover"
             />
+            {status && (
+              <div className="absolute top-2 left-2 text-xs font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15">
+                <span
+                  className={cn(
+                    status === "OWNED" ? "text-emerald-400" : "text-amber-400",
+                  )}
+                >
+                  {status === "OWNED" ? "Owned" : "Wishlist"}
+                </span>
+              </div>
+            )}
+            {userScore != null && (
+              <div className="absolute top-2 right-2 font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15">
+                <span
+                  className={cn(
+                    "text-xs font-medium",
+                    userScore >= 6
+                      ? "text-emerald-400"
+                      : userScore >= 4
+                        ? "text-yellow-400"
+                        : "text-red-400",
+                  )}
+                  title={`Your rating: ${userScore} / 10`}
+                >
+                  ★ {userScore}
+                </span>
+              </div>
+            )}
           </div>
         )}
 
@@ -65,27 +100,6 @@ export function GameDetailCard({ game, userScore }: GameDetailCardProps) {
               {` / 10`}
             </span>
           </div>
-
-          {userScore != null && (
-            <p className="text-sm text-muted-foreground font-semibold">
-              <span>
-                User Rating{" "}
-                <span
-                  className={cn(
-                    userScore >= 6
-                      ? "text-emerald-400"
-                      : userScore >= 4
-                        ? "text-yellow-400"
-                        : "text-red-400",
-                  )}
-                  title={`User Rating: ${userScore} / 10`}
-                >
-                  {userScore}
-                </span>
-                {` / 10`}
-              </span>
-            </p>
-          )}
 
           <div className="flex gap-4 text-sm">
             <div className="flex items-center gap-2">
@@ -126,17 +140,6 @@ export function GameDetailCard({ game, userScore }: GameDetailCardProps) {
               ))}
             </ul>
           )}
-
-          <Button variant="outline" className="self-start mt-auto" asChild>
-            <Link
-              href={`https://boardgamegeek.com/boardgame/${game.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on BoardGameGeek
-              <ExternalLinkIcon />
-            </Link>
-          </Button>
         </div>
       </CardHeader>
 
@@ -150,6 +153,19 @@ export function GameDetailCard({ game, userScore }: GameDetailCardProps) {
           />
         </CardContent>
       )}
+
+      <CardFooter className="pt-0">
+        <Button variant="outline" className="max-w-2xs" asChild>
+          <Link
+            href={`https://boardgamegeek.com/boardgame/${game.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on BoardGameGeek
+            <ExternalLinkIcon />
+          </Link>
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

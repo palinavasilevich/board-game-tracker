@@ -31,7 +31,12 @@ export function HeaderNav({ user }: HeaderNavProps) {
         </>
       ) : (
         <>
-          <SidebarTrigger className="-ml-1" />
+          <div className="flex items-center gap-1">
+            <SidebarTrigger className="-ml-1" />
+            <Button variant="ghost" asChild className="md:hidden">
+              <Logo />
+            </Button>
+          </div>
           <ThemeToggle />
         </>
       )}

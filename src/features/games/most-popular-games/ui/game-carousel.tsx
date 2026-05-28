@@ -51,7 +51,7 @@ export function GameCarousel() {
                 game={{
                   id: game.id,
                   name: game.name,
-                  imageUrl: game.thumbnail,
+                  imageUrl: game.thumbnail ?? "",
                   yearPublished: game.yearPublished,
                   rank: game.rank,
                   metaScore: game.rating,

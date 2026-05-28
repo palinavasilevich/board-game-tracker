@@ -31,6 +31,17 @@ export function UserGameList() {
       .length,
   };
 
+  if (allGames.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-8 text-center">
+        <p className="text-muted-foreground">No games here yet.</p>
+        <p className="text-sm text-muted-foreground mt-1">
+          Use the &ldquo;Add Game&rdquo; button to start your collection.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <Tabs value={tab} onValueChange={setTab} className="w-full">
       <TabsList className="mb-6">

@@ -2,8 +2,8 @@ import { AddGameDialog, UserGameList } from "@/src/features/games/my-games";
 
 export default async function MyGamesPage() {
   return (
-    <div className="w-full flex flex-col gap-8 py-8">
-      <div className="flex items-center justify-between">
+    <div className="w-full flex flex-col mt-8">
+      <div className="flex flex-col items-center text-center gap-3">
         <div>
           <h1 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
             My Games
@@ -12,6 +12,7 @@ export default async function MyGamesPage() {
             Your personal board game collection
           </p>
         </div>
+
         <AddGameDialog />
       </div>
 
