@@ -14,7 +14,7 @@ export async function PATCH(
 
   const { id } = await props.params;
   const body = await request.json();
-  const { status } = body as { status: UserGameStatus };
+  const { status, userScore } = body as { status: UserGameStatus; userScore?: number | null };
 
   if (!status || !Object.values(UserGameStatus).includes(status)) {
     return Response.json({ error: "Invalid status" }, { status: 400 });
@@ -27,7 +27,7 @@ export async function PATCH(
 
   const userGame = await prisma.userGame.update({
     where: { id },
-    data: { status },
+    data: { status, ...(userScore !== undefined && { userScore }) },
     include: { game: { include: { genres: { include: { genre: true } } } } },
   });
 
