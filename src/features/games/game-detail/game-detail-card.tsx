@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -17,10 +19,12 @@ import {
 } from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
 import { BGGGame } from "@/src/shared/types/game.types";
-import { getScoreColor } from "../model/utils";
+import { getScoreColor } from "../../../entities/game/model/utils";
 import { ExpandableDescription } from "./expandable-description";
 import { Button } from "@/src/components/ui/button";
-import type { UserGameStatus } from "@/src/lib/generated/prisma/enums";
+import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
+import { SelectGameStatus } from "@/src/entities/game/ui/select-game-status";
+import { useState } from "react";
 
 type GameDetailCardProps = {
   game: BGGGame;
@@ -33,9 +37,17 @@ export function GameDetailCard({
   userScore,
   status,
 }: GameDetailCardProps) {
+  const [gameStatus, setGameStatus] = useState<UserGameStatus | undefined>(
+    status ?? undefined,
+  );
+  const [score, setScore] = useState<number | undefined>(
+    userScore ?? undefined,
+  );
+  const [hoveredStar, setHoveredStar] = useState<number | undefined>(undefined);
+
   return (
-    <Card className="w-full max-w-4xl mx-auto pt-6 shadow-sm border">
-      <CardHeader className="flex gap-6">
+    <Card className="relative w-full max-w-4xl mx-auto pt-6 shadow-sm border">
+      <CardHeader className="flex flex-row items-start gap-6">
         {game.thumbnail && (
           <div className="relative w-48 shrink-0 aspect-3/4 rounded-xl overflow-hidden border border-accent/70 shadow-lg">
             <Image
@@ -46,39 +58,10 @@ export function GameDetailCard({
               height={267}
               className="aspect-3/4 object-cover"
             />
-            {status && (
-              <div className="absolute top-2 left-2 text-xs font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15">
-                <span
-                  className={cn(
-                    status === "OWNED" ? "text-emerald-400" : "text-amber-400",
-                  )}
-                >
-                  {status === "OWNED" ? "Owned" : "Wishlist"}
-                </span>
-              </div>
-            )}
-            {userScore != null && (
-              <div className="absolute top-2 right-2 font-bold bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg border border-white/15">
-                <span
-                  className={cn(
-                    "flex items-center gap-1 text-xs font-medium",
-                    getScoreColor(userScore),
-                  )}
-                  title={`Your rating: ${userScore} / 10`}
-                >
-                  <StarIcon
-                    className="size-3"
-                    fill="currentColor"
-                    strokeWidth={0}
-                  />
-                  {userScore}
-                </span>
-              </div>
-            )}
           </div>
         )}
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 pr-44">
           <CardTitle className="font-serif text-4xl font-semibold tracking-tight">
             {game.name}
             <span className="text-muted-foreground text-2xl ml-2">
@@ -132,13 +115,54 @@ export function GameDetailCard({
             <ul className="flex flex-wrap gap-2">
               {game.genres.map((genre) => (
                 <li key={genre}>
-                  <Badge variant="outline" className="p-3 font-semibold">
+                  <Badge
+                    variant="outline"
+                    className="px-2.5 py-1 font-semibold"
+                  >
                     {genre}
                   </Badge>
                 </li>
               ))}
             </ul>
           )}
+
+          <div className="flex flex-col gap-1">
+            <span className="text-xs text-muted-foreground font-medium">
+              Your rating
+            </span>
+            <div className="flex gap-1">
+              {Array.from({ length: 10 }, (_, index) => {
+                const active =
+                  hoveredStar !== undefined
+                    ? hoveredStar - 1 >= index
+                    : score !== undefined && score - 1 >= index;
+                return (
+                  <StarIcon
+                    key={index}
+                    fill="currentColor"
+                    strokeWidth={0}
+                    className={cn(
+                      "size-5 cursor-pointer transition-colors",
+                      active ? "text-amber-400" : "text-muted-foreground/30",
+                    )}
+                    onMouseEnter={() => setHoveredStar(index + 1)}
+                    onMouseLeave={() => setHoveredStar(undefined)}
+                    onClick={() =>
+                      setScore(
+                        score !== undefined && index === score - 1
+                          ? undefined
+                          : index + 1,
+                      )
+                    }
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute top-2 right-2 w-40">
+          <SelectGameStatus status={gameStatus} setStatus={setGameStatus} />
         </div>
       </CardHeader>
 

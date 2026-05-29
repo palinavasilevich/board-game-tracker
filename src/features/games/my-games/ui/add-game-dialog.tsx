@@ -4,7 +4,6 @@ import { useState } from "react";
 import { PlusIcon, SearchIcon, Loader2Icon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-
 import { Button } from "@/src/components/ui/button";
 import {
   Dialog,
@@ -13,18 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/src/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/src/components/ui/select";
 import { Input } from "@/src/components/ui/input";
 import { useDebounce } from "@/src/shared/lib/use-debounce";
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import type { BGGGame } from "@/src/shared/types/game.types";
 import { useAddUserGame } from "../lib/use-add-user-game";
+import { SelectGameStatus } from "@/src/entities/game/ui/select-game-status";
 
 const STATUS_LABELS: Record<UserGameStatus, string> = {
   OWNED: "Owned",
@@ -121,7 +114,9 @@ export function AddGameDialog() {
             />
           </div>
 
-          <div className={`flex max-h-56 flex-col overflow-y-auto rounded-md bg-popover ${games.length > 0 ? "border" : ""}`}>
+          <div
+            className={`flex max-h-56 flex-col overflow-y-auto rounded-md bg-popover ${games.length > 0 ? "border" : ""}`}
+          >
             {debouncedSearch.length === 0 ? (
               <p className="py-8 text-center text-sm text-muted-foreground">
                 Type to search BoardGameGeek
@@ -191,21 +186,7 @@ export function AddGameDialog() {
               }
             />
 
-            <Select
-              value={status}
-              onValueChange={(v) => setStatus(v as UserGameStatus)}
-            >
-              <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.values(UserGameStatus).map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {STATUS_LABELS[s]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <SelectGameStatus status={status} setStatus={setStatus} />
           </div>
 
           <Button
@@ -213,9 +194,11 @@ export function AddGameDialog() {
             disabled={!selected || isPending}
             className="w-full gap-2"
           >
-            {isPending
-              ? <Loader2Icon className="size-4 animate-spin" />
-              : <span className="size-4" />}
+            {isPending ? (
+              <Loader2Icon className="size-4 animate-spin" />
+            ) : (
+              <span className="size-4" />
+            )}
             Add to Collection
           </Button>
         </div>

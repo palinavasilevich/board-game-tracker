@@ -1,4 +1,4 @@
-import { UserGameStatus } from "@/src/lib/generated/prisma/client";
+import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import { useUserGames } from "@/src/features/games/my-games/lib/use-user-games";
 import { GameListSkeleton } from "./game-list-skeleton";
 import { GameRow } from "./game-row";

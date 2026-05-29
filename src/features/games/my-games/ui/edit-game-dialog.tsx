@@ -22,6 +22,7 @@ import { Input } from "@/src/components/ui/input";
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import { useEditUserGame } from "../lib/use-edit-user-game";
 import { type UserGameItem } from "../lib/use-user-games";
+import { SelectGameStatus } from "@/src/entities/game/ui/select-game-status";
 
 const STATUS_LABELS: Record<UserGameStatus, string> = {
   OWNED: "Owned",
@@ -85,24 +86,14 @@ export function EditGameDialog({ item, open, onOpenChange }: Props) {
               }
             />
 
-            <Select
-              value={status}
-              onValueChange={(v) => setStatus(v as UserGameStatus)}
-            >
-              <SelectTrigger className="flex-1">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.values(UserGameStatus).map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {STATUS_LABELS[s]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <SelectGameStatus status={status} setStatus={setStatus} />
           </div>
 
-          <Button onClick={handleSave} disabled={isPending} className="w-full gap-2">
+          <Button
+            onClick={handleSave}
+            disabled={isPending}
+            className="w-full gap-2"
+          >
             {isPending ? (
               <Loader2Icon className="size-4 animate-spin" />
             ) : (
