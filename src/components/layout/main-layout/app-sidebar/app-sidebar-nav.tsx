@@ -9,12 +9,12 @@ import {
 } from "@/src/components/ui/sidebar";
 import { isActivePath } from "@/src/lib/isActivePath";
 import { ROUTES } from "@/src/shared/constants/routes";
-import { Dice6Icon } from "lucide-react";
+import { DicesIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { href: ROUTES.MY_GAMES, label: "My Games", icon: Dice6Icon },
+  { href: ROUTES.MY_GAMES, label: "My Games", icon: DicesIcon },
 ] as const;
 
 export function AppSidebarNav() {
@@ -32,7 +32,7 @@ export function AppSidebarNav() {
                 isActive={isActivePath(pathname, href)}
                 tooltip={label}
               >
-                <Link href={href} className="gap-3">
+                <Link href={href} className="gap-3 flex items-center">
                   <Icon className="size-5! ml-1.5" />
                   <span className="font-semibold">{label}</span>
                 </Link>

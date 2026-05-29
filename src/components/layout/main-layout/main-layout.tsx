@@ -4,16 +4,22 @@ import { Header } from "./header/header";
 import { SidebarProvider, SidebarInset } from "@/src/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar/app-sidebar";
 import { TooltipProvider } from "../../ui/tooltip";
+import { cookies } from "next/headers";
 
 type MainLayoutProps = Readonly<{
   children: ReactNode;
 }> & { user?: AuthUser };
 
-export function MainLayout({ children, user }: MainLayoutProps) {
+export async function MainLayout({ children, user }: MainLayoutProps) {
+  const cookieStore = await cookies();
+  const sidebarState = cookieStore.get("sidebar_state")?.value;
+  const defaultOpen = sidebarState !== "false";
+
   if (user) {
     return (
       <TooltipProvider>
         <SidebarProvider
+          defaultOpen={defaultOpen}
           style={
             {
               "--sidebar-width": "calc(var(--spacing) * 72)",

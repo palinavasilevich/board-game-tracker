@@ -5,17 +5,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { cn } from "@/src/lib/utils";
+
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
+import { UserIcon, GiftIcon, LucideIcon } from "lucide-react";
 
 const STATUS_LABELS: Record<UserGameStatus, string> = {
   OWNED: "Owned",
   WISHLIST: "Wishlist",
 };
 
-const STATUS_DOT_COLOR: Record<UserGameStatus, string> = {
-  OWNED: "bg-emerald-400",
-  WISHLIST: "bg-amber-400",
+const STATUS_ICON: Record<UserGameStatus, LucideIcon> = {
+  OWNED: UserIcon,
+  WISHLIST: GiftIcon,
 };
 
 type SelectGameStatusProps = {
@@ -30,22 +31,20 @@ export function SelectGameStatus({ status, setStatus }: SelectGameStatusProps) {
       onValueChange={(value) => setStatus(value as UserGameStatus)}
     >
       <SelectTrigger className="w-full">
-        <span className="flex items-center gap-2">
-          {status && (
-            <span className={cn("size-2 rounded-full shrink-0", STATUS_DOT_COLOR[status])} />
-          )}
-          <SelectValue placeholder="Select status" />
-        </span>
+        <SelectValue placeholder="Select status" />
       </SelectTrigger>
       <SelectContent>
-        {Object.values(UserGameStatus).map((s) => (
-          <SelectItem key={s} value={s}>
-            <span className="flex items-center gap-2">
-              <span className={cn("size-2 rounded-full shrink-0", STATUS_DOT_COLOR[s])} />
-              {STATUS_LABELS[s]}
-            </span>
-          </SelectItem>
-        ))}
+        {Object.values(UserGameStatus).map((status) => {
+          const ItemIcon = STATUS_ICON[status];
+          return (
+            <SelectItem key={status} value={status}>
+              <span className="flex items-center gap-2">
+                <ItemIcon />
+                {STATUS_LABELS[status]}
+              </span>
+            </SelectItem>
+          );
+        })}
       </SelectContent>
     </Select>
   );
