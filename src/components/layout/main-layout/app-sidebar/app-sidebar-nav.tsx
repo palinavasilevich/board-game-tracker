@@ -33,7 +33,7 @@ export function AppSidebarNav() {
                 tooltip={label}
               >
                 <Link href={href} className="gap-3">
-                  <Icon className="size-5!" />
+                  <Icon className="size-5! ml-1.5" />
                   <span className="font-semibold">{label}</span>
                 </Link>
               </SidebarMenuButton>

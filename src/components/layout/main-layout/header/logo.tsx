@@ -1,11 +1,11 @@
 "use client";
 
 import { ROUTES } from "@/src/shared/constants/routes";
-import { DicesIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentProps } from "react";
 import { cn } from "@/src/lib/utils";
+import { DicesIcon } from "lucide-react";
 
 type LogoProps = Omit<ComponentProps<typeof Link>, "href"> & {
   isSidebar?: boolean;
@@ -23,8 +23,10 @@ export function Logo({ className, isSidebar, ...props }: LogoProps) {
       )}
       {...props}
     >
-      <DicesIcon className="size-5!" />
-      <span className="text-base font-semibold">Board Games</span>
+      <DicesIcon className="size-5! ml-1.5" />
+      <span className="font-cinzel text-sm font-bold tracking-widest uppercase">
+        Board Games
+      </span>
     </Link>
   );
 }
