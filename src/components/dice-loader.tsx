@@ -50,11 +50,9 @@ const FACES: { n: 1 | 2 | 3 | 4 | 5 | 6; transform: string }[] = [
 ];
 
 export function DiceLoader() {
-  const [mounted, setMounted] = useState(false);
   const [phase, setPhase] = useState<"show" | "fade" | "gone">("show");
 
   useEffect(() => {
-    setMounted(true);
     const t1 = setTimeout(() => setPhase("fade"), 1800);
     const t2 = setTimeout(() => setPhase("gone"), 2500);
     return () => {
@@ -63,7 +61,7 @@ export function DiceLoader() {
     };
   }, []);
 
-  if (!mounted || phase === "gone") return null;
+  if (phase === "gone") return null;
 
   return (
     <div

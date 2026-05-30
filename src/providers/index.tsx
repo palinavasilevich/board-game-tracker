@@ -1,7 +1,14 @@
+"use client";
+
 import { ReactNode } from "react";
+import dynamic from "next/dynamic";
 import { QueryProvider } from "./query-provider/query-provider";
 import { ThemeProvider } from "./theme-provider";
-import { DiceLoader } from "@/src/components/dice-loader";
+
+const DiceLoader = dynamic(
+  () => import("@/src/components/dice-loader").then((m) => m.DiceLoader),
+  { ssr: false }
+);
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
