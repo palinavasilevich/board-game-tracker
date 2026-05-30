@@ -34,7 +34,7 @@ export function AppSidebarNav() {
               >
                 <Link href={href} className="gap-3 flex items-center">
                   <Icon className="size-5! ml-1.5" />
-                  <span className="font-semibold">{label}</span>
+                  <span className="font-semibold font-cinzel">{label}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

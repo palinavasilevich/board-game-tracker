@@ -30,7 +30,7 @@ export function SelectGameStatus({ status, setStatus }: SelectGameStatusProps) {
       value={status}
       onValueChange={(value) => setStatus(value as UserGameStatus)}
     >
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full flex-1">
         <SelectValue placeholder="Select status" />
       </SelectTrigger>
       <SelectContent>
