@@ -11,23 +11,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/src/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/src/components/ui/select";
+
 import { Input } from "@/src/components/ui/input";
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import { useEditUserGame } from "../lib/use-edit-user-game";
 import { type UserGameItem } from "../lib/use-user-games";
 import { SelectGameStatus } from "@/src/entities/game/ui/select-game-status";
-
-const STATUS_LABELS: Record<UserGameStatus, string> = {
-  OWNED: "Owned",
-  WISHLIST: "Wishlist",
-};
 
 type Props = {
   item: UserGameItem;

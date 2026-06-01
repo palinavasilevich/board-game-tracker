@@ -1,34 +1,38 @@
 "use client";
 
-import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { GameCardSkeleton } from "@/src/entities/game";
 import { Button } from "@/src/components/ui/button";
+import { AddGameDialog } from "@/src/features/games/my-games";
 import { useUserGames } from "@/src/features/games/my-games/lib/use-user-games";
 import { SearchInput } from "./search-input";
 import { FilteredGameList } from "./filtered-game-list";
 
 export function BrowseCollectionSection() {
   const { userGames, isLoading } = useUserGames();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   if (isLoading) return null;
 
   if (userGames.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-6 py-16 text-center">
-        <div className="flex flex-col gap-3">
-          <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
-            Start Your Collection
-          </h2>
-          <p className="text-muted-foreground text-base tracking-wide max-w-md mx-auto">
-            Add your board games and keep track of what you&apos;ve played, want
-            to play, and love.
-          </p>
+      <>
+        <div className="flex flex-col items-center gap-6 py-16 text-center">
+          <div className="flex flex-col gap-3">
+            <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
+              Start Your Collection
+            </h2>
+            <p className="text-muted-foreground text-base tracking-wide max-w-md mx-auto">
+              Add your board games and keep track of what you&apos;ve played, want
+              to play, and love.
+            </p>
+          </div>
+          <Button size="lg" onClick={() => setDialogOpen(true)}>
+            Add Your First Game
+          </Button>
         </div>
-        <Button asChild size="lg">
-          <Link href="/my-games">Add Your First Game</Link>
-        </Button>
-      </div>
+        <AddGameDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      </>
     );
   }
 

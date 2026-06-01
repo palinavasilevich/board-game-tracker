@@ -24,8 +24,18 @@ const STATUS_LABELS: Record<UserGameStatus, string> = {
   WISHLIST: "Wishlist",
 };
 
-export function AddGameDialog() {
-  const [open, setOpen] = useState(false);
+interface AddGameDialogProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export function AddGameDialog({
+  open: controlledOpen,
+  onOpenChange: controlledOnOpenChange,
+}: AddGameDialogProps = {}) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<BGGGame | null>(null);
   const [status, setStatus] = useState<UserGameStatus>(UserGameStatus.OWNED);
@@ -55,6 +65,11 @@ export function AddGameDialog() {
   });
 
   const { mutate: addFromBgg, isPending } = useAddUserGame();
+
+  function setOpen(val: boolean) {
+    if (isControlled) controlledOnOpenChange?.(val);
+    else setInternalOpen(val);
+  }
 
   function reset() {
     setOpen(false);
@@ -87,12 +102,14 @@ export function AddGameDialog() {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button className="gap-2">
-          <PlusIcon className="size-4" />
-          Add Game
-        </Button>
-      </DialogTrigger>
+      {!isControlled && (
+        <DialogTrigger asChild>
+          <Button className="gap-2">
+            <PlusIcon className="size-4" />
+            Add Game
+          </Button>
+        </DialogTrigger>
+      )}
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -103,7 +120,7 @@ export function AddGameDialog() {
           <div className="relative">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
-              placeholder="Search BoardGameGeek…"
+              placeholder="Search BoardGameGee..."
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
@@ -151,7 +168,7 @@ export function AddGameDialog() {
                   ) : (
                     <div className="size-8 shrink-0 rounded bg-muted" />
                   )}
-                  <span className="flex-1 truncate font-medium">
+                  <span className="flex-1 min-w-0 truncate font-medium">
                     {game.name}
                   </span>
                   <span className="shrink-0 text-xs text-muted-foreground">
