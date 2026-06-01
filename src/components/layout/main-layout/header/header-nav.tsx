@@ -17,7 +17,7 @@ export function HeaderNav({ user }: HeaderNavProps) {
     <nav className="w-full flex items-center justify-between">
       {!user ? (
         <>
-          <Button variant="outline" asChild>
+          <Button variant="ghost" asChild>
             <Logo />
           </Button>
 
