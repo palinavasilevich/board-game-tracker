@@ -49,9 +49,12 @@ export function UserAvatarButton({ user }: UserAvatarButtonProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut({ redirectTo: ROUTES.HOME })}>
+            <DropdownMenuItem
+              onClick={() => signOut({ redirectTo: ROUTES.HOME })}
+              className="cursor-pointer"
+            >
               <LogOutIcon />
-              Logout
+              Sign Out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -17,7 +17,7 @@ export function HeaderNav({ user }: HeaderNavProps) {
     <nav className="w-full flex items-center justify-between">
       {!user ? (
         <>
-          <Button variant="ghost" asChild>
+          <Button variant="outline" asChild>
             <Logo />
           </Button>
 
@@ -34,7 +34,7 @@ export function HeaderNav({ user }: HeaderNavProps) {
           <div className="flex items-center gap-1">
             <SidebarTrigger className="-ml-1" />
             <Button variant="ghost" asChild className="md:hidden">
-              <Logo />
+              <Logo isSidebar />
             </Button>
           </div>
           <ThemeToggle />
