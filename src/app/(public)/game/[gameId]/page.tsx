@@ -14,6 +14,7 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
 
   let userScore: number | undefined;
   let status: UserGameStatus | undefined;
+
   if (session?.user?.id) {
     const dbGame = await prisma.game.findUnique({
       where: { externalId: game.id },
@@ -21,7 +22,9 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
     });
     if (dbGame) {
       const userGame = await prisma.userGame.findUnique({
-        where: { userId_gameId: { userId: session.user.id, gameId: dbGame.id } },
+        where: {
+          userId_gameId: { userId: session.user.id, gameId: dbGame.id },
+        },
         select: { userScore: true, status: true },
       });
       userScore = userGame?.userScore ?? undefined;
@@ -31,7 +34,12 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
 
   return (
     <div className="flex w-full items-center justify-center py-12">
-      <GameDetailCard game={game} userScore={userScore} status={status} />
+      <GameDetailCard
+        game={game}
+        userScore={userScore}
+        status={status}
+        user={session?.user}
+      />
     </div>
   );
 }

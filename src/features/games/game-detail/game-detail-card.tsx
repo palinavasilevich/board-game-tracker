@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -24,15 +25,17 @@ import { ExpandableDescription } from "./expandable-description";
 import { Button } from "@/src/components/ui/button";
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import { SelectGameStatus } from "@/src/entities/game/ui/select-game-status";
-import { useState } from "react";
+import { User as AuthUser } from "next-auth";
 
 type GameDetailCardProps = {
+  user?: AuthUser;
   game: BGGGame;
   userScore?: number | null;
   status?: UserGameStatus | null;
 };
 
 export function GameDetailCard({
+  user,
   game,
   userScore,
   status,
@@ -126,44 +129,48 @@ export function GameDetailCard({
             </ul>
           )}
 
-          <div className="flex flex-col gap-1">
-            <span className="text-xs text-muted-foreground font-medium">
-              Your rating
-            </span>
-            <div className="flex gap-1">
-              {Array.from({ length: 10 }, (_, index) => {
-                const active =
-                  hoveredStar !== undefined
-                    ? hoveredStar - 1 >= index
-                    : score !== undefined && score - 1 >= index;
-                return (
-                  <StarIcon
-                    key={index}
-                    fill="currentColor"
-                    strokeWidth={0}
-                    className={cn(
-                      "size-5 cursor-pointer transition-colors",
-                      active ? "text-amber-400" : "text-muted-foreground/30",
-                    )}
-                    onMouseEnter={() => setHoveredStar(index + 1)}
-                    onMouseLeave={() => setHoveredStar(undefined)}
-                    onClick={() =>
-                      setScore(
-                        score !== undefined && index === score - 1
-                          ? undefined
-                          : index + 1,
-                      )
-                    }
-                  />
-                );
-              })}
+          {user && (
+            <div className="flex flex-col gap-1">
+              <span className="text-xs text-muted-foreground font-medium">
+                Your rating
+              </span>
+              <div className="flex gap-1">
+                {Array.from({ length: 10 }, (_, index) => {
+                  const active =
+                    hoveredStar !== undefined
+                      ? hoveredStar - 1 >= index
+                      : score !== undefined && score - 1 >= index;
+                  return (
+                    <StarIcon
+                      key={index}
+                      fill="currentColor"
+                      strokeWidth={0}
+                      className={cn(
+                        "size-5 cursor-pointer transition-colors",
+                        active ? "text-amber-400" : "text-muted-foreground/30",
+                      )}
+                      onMouseEnter={() => setHoveredStar(index + 1)}
+                      onMouseLeave={() => setHoveredStar(undefined)}
+                      onClick={() =>
+                        setScore(
+                          score !== undefined && index === score - 1
+                            ? undefined
+                            : index + 1,
+                        )
+                      }
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        <div className="absolute top-2 right-2 w-40">
-          <SelectGameStatus status={gameStatus} setStatus={setGameStatus} />
-        </div>
+        {user && (
+          <div className="absolute top-2 right-2 w-40">
+            <SelectGameStatus status={gameStatus} setStatus={setGameStatus} />
+          </div>
+        )}
       </CardHeader>
 
       {game.description && (
