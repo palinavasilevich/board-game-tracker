@@ -11,4 +11,6 @@ export type BGGGame = {
   maxPlaytime: number;
   thumbnail?: string;
   genres: string[];
+  publishers: { id: string; name: string }[];
+  designers: { id: string; name: string }[];
 };

@@ -44,6 +44,14 @@ function parseThings(xml: string): BGGGame[] {
       .filter((l) => l["@_type"] === "boardgamecategory")
       .map((l) => l["@_value"]);
 
+    const publishers = links
+      .filter((l) => l["@_type"] === "boardgamepublisher")
+      .map((l) => ({ id: l["@_id"], name: l["@_value"] }));
+
+    const designers = links
+      .filter((l) => l["@_type"] === "boardgamedesigner")
+      .map((l) => ({ id: l["@_id"], name: l["@_value"] }));
+
     const ratings = (item.statistics as Record<string, unknown>)
       ?.ratings as Record<string, unknown>;
     const ranks = (ratings?.ranks as Record<string, unknown>)?.rank as Record<
@@ -83,6 +91,8 @@ function parseThings(xml: string): BGGGame[] {
         maxPlaytime: int("maxplaytime"),
         thumbnail: rawImage.startsWith("//") ? `https:${rawImage}` : rawImage,
         genres,
+        publishers,
+        designers,
       },
     ];
   });

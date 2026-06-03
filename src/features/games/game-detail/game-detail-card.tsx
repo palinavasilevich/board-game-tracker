@@ -12,13 +12,21 @@ import {
 } from "@/src/components/ui/card";
 import { cn } from "@/src/lib/utils";
 import {
+  BuildingIcon,
   CrownIcon,
   ExternalLinkIcon,
   HourglassIcon,
+  PenLineIcon,
   PersonStandingIcon,
   StarIcon,
 } from "lucide-react";
 import { Badge } from "@/src/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/src/components/ui/tooltip";
 import { BGGGame } from "@/src/shared/types/game.types";
 import { getScoreColor } from "../../../entities/game/model/utils";
 import { ExpandableDescription } from "./expandable-description";
@@ -34,6 +42,18 @@ type GameDetailCardProps = {
   status?: UserGameStatus | null;
 };
 
+async function saveToLibrary(
+  externalId: string,
+  status: UserGameStatus,
+  score?: number,
+) {
+  await fetch("/api/user-games/from-bgg", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ externalId, status, userScore: score }),
+  });
+}
+
 export function GameDetailCard({
   user,
   game,
@@ -47,6 +67,20 @@ export function GameDetailCard({
     userScore ?? undefined,
   );
   const [hoveredStar, setHoveredStar] = useState<number | undefined>(undefined);
+
+  function handleStatusChange(newStatus: UserGameStatus) {
+    setGameStatus(newStatus);
+    saveToLibrary(game.id, newStatus, score);
+  }
+
+  function handleScoreClick(index: number) {
+    const newScore =
+      score !== undefined && index === score - 1 ? undefined : index + 1;
+    setScore(newScore);
+    if (gameStatus) {
+      saveToLibrary(game.id, gameStatus, newScore);
+    }
+  }
 
   return (
     <Card className="relative w-full max-w-4xl mx-auto pt-6 shadow-sm border">
@@ -64,8 +98,8 @@ export function GameDetailCard({
           </div>
         )}
 
-        <div className="flex flex-col gap-2 pr-44">
-          <CardTitle className="font-serif text-4xl font-semibold tracking-tight">
+        <div className={cn("flex flex-col gap-2", user && "pr-35")}>
+          <CardTitle className="font-serif text-2xl font-semibold tracking-tight">
             {game.name}
             <span className="text-muted-foreground text-2xl ml-2">
               {` (${game.yearPublished})`}
@@ -114,6 +148,64 @@ export function GameDetailCard({
             )}
           </div>
 
+          {game.publishers.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
+              <BuildingIcon className="size-4 shrink-0" />
+              <Link
+                href={`https://boardgamegeek.com/boardgamepublisher/${game.publishers[0].id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                {game.publishers[0].name}
+              </Link>
+              {game.publishers.length > 1 && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger className="text-xs text-muted-foreground/60 hover:text-muted-foreground cursor-default">
+                      +{game.publishers.length - 1} more
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {game.publishers
+                        .slice(1)
+                        .map((p) => p.name)
+                        .join(", ")}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </div>
+          )}
+
+          {game.designers.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
+              <PenLineIcon className="size-4 shrink-0" />
+              <Link
+                href={`https://boardgamegeek.com/boardgamedesigner/${game.designers[0].id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                {game.designers[0].name}
+              </Link>
+              {game.designers.length > 1 && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger className="text-xs text-muted-foreground/60 hover:text-muted-foreground cursor-default">
+                      +{game.designers.length - 1} more
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {game.designers
+                        .slice(1)
+                        .map((d) => d.name)
+                        .join(", ")}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </div>
+          )}
+
           {game.genres.length > 0 && (
             <ul className="flex flex-wrap gap-2">
               {game.genres.map((genre) => (
@@ -151,13 +243,7 @@ export function GameDetailCard({
                       )}
                       onMouseEnter={() => setHoveredStar(index + 1)}
                       onMouseLeave={() => setHoveredStar(undefined)}
-                      onClick={() =>
-                        setScore(
-                          score !== undefined && index === score - 1
-                            ? undefined
-                            : index + 1,
-                        )
-                      }
+                      onClick={() => handleScoreClick(index)}
                     />
                   );
                 })}
@@ -168,7 +254,10 @@ export function GameDetailCard({
 
         {user && (
           <div className="absolute top-2 right-2 w-40">
-            <SelectGameStatus status={gameStatus} setStatus={setGameStatus} />
+            <SelectGameStatus
+              status={gameStatus}
+              setStatus={handleStatusChange}
+            />
           </div>
         )}
       </CardHeader>
@@ -176,10 +265,10 @@ export function GameDetailCard({
       {game.description && (
         <CardContent>
           <ExpandableDescription
-            text={
-              game.description.slice(0, 1).toUpperCase() +
-              game.description.slice(1)
-            }
+            text={(() => {
+              const t = game.description.trim();
+              return t.slice(0, 1).toUpperCase() + t.slice(1);
+            })()}
           />
         </CardContent>
       )}
