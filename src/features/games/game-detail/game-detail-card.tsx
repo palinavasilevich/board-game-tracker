@@ -273,7 +273,7 @@ export function GameDetailCard({
         </CardContent>
       )}
 
-      <CardFooter className="pt-0">
+      <CardFooter className="pt-0 bg-background border-t-0">
         <Button variant="outline" className="max-w-2xs" asChild>
           <Link
             href={`https://boardgamegeek.com/boardgame/${game.id}`}
