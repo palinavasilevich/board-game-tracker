@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more GameGenres
- * const gameGenres = await prisma.gameGenre.findMany()
+ * // Fetch zero or more Friendships
+ * const friendships = await prisma.friendship.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,6 +41,11 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Friendship
+ * 
+ */
+export type Friendship = Prisma.FriendshipModel
 /**
  * Model GameGenre
  * 

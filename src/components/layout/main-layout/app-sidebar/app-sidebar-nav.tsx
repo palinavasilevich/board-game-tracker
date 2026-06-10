@@ -9,12 +9,13 @@ import {
 } from "@/src/components/ui/sidebar";
 import { isActivePath } from "@/src/lib/isActivePath";
 import { ROUTES } from "@/src/shared/constants/routes";
-import { DicesIcon } from "lucide-react";
+import { DicesIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { href: ROUTES.MY_GAMES, label: "My Games", icon: DicesIcon },
+  { href: ROUTES.FRIENDS, label: "Friends", icon: UsersIcon },
 ] as const;
 
 export function AppSidebarNav() {
@@ -25,7 +26,7 @@ export function AppSidebarNav() {
       <SidebarGroupContent>
         <SidebarMenu>
           {NAV_LINKS.map(({ href, label, icon: Icon }) => (
-            <SidebarMenuItem key={href} className="flex flex-col gap-4">
+            <SidebarMenuItem key={href} className="flex flex-col gap-4 mb-2">
               <SidebarMenuButton
                 size="lg"
                 asChild
@@ -34,7 +35,7 @@ export function AppSidebarNav() {
               >
                 <Link href={href} className="gap-3 flex items-center">
                   <Icon className="size-5! ml-1.5" />
-                  <span className="font-semibold font-cinzel">{label}</span>
+                  <span className="font-semibold font-heading">{label}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

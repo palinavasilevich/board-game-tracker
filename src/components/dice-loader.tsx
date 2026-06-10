@@ -4,11 +4,36 @@ import { useState, useEffect } from "react";
 
 const PIPS: Record<number, [number, number][]> = {
   1: [[50, 50]],
-  2: [[30, 30], [70, 70]],
-  3: [[30, 30], [50, 50], [70, 70]],
-  4: [[30, 28], [70, 28], [30, 72], [70, 72]],
-  5: [[30, 28], [70, 28], [50, 50], [30, 72], [70, 72]],
-  6: [[30, 22], [70, 22], [30, 50], [70, 50], [30, 78], [70, 78]],
+  2: [
+    [30, 30],
+    [70, 70],
+  ],
+  3: [
+    [30, 30],
+    [50, 50],
+    [70, 70],
+  ],
+  4: [
+    [30, 28],
+    [70, 28],
+    [30, 72],
+    [70, 72],
+  ],
+  5: [
+    [30, 28],
+    [70, 28],
+    [50, 50],
+    [30, 72],
+    [70, 72],
+  ],
+  6: [
+    [30, 22],
+    [70, 22],
+    [30, 50],
+    [70, 50],
+    [30, 78],
+    [70, 78],
+  ],
 };
 
 function DieFace({
@@ -88,7 +113,7 @@ export function DiceLoader() {
         </div>
       </div>
 
-      <p className="font-cinzel text-xs tracking-[0.3em] uppercase text-muted-foreground">
+      <p className="font-heading text-xs tracking-[0.3em] uppercase text-muted-foreground">
         Board Game Tracker
       </p>
     </div>

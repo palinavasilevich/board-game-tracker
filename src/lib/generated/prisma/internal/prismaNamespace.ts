@@ -384,6 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  Friendship: 'Friendship',
   GameGenre: 'GameGenre',
   Game: 'Game',
   Genre: 'Genre',
@@ -407,10 +408,84 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "gameGenre" | "game" | "genre" | "playSession" | "playSessionPlayer" | "review" | "userGame" | "user"
+    modelProps: "friendship" | "gameGenre" | "game" | "genre" | "playSession" | "playSessionPlayer" | "review" | "userGame" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    Friendship: {
+      payload: Prisma.$FriendshipPayload<ExtArgs>
+      fields: Prisma.FriendshipFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FriendshipFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FriendshipFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>
+        }
+        findFirst: {
+          args: Prisma.FriendshipFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FriendshipFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>
+        }
+        findMany: {
+          args: Prisma.FriendshipFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>[]
+        }
+        create: {
+          args: Prisma.FriendshipCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>
+        }
+        createMany: {
+          args: Prisma.FriendshipCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FriendshipCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>[]
+        }
+        delete: {
+          args: Prisma.FriendshipDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>
+        }
+        update: {
+          args: Prisma.FriendshipUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>
+        }
+        deleteMany: {
+          args: Prisma.FriendshipDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FriendshipUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FriendshipUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>[]
+        }
+        upsert: {
+          args: Prisma.FriendshipUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FriendshipPayload>
+        }
+        aggregate: {
+          args: Prisma.FriendshipAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFriendship>
+        }
+        groupBy: {
+          args: Prisma.FriendshipGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FriendshipGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FriendshipCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FriendshipCountAggregateOutputType> | number
+        }
+      }
+    }
     GameGenre: {
       payload: Prisma.$GameGenrePayload<ExtArgs>
       fields: Prisma.GameGenreFieldRefs
@@ -1042,6 +1117,16 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const FriendshipScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followingId: 'followingId',
+  createdAt: 'createdAt'
+} as const
+
+export type FriendshipScalarFieldEnum = (typeof FriendshipScalarFieldEnum)[keyof typeof FriendshipScalarFieldEnum]
+
+
 export const GameGenreScalarFieldEnum = {
   gameId: 'gameId',
   genreId: 'genreId'
@@ -1190,6 +1275,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1214,20 +1313,6 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime'
- */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -1361,6 +1446,7 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
+  friendship?: Prisma.FriendshipOmit
   gameGenre?: Prisma.GameGenreOmit
   game?: Prisma.GameOmit
   genre?: Prisma.GenreOmit

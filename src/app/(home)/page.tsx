@@ -14,7 +14,7 @@ export default async function Home() {
 
       <div className="flex flex-col gap-6 text-center">
         <div>
-          <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
+          <h2 className="font-heading text-3xl font-semibold tracking-tight uppercase">
             Most Popular on BoardGameGeek
           </h2>
           <p className="text-muted-foreground mt-2 text-sm tracking-wide uppercase">

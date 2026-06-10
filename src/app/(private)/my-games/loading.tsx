@@ -6,7 +6,7 @@ export default function MyGamesLoading() {
     <div className="w-full flex flex-col mt-8">
       <div className="flex flex-col items-center text-center gap-3">
         <div>
-          <h1 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
+          <h1 className="font-heading text-3xl font-semibold tracking-tight uppercase">
             My Games
           </h1>
           <p className="text-muted-foreground mt-1 text-sm tracking-wide uppercase">

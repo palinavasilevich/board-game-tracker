@@ -644,10 +644,6 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type GameCreateNestedOneWithoutPlaySessionsInput = {
   create?: Prisma.XOR<Prisma.GameCreateWithoutPlaySessionsInput, Prisma.GameUncheckedCreateWithoutPlaySessionsInput>
   connectOrCreate?: Prisma.GameCreateOrConnectWithoutPlaySessionsInput

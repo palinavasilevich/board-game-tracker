@@ -9,6 +9,8 @@ model User {
     userGames    UserGame[]
     reviews      Review[]
     playSessions PlaySession[]
+    following    Friendship[]  @relation("UserFollowing")
+    followers    Friendship[]  @relation("UserFollowers")
 
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")

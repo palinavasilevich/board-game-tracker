@@ -260,10 +260,6 @@ export type GameGenreOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type GameGenreCreateNestedManyWithoutGameInput = {
   create?: Prisma.XOR<Prisma.GameGenreCreateWithoutGameInput, Prisma.GameGenreUncheckedCreateWithoutGameInput> | Prisma.GameGenreCreateWithoutGameInput[] | Prisma.GameGenreUncheckedCreateWithoutGameInput[]
   connectOrCreate?: Prisma.GameGenreCreateOrConnectWithoutGameInput | Prisma.GameGenreCreateOrConnectWithoutGameInput[]

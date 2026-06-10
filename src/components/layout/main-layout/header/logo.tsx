@@ -11,8 +11,8 @@ type LogoProps = Omit<ComponentProps<typeof Link>, "href"> & {
 export function Logo({ className, isSidebar, ...props }: LogoProps) {
   return (
     <Link href={ROUTES.HOME} className={cn("gap-3!", className)} {...props}>
-      <DiceIcon className={cn("size-5!", isSidebar && "ml-1.5")} />
-      <span className="font-cinzel text-sm font-bold tracking-widest uppercase">
+      <DiceIcon className={cn("size-5!", isSidebar && "ml-1.5!")} />
+      <span className="font-heading text-sm font-bold tracking-widest uppercase">
         Board Games
       </span>
     </Link>

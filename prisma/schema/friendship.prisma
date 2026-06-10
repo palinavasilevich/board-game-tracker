@@ -1,0 +1,14 @@
+model Friendship {
+    id String @id @default(cuid())
+
+    followerId String @map("follower_id")
+    follower   User   @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+
+    followingId String @map("following_id")
+    following   User   @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@unique([followerId, followingId])
+    @@map("friendships")
+}

@@ -9,7 +9,7 @@ export function SidebarLogoButton() {
   const pathname = usePathname();
   return (
     <SidebarMenuButton size="lg" asChild isActive={pathname === ROUTES.HOME}>
-      <Logo />
+      <Logo isSidebar />
     </SidebarMenuButton>
   );
 }

@@ -19,12 +19,12 @@ export function BrowseCollectionSection() {
       <>
         <div className="flex flex-col items-center gap-6 py-16 text-center">
           <div className="flex flex-col gap-3">
-            <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
+            <h2 className="font-heading text-3xl font-semibold tracking-tight uppercase">
               Start Your Collection
             </h2>
             <p className="text-muted-foreground text-base tracking-wide max-w-md mx-auto">
-              Add your board games and keep track of what you&apos;ve played, want
-              to play, and love.
+              Add your board games and keep track of what you&apos;ve played,
+              want to play, and love.
             </p>
           </div>
           <Button size="lg" onClick={() => setDialogOpen(true)}>
@@ -39,7 +39,7 @@ export function BrowseCollectionSection() {
   return (
     <div className="flex flex-col gap-6 text-center">
       <div>
-        <h2 className="font-cinzel text-3xl font-semibold tracking-tight uppercase">
+        <h2 className="font-heading text-3xl font-semibold tracking-tight uppercase">
           Browse Collection
         </h2>
         <p className="text-muted-foreground mt-2 text-sm tracking-wide uppercase">

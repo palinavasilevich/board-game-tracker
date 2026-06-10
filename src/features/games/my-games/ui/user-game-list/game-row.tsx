@@ -6,16 +6,11 @@ import Link from "next/link";
 import { Edit2Icon, StarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/src/components/ui/button";
-import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import { useRemoveUserGame } from "@/src/features/games/my-games/lib/use-remove-user-game";
 import { type UserGameItem } from "@/src/features/games/my-games/lib/use-user-games";
 import { EditGameDialog } from "../../ui/edit-game-dialog";
 import { DeletionConfirmationDialog } from "./deletion-confirmation-dialog";
-
-const STATUS_COLORS: Record<UserGameStatus, string> = {
-  OWNED: "bg-emerald-500/15 text-emerald-500 border-emerald-500/30",
-  WISHLIST: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-};
+import { STATUS_LABELS, STATUS_BADGE_COLORS } from "@/src/entities/game/model/status-config";
 
 export function GameRow({ item }: { item: UserGameItem }) {
   const [editOpen, setEditOpen] = useState(false);
@@ -53,9 +48,9 @@ export function GameRow({ item }: { item: UserGameItem }) {
 
         <div className="flex items-center gap-4 shrink-0">
           <span
-            className={`text-xs px-2 py-0.5 rounded-full border font-medium ${STATUS_COLORS[item.status]}`}
+            className={`text-xs px-2 py-0.5 rounded-full border font-medium ${STATUS_BADGE_COLORS[item.status]}`}
           >
-            {item.status.charAt(0) + item.status.slice(1).toLowerCase()}
+            {STATUS_LABELS[item.status]}
           </span>
 
           <span

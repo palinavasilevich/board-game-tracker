@@ -5,7 +5,7 @@ export function HeroSection() {
   return (
     <div className="flex flex-col items-center gap-6 py-10 text-center">
       <div className="flex flex-col gap-3">
-        <h1 className="font-cinzel text-4xl font-semibold tracking-tight uppercase sm:text-5xl">
+        <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
           Your Board Game Library,
           <br />
           Organized

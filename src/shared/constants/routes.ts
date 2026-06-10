@@ -3,4 +3,6 @@ export const ROUTES = {
   LOGIN: "/login",
   SIGNUP: "/signup",
   MY_GAMES: "/my-games",
+  FRIENDS: "/friends",
+  USER: (id: string) => `/users/${id}`,
 } as const;

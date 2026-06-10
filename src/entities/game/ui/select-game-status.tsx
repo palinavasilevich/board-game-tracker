@@ -7,7 +7,7 @@ import {
 } from "@/src/components/ui/select";
 
 import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
-import { UserIcon, GiftIcon, LucideIcon } from "lucide-react";
+import { UserIcon, GiftIcon, type LucideIcon } from "lucide-react";
 
 const STATUS_LABELS: Record<UserGameStatus, string> = {
   OWNED: "Owned",
@@ -34,13 +34,13 @@ export function SelectGameStatus({ status, setStatus }: SelectGameStatusProps) {
         <SelectValue placeholder="Select status" />
       </SelectTrigger>
       <SelectContent>
-        {Object.values(UserGameStatus).map((status) => {
-          const ItemIcon = STATUS_ICON[status];
+        {Object.values(UserGameStatus).map((s) => {
+          const ItemIcon = STATUS_ICON[s];
           return (
-            <SelectItem key={status} value={status}>
+            <SelectItem key={s} value={s}>
               <span className="flex items-center gap-2">
                 <ItemIcon />
-                {STATUS_LABELS[status]}
+                {STATUS_LABELS[s]}
               </span>
             </SelectItem>
           );

@@ -3,7 +3,10 @@ import { getGameById } from "@/src/shared/api/bgg-api";
 import { GameDetailCard } from "@/src/entities/game";
 import { prisma } from "@/src/lib/db";
 import type { UserGameStatus } from "@/src/lib/generated/prisma/enums";
-import { LogSessionDialog, PlaySessionList } from "@/src/features/games/play-sessions";
+import {
+  LogSessionDialog,
+  PlaySessionList,
+} from "@/src/features/games/play-sessions";
 
 export default async function GamePage(props: PageProps<"/game/[gameId]">) {
   const { gameId } = await props.params;
@@ -47,7 +50,7 @@ export default async function GamePage(props: PageProps<"/game/[gameId]">) {
       {session?.user?.id && dbGameId && (
         <div className="w-full max-w-4xl">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-cinzel text-lg font-semibold tracking-tight uppercase">
+            <h2 className="font-heading text-lg font-semibold tracking-tight uppercase">
               Session History
             </h2>
             <LogSessionDialog gameId={dbGameId} gameName={game.name} />

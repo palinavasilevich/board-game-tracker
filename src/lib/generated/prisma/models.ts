@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Friendship'
 export type * from './models/GameGenre'
 export type * from './models/Game'
 export type * from './models/Genre'

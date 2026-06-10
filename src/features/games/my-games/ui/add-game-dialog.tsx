@@ -18,11 +18,7 @@ import { UserGameStatus } from "@/src/lib/generated/prisma/enums";
 import type { BGGGame } from "@/src/shared/types/game.types";
 import { useAddUserGame } from "../lib/use-add-user-game";
 import { SelectGameStatus } from "@/src/entities/game/ui/select-game-status";
-
-const STATUS_LABELS: Record<UserGameStatus, string> = {
-  OWNED: "Owned",
-  WISHLIST: "Wishlist",
-};
+import { STATUS_LABELS } from "@/src/entities/game/model/status-config";
 
 interface AddGameDialogProps {
   open?: boolean;

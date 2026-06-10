@@ -1,22 +1,24 @@
-import { AddGameDialog, UserGameList } from "@/src/features/games/my-games";
+import { FriendsList } from "@/src/features/friends";
 
-export default async function MyGamesPage() {
+export default function FriendsPage() {
   return (
-    <div className="w-full flex flex-col mt-8">
+    <div className="w-full flex flex-col mt-8 gap-10">
       <div className="flex flex-col items-center text-center gap-3">
         <div>
           <h1 className="font-heading text-3xl font-semibold tracking-tight uppercase">
-            My Games
+            Friends
           </h1>
           <p className="text-muted-foreground mt-1 text-sm tracking-wide uppercase">
-            Your personal board game collection
+            Follow others and browse their collections
           </p>
         </div>
-
-        <AddGameDialog />
       </div>
 
-      <UserGameList />
+      <div>
+        <section className="flex flex-col gap-4">
+          <FriendsList />
+        </section>
+      </div>
     </div>
   );
 }
