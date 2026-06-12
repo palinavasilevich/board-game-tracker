@@ -13,7 +13,7 @@ type UserAvatarProps = {
 export function UserAvatar({ user }: UserAvatarProps) {
   return (
     <>
-      <Avatar className="h-8 w-8 rounded-lg grayscale">
+      <Avatar className="h-8 w-8 rounded-lg">
         <AvatarImage
           src={user?.image ?? ""}
           alt={user?.name ?? "User Avatar Image"}
