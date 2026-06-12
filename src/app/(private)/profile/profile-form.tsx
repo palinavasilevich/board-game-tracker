@@ -32,8 +32,10 @@ export function ProfileForm({ name, email, avatarUrl }: ProfileFormProps) {
   useEffect(() => {
     if (state?.success) {
       toast.success("Profile updated successfully.");
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      if (state.newAvatarUrl) setPreview(state.newAvatarUrl);
     }
-  }, [state?.success]);
+  }, [state]);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -130,7 +132,7 @@ export function ProfileForm({ name, email, avatarUrl }: ProfileFormProps) {
         {state?.apiError && <FieldError>{state.apiError}</FieldError>}
 
         <Field>
-          <Button type="submit" disabled={isPending}>
+          <Button type="submit" disabled={isPending} className="w-fit">
             {isPending ? "Saving..." : "Save Changes"}
           </Button>
         </Field>

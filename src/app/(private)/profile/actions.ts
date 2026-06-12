@@ -20,6 +20,7 @@ const updateProfileSchema = z.object({
 
 export type UpdateProfileActionState = {
   success?: boolean;
+  newAvatarUrl?: string;
   apiError?: string;
   fields?: { name?: string; email?: string };
   errors?: { name?: string; email?: string; avatar?: string };
@@ -90,7 +91,7 @@ export async function updateProfileAction(
 
   await unstable_update({ user: { name, email } });
 
-  return { success: true };
+  return { success: true, ...(avatarUrl !== undefined && { newAvatarUrl: avatarUrl }) };
 }
 
 // ── Change password ───────────────────────────────────────────────────────────

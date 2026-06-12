@@ -89,7 +89,7 @@ export function ChangePasswordForm() {
         {state?.apiError && <FieldError>{state.apiError}</FieldError>}
 
         <Field>
-          <Button type="submit" disabled={isPending}>
+          <Button type="submit" disabled={isPending} className="w-fit">
             {isPending ? "Updating..." : "Change Password"}
           </Button>
         </Field>
