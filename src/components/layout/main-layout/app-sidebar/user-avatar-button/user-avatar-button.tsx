@@ -15,8 +15,9 @@ import {
   SidebarMenuItem,
 } from "@/src/components/ui/sidebar";
 import { ROUTES } from "@/src/shared/constants/routes";
-import { EllipsisVerticalIcon, LogOutIcon } from "lucide-react";
+import { EllipsisVerticalIcon, LogOutIcon, UserIcon } from "lucide-react";
 import { User as AuthUser } from "next-auth";
+import Link from "next/link";
 import { UserAvatar } from "./user-avatar";
 
 type UserAvatarButtonProps = {
@@ -49,6 +50,12 @@ export function UserAvatarButton({ user }: UserAvatarButtonProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem asChild className="cursor-pointer">
+              <Link href={ROUTES.PROFILE}>
+                <UserIcon />
+                Edit Profile
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => signOut({ redirectTo: ROUTES.HOME })}
               className="cursor-pointer"
