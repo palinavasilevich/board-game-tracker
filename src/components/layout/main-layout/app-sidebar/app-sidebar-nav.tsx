@@ -9,14 +9,13 @@ import {
 } from "@/src/components/ui/sidebar";
 import { isActivePath } from "@/src/lib/isActivePath";
 import { ROUTES } from "@/src/shared/constants/routes";
-import { DicesIcon, UserIcon, UsersIcon } from "lucide-react";
+import { DicesIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { href: ROUTES.MY_GAMES, label: "My Games", icon: DicesIcon },
   { href: ROUTES.FRIENDS, label: "Friends", icon: UsersIcon },
-  { href: ROUTES.PROFILE, label: "Profile", icon: UserIcon },
 ] as const;
 
 export function AppSidebarNav() {
