@@ -89,7 +89,13 @@ export async function updateProfileAction(
     return { apiError: "Something went wrong. Please try again.", fields };
   }
 
-  await unstable_update({ user: { name, email } });
+  await unstable_update({
+    user: {
+      name,
+      email,
+      ...(avatarUrl !== undefined && { image: avatarUrl }),
+    },
+  });
 
   return { success: true, ...(avatarUrl !== undefined && { newAvatarUrl: avatarUrl }) };
 }
